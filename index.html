@@ -29,7 +29,7 @@
                     keyframes: {
                         float: {
                             '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-20px)' },
+                            '50%': { transform: 'translateY(-15px)' },
                         },
                         'pulse-ring': {
                             '0%': { transform: 'scale(0.8)', opacity: '1' },
@@ -51,8 +51,7 @@
                 radial-gradient(circle at 85% 30%, rgba(59, 130, 246, 0.05) 0%, transparent 25%);
         }
 
-        /* --- UI COMPONENTS "CLEAN TECH" --- */
-        
+        /* --- UI COMPONENTS --- */
         .bg-grid {
             background-size: 40px 40px;
             background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
@@ -61,7 +60,7 @@
         }
 
         .glass-panel {
-            background: rgba(21, 30, 50, 0.6);
+            background: rgba(21, 30, 50, 0.7);
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.08);
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
@@ -69,7 +68,7 @@
 
         .glass-panel:hover {
             border-color: rgba(16, 185, 129, 0.3);
-            background: rgba(21, 30, 50, 0.8);
+            background: rgba(21, 30, 50, 0.9);
         }
 
         .gradient-text {
@@ -80,14 +79,14 @@
 
         /* --- DIAGRAMME ANIMÉ --- */
         .flow-container {
-            animation: float 6s ease-in-out infinite; /* Lévitation */
+            animation: float 6s ease-in-out infinite;
         }
 
         .flow-node {
             background: rgba(11, 17, 33, 0.95);
             border: 1px solid rgba(255,255,255,0.1);
             border-radius: 8px;
-            padding: 12px 20px;
+            padding: 12px 16px;
             display: flex;
             align-items: center;
             gap: 12px;
@@ -97,7 +96,6 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        /* Effet radar sur le noeud actif */
         .flow-node.active::before {
             content: '';
             position: absolute;
@@ -124,12 +122,12 @@
 
         .flow-dot {
             position: absolute;
-            width: 40px; /* Traînée plus longue */
+            width: 40px;
             height: 2px;
             background: linear-gradient(90deg, transparent, #10b981);
             top: 0;
             box-shadow: 0 0 10px #10b981;
-            animation: moveRight 1.5s linear infinite; /* Plus rapide */
+            animation: moveRight 1.5s linear infinite;
         }
 
         @keyframes moveRight {
@@ -139,48 +137,45 @@
             100% { left: 100%; opacity: 0; }
         }
 
-        /* Langues */
+        /* Langues & Mobile */
         .lang-en { display: none; }
         body.english .lang-fr { display: none; }
         body.english .lang-en { display: block; }
+        
+        /* Menu Mobile Transition */
+        #mobile-menu { transition: all 0.3s ease-in-out; }
+        .mobile-hidden { max-height: 0; opacity: 0; overflow: hidden; }
+        .mobile-visible { max-height: 400px; opacity: 1; }
     </style>
 </head>
 <body class="antialiased overflow-x-hidden">
 
     <!-- Navigation -->
-    <nav class="fixed w-full z-50 bg-klyr-bg/90 backdrop-blur border-b border-slate-800/50">
+    <nav class="fixed w-full z-50 bg-klyr-bg/95 backdrop-blur border-b border-slate-800/50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
+                
+                <!-- Logo & Brand -->
                 <div class="flex items-center gap-3">
-                    
-                    <!-- SYSTEME LOGO HYBRIDE -->
-                    <!-- Essaie d'afficher logo.png. Si erreur, cache l'image et affiche le SVG de secours -->
-                    <div class="relative w-12 h-12 flex items-center justify-center">
-                        <img src="logo.png" 
-                             class="w-full h-full object-contain" 
-                             alt="KLYR Logo" 
-                             onerror="this.style.display='none'; document.getElementById('fallback-logo').style.display='block';">
-                        
-                        <!-- SVG de secours (caché par défaut) -->
-                        <div id="fallback-logo" style="display:none;" class="w-10 h-10 text-white">
-                            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
-                                <circle cx="50" cy="50" r="45" stroke="currentColor" stroke-width="6"/>
-                                <path d="M50 20V50" stroke="#10b981" stroke-width="4" stroke-linecap="round"/>
-                                <path d="M50 50L75 25" stroke="#10b981" stroke-width="4" stroke-linecap="round"/>
-                                <path d="M50 50L25 25" stroke="#10b981" stroke-width="4" stroke-linecap="round"/>
-                                <path d="M50 50L25 75" stroke="#10b981" stroke-width="4" stroke-linecap="round"/>
-                                <path d="M50 50L75 75" stroke="#10b981" stroke-width="4" stroke-linecap="round"/>
-                                <circle cx="50" cy="50" r="6" fill="#10b981"/>
-                                <path d="M82 82L95 95" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
-                            </svg>
-                        </div>
+                    <!-- LOGO SVG RENFORCÉ (Plus visible) -->
+                    <div class="w-12 h-12 text-white">
+                        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full drop-shadow-lg">
+                            <circle cx="50" cy="50" r="45" stroke="currentColor" stroke-width="6"/>
+                            <path d="M50 20V50" stroke="#10b981" stroke-width="5" stroke-linecap="round"/>
+                            <path d="M50 50L75 25" stroke="#10b981" stroke-width="5" stroke-linecap="round"/>
+                            <path d="M50 50L25 25" stroke="#10b981" stroke-width="5" stroke-linecap="round"/>
+                            <path d="M50 50L25 75" stroke="#10b981" stroke-width="5" stroke-linecap="round"/>
+                            <path d="M50 50L75 75" stroke="#10b981" stroke-width="5" stroke-linecap="round"/>
+                            <circle cx="50" cy="50" r="7" fill="#10b981"/>
+                            <path d="M82 82L95 95" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
+                        </svg>
                     </div>
-
                     <span class="text-2xl font-bold text-white tracking-widest">KLYR</span>
                 </div>
                 
-                <div class="flex items-center gap-6">
-                    <div class="hidden md:flex space-x-6 text-sm font-medium text-slate-300">
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center gap-6">
+                    <div class="flex space-x-6 text-sm font-medium text-slate-300">
                         <a href="#particuliers" class="hover:text-klyr-accent transition"><span class="lang-fr">Offres</span><span class="lang-en">Pricing</span></a>
                         <a href="#methodologie" class="hover:text-klyr-accent transition"><span class="lang-fr">Méthode</span><span class="lang-en">Process</span></a>
                         <a href="#avocats" class="hover:text-klyr-accent transition"><span class="lang-fr">Avocats</span><span class="lang-en">Lawyers</span></a>
@@ -190,16 +185,38 @@
                         <i class="fas fa-globe"></i> <span id="lang-label">EN</span>
                     </button>
 
-                    <a href="#contact" class="bg-klyr-accent text-klyr-bg font-bold py-2 px-6 rounded-full hover:bg-white transition duration-300 hidden sm:block shadow-[0_0_15px_rgba(16,185,129,0.4)]">
+                    <a href="#contact" class="bg-klyr-accent text-klyr-bg font-bold py-2 px-6 rounded-full hover:bg-white transition duration-300 shadow-[0_0_15px_rgba(16,185,129,0.4)]">
                         <span class="lang-fr">Démarrer</span><span class="lang-en">Start Now</span>
                     </a>
                 </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center gap-4">
+                    <button onclick="toggleLang()" class="px-2 py-1 border border-slate-700 rounded text-xs font-mono text-slate-300">
+                        <span id="lang-label-mobile">EN</span>
+                    </button>
+                    <button id="mobile-menu-btn" class="text-white hover:text-klyr-accent focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="mobile-hidden md:hidden bg-klyr-bg border-b border-slate-800">
+            <div class="px-4 pt-2 pb-6 space-y-4">
+                <a href="#particuliers" class="block text-slate-300 hover:text-klyr-accent py-2"><span class="lang-fr">Offres</span><span class="lang-en">Pricing</span></a>
+                <a href="#methodologie" class="block text-slate-300 hover:text-klyr-accent py-2"><span class="lang-fr">Méthode</span><span class="lang-en">Process</span></a>
+                <a href="#avocats" class="block text-slate-300 hover:text-klyr-accent py-2"><span class="lang-fr">Avocats</span><span class="lang-en">Lawyers</span></a>
+                <a href="#contact" class="block w-full text-center bg-klyr-accent text-klyr-bg font-bold py-3 rounded-lg">
+                    <span class="lang-fr">Démarrer un dossier</span><span class="lang-en">Start a Case</span>
+                </a>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="relative pt-32 lg:pt-40 pb-20 overflow-hidden min-h-[90vh] flex items-center">
+    <section class="relative pt-32 lg:pt-40 pb-20 overflow-hidden min-h-screen flex items-center">
         <!-- Fond Grille -->
         <div class="absolute inset-0 bg-grid z-0 opacity-30"></div>
 
@@ -213,12 +230,12 @@
                         <span class="lang-fr">Forensics Certifiés</span><span class="lang-en">Certified Forensics</span>
                     </div>
                     
-                    <h1 class="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
+                    <h1 class="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
                         <span class="lang-fr">Nous traçons ce que <br><span class="text-klyr-accent drop-shadow-[0_0_25px_rgba(16,185,129,0.3)]">les autres ne voient pas.</span></span>
                         <span class="lang-en">We trace what <br><span class="text-klyr-accent drop-shadow-[0_0_25px_rgba(16,185,129,0.3)]">others cannot see.</span></span>
                     </h1>
                     
-                    <p class="text-lg text-slate-400 mb-10 max-w-lg leading-relaxed">
+                    <p class="text-base md:text-lg text-slate-400 mb-10 max-w-lg leading-relaxed">
                         <span class="lang-fr">
                             Mixers, bridges, sauts cross-chain. Nous transformons la donnée brute en <strong>preuves judiciaires</strong> exploitables (Rapport PDF + CSV Evidence) pour votre avocat.
                         </span>
@@ -239,62 +256,65 @@
                     </div>
                 </div>
 
-                <!-- Visual: Clean Flow Diagram (ANIMÉ) -->
-                <div class="order-1 lg:order-2 flex justify-center items-center">
-                    <div class="flow-container relative w-full max-w-lg h-[400px] bg-slate-900/40 border border-slate-800 rounded-2xl p-8 backdrop-blur-sm shadow-2xl">
+                <!-- Visual: Clean Flow Diagram (CORRIGÉ & RECADRÉ) -->
+                <div class="order-1 lg:order-2 flex justify-center items-center w-full">
+                    <div class="flow-container relative w-full max-w-lg bg-slate-900/40 border border-slate-800 rounded-2xl p-6 md:p-8 backdrop-blur-sm shadow-2xl">
                         <!-- Header du Dashboard -->
-                        <div class="flex justify-between items-center mb-12 border-b border-slate-800 pb-4">
+                        <div class="flex justify-between items-center mb-8 border-b border-slate-800 pb-4">
                             <div class="text-xs font-mono text-slate-500">CASE ID: #KLYR-8921</div>
                             <div class="text-xs font-mono text-klyr-accent animate-pulse">● TRACING ACTIVE</div>
                         </div>
 
                         <!-- Le Flux -->
-                        <div class="flex flex-col justify-between h-[250px] relative">
+                        <div class="flex flex-col justify-between gap-6 relative">
                             <!-- Ligne verticale connectrice -->
-                            <div class="absolute left-[24px] top-[40px] bottom-[40px] w-[2px] bg-slate-800 z-0">
-                                <div class="absolute w-full h-[30%] bg-klyr-accent opacity-50 top-0 animate-pulse"></div>
+                            <div class="absolute left-[24px] top-[20px] bottom-[20px] w-[2px] bg-slate-800 z-0">
+                                <div class="absolute w-full h-[40%] bg-klyr-accent opacity-50 top-0 animate-pulse"></div>
                             </div>
 
                             <!-- Node 1: Victim -->
                             <div class="flow-node">
-                                <div class="w-10 h-10 rounded bg-red-500/10 border border-red-500/30 flex items-center justify-center text-red-500">
+                                <div class="w-10 h-10 rounded bg-red-500/10 border border-red-500/30 flex items-center justify-center text-red-500 shrink-0">
                                     <i class="fas fa-user"></i>
                                 </div>
-                                <div>
+                                <div class="flex-1 min-w-0">
                                     <div class="text-xs text-slate-500 font-mono">SOURCE</div>
-                                    <div class="text-sm font-bold text-white">Victim Wallet</div>
+                                    <div class="text-sm font-bold text-white truncate">Victim Wallet</div>
                                 </div>
-                                <div class="ml-auto text-xs text-red-400 font-mono">-45,000 USDC</div>
+                                <div class="text-xs text-red-400 font-mono">-45k</div>
                             </div>
 
-                            <!-- Node 2: Mixer (AVEC PULSE RADAR) -->
+                            <!-- Node 2: Mixer -->
                             <div class="flow-node active ml-8">
-                                <div class="w-10 h-10 rounded bg-klyr-accent/10 border border-klyr-accent/30 flex items-center justify-center text-klyr-accent">
+                                <div class="w-10 h-10 rounded bg-klyr-accent/10 border border-klyr-accent/30 flex items-center justify-center text-klyr-accent shrink-0">
                                     <i class="fas fa-random"></i>
                                 </div>
-                                <div>
+                                <div class="flex-1 min-w-0">
                                     <div class="text-xs text-klyr-accent font-mono">INTERMEDIARY</div>
-                                    <div class="text-sm font-bold text-white">Mixer / Cluster</div>
+                                    <div class="text-sm font-bold text-white truncate">Mixer / Cluster</div>
                                 </div>
-                                <div class="ml-auto text-xs text-slate-400 font-mono">Demixing...</div>
+                                <div class="text-xs text-slate-400 font-mono">...</div>
                             </div>
 
                             <!-- Node 3: CEX -->
                             <div class="flow-node">
-                                <div class="w-10 h-10 rounded bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-500">
+                                <div class="w-10 h-10 rounded bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-500 shrink-0">
                                     <i class="fas fa-building"></i>
                                 </div>
-                                <div>
+                                <div class="flex-1 min-w-0">
                                     <div class="text-xs text-slate-500 font-mono">DESTINATION</div>
-                                    <div class="text-sm font-bold text-white">Exchange (KYC)</div>
+                                    <div class="text-sm font-bold text-white truncate">Exchange (KYC)</div>
                                 </div>
-                                <div class="ml-auto text-xs text-blue-400 font-mono">BINANCE</div>
+                                <div class="text-xs text-blue-400 font-mono">BINANCE</div>
                             </div>
                         </div>
 
-                        <!-- Badge Résultat -->
-                        <div class="absolute bottom-4 right-4 bg-slate-800 px-3 py-1 rounded text-[10px] text-slate-400 font-mono border border-slate-700">
-                            CONFIDENCE: HIGH (98%)
+                        <!-- Footer du Dashboard (Intégré pour éviter le débordement) -->
+                        <div class="mt-8 pt-4 border-t border-slate-800 flex justify-between items-center">
+                            <div class="text-[10px] text-slate-600 font-mono">STATUS: CONFIRMED</div>
+                            <div class="bg-slate-800 px-2 py-1 rounded text-[10px] text-klyr-accent font-mono border border-slate-700">
+                                CONFIDENCE: 98%
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -535,14 +555,32 @@
         function toggleLang() {
             const body = document.body;
             const btn = document.getElementById('lang-label');
+            const btnMobile = document.getElementById('lang-label-mobile');
+            
             if (body.classList.contains('english')) {
                 body.classList.remove('english');
                 btn.innerText = 'EN';
+                btnMobile.innerText = 'EN';
             } else {
                 body.classList.add('english');
                 btn.innerText = 'FR';
+                btnMobile.innerText = 'FR';
             }
         }
+
+        // Mobile Menu Logic
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            if (menu.classList.contains('mobile-hidden')) {
+                menu.classList.remove('mobile-hidden');
+                menu.classList.add('mobile-visible');
+            } else {
+                menu.classList.add('mobile-hidden');
+                menu.classList.remove('mobile-visible');
+            }
+        });
     </script>
 </body>
 </html>
