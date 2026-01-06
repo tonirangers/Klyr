@@ -371,4 +371,131 @@
                                 <i class="fas fa-chart-line text-blue-200 text-4xl"></i>
                             </div>
                             <div class="grid grid-cols-3 gap-2 mt-4">
-                                <div class="h-
+                                <div class="h-2 bg-gray-200 rounded"></div>
+                                <div class="h-2 bg-gray-200 rounded"></div>
+                                <div class="h-2 bg-gray-200 rounded"></div>
+                            </div>
+                            <!-- Fake Terminal Output -->
+                            <div class="mt-6 bg-slate-900 p-3 rounded text-[10px] font-mono text-green-400 leading-tight">
+                                > Initiating trace...<br>
+                                > Hop 1: 0x7511... (Mixer)<br>
+                                > Hop 2: 0x3fE7... (Cluster)<br>
+                                > Target identified: BINANCE Deposit<br>
+                                > Status: KYC Available.
+                            </div>
+                        </div>
+                        <!-- Badge -->
+                        <div class="absolute -top-3 -right-3 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">
+                            PREUVE SAISIE
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="py-20 relative overflow-hidden">
+        <!-- Background decoration -->
+        <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-full h-full bg-gradient-to-b from-klyr-dark to-blue-900/20 z-0"></div>
+
+        <div class="max-w-4xl mx-auto px-4 relative z-10">
+            <div class="bg-slate-800/80 backdrop-blur border border-slate-700 rounded-2xl p-8 md:p-12 shadow-2xl">
+                
+                <div class="text-center mb-10">
+                    <h2 class="text-3xl font-bold text-white mb-4">Démarrer un dossier</h2>
+                    <p class="text-slate-400">
+                        Envoyez-nous les éléments techniques. <br>
+                        <span class="text-klyr-green">Premier retour de faisabilité sous 24h.</span>
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-12">
+                    
+                    <!-- Colonne Gauche : Contact Direct -->
+                    <div class="space-y-8">
+                        <div>
+                            <h3 class="text-white font-bold text-lg mb-4 flex items-center gap-2">
+                                <i class="fas fa-paper-plane text-klyr-green"></i> Par Email (Recommandé)
+                            </h3>
+                            <p class="text-sm text-slate-400 mb-2">C'est le meilleur moyen pour nous d'analyser vos hashs et adresses calmement.</p>
+                            <a href="mailto:tonirodolfo1@gmail.com" class="text-xl font-mono text-white hover:text-klyr-green transition border-b border-slate-600 pb-1">
+                                tonirodolfo1@gmail.com
+                            </a>
+                        </div>
+
+                        <div>
+                            <h3 class="text-white font-bold text-lg mb-4 flex items-center gap-2">
+                                <i class="fas fa-video text-klyr-green"></i> En Visio
+                            </h3>
+                            <p class="text-sm text-slate-400 mb-2">Besoin d'expliquer le contexte de vive voix ?</p>
+                            <a href="https://calendar.app.google/bQWcTHd22XDzuCt6A" target="_blank" class="inline-flex items-center gap-2 text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition text-sm font-bold">
+                                Réserver un appel
+                            </a>
+                        </div>
+
+                        <div class="pt-6 border-t border-slate-700">
+                            <p class="text-xs text-slate-500 italic">
+                                <i class="fas fa-info-circle mr-1"></i> Note importante : KLYR fournit la preuve et le traçage technique. Nous ne garantissons pas le recouvrement des fonds, qui dépend exclusivement des plateformes (CEX) et des autorités judiciaires.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Colonne Droite : Ce qu'il faut envoyer -->
+                    <div class="bg-slate-900/50 p-6 rounded-xl border border-slate-700/50">
+                        <h3 class="text-white font-bold text-sm mb-4 uppercase tracking-wider text-slate-500">
+                            Informations à inclure
+                        </h3>
+                        
+                        <form action="mailto:tonirodolfo1@gmail.com" method="post" enctype="text/plain" class="space-y-4">
+                            <div>
+                                <label class="block text-xs text-slate-400 mb-1">Votre Nom / Entité</label>
+                                <input type="text" name="nom" class="w-full bg-slate-800 border border-slate-600 rounded p-2 text-white text-sm focus:border-klyr-green outline-none" placeholder="Jean Dupont">
+                            </div>
+                            
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs text-slate-400 mb-1">Montant estimé</label>
+                                    <input type="text" name="montant" class="w-full bg-slate-800 border border-slate-600 rounded p-2 text-white text-sm outline-none" placeholder="ex: 15k USDT">
+                                </div>
+                                <div>
+                                    <label class="block text-xs text-slate-400 mb-1">Période (UTC)</label>
+                                    <input type="text" name="date" class="w-full bg-slate-800 border border-slate-600 rounded p-2 text-white text-sm outline-none" placeholder="ex: Oct 2025">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs text-slate-400 mb-1">Adresses concernées (Victime & Scammer)</label>
+                                <textarea name="adresses" rows="3" class="w-full bg-slate-800 border border-slate-600 rounded p-2 text-white text-sm font-mono outline-none" placeholder="0x..."></textarea>
+                            </div>
+
+                            <button type="submit" class="w-full bg-klyr-green hover:bg-white hover:text-klyr-dark text-klyr-dark font-bold py-3 rounded transition duration-300">
+                                Préparer l'email
+                            </button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-klyr-dark border-t border-slate-800 py-12 text-center">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex items-center justify-center gap-2 mb-4 opacity-50">
+                <svg width="24" height="24" viewBox="0 0 100 100" fill="none">
+                    <circle cx="50" cy="50" r="45" stroke="#fff" stroke-width="8"/>
+                    <path d="M50 20V50M50 50L70 70" stroke="#fff" stroke-width="4"/>
+                </svg>
+                <span class="text-xl font-bold text-white tracking-widest">KLYR</span>
+            </div>
+            <p class="text-slate-600 text-sm">
+                &copy; 2026 KLYR. Tous droits réservés. <br>
+                Investigation Blockchain & Forensics.
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>
