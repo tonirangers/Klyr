@@ -12,8 +12,8 @@
                 extend: {
                     colors: {
                         klyr: {
-                            dark: '#0f172a', 
-                            blue: '#1e3a8a', 
+                            dark: '#0B1120', // Plus profond
+                            blue: '#3b82f6', // Bleu plus électrique
                             green: '#10b981', 
                             light: '#f8fafc',
                         }
@@ -29,67 +29,86 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400&display=swap" rel="stylesheet">
     <style>
         html { scroll-padding-top: 100px; }
+        body { background-color: #0B1120; background-image: radial-gradient(circle at 50% 0%, #1e293b 0%, #0B1120 70%); }
 
-        /* --- STYLE ISOMÉTRIQUE "CLEAN" (Inspiré Tesla mais Data) --- */
+        /* --- STYLE ISOMÉTRIQUE "BLUEPRINT" (Style Tesla/Architecte) --- */
+        .iso-wrapper {
+            position: relative;
+            width: 100%;
+            height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: visible;
+        }
+
         .iso-container {
             position: relative;
-            transform: perspective(1000px) rotateX(60deg) rotateZ(-45deg) scale(0.8);
+            /* On redresse un peu la perspective pour que ce soit plus lisible */
+            transform: perspective(2000px) rotateX(55deg) rotateZ(-40deg) scale(1.1);
             transform-style: preserve-3d;
         }
 
-        /* Le sol (Grille propre) */
+        /* Le sol (Grille lumineuse) */
         .iso-grid {
             position: absolute;
-            width: 600px;
-            height: 600px;
+            width: 800px;
+            height: 800px;
+            left: -200px;
+            top: -200px;
             background-image: 
-                linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-            background-size: 50px 50px;
-            border: 1px solid rgba(255,255,255,0.1);
-            transform: translateZ(-20px);
+                linear-gradient(rgba(59, 130, 246, 0.15) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(59, 130, 246, 0.15) 1px, transparent 1px);
+            background-size: 80px 80px; /* Cases plus grandes */
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            transform: translateZ(-40px);
+            box-shadow: inset 0 0 100px #0B1120; /* Vignette pour fondre les bords */
         }
 
-        /* Les Cartes Flottantes (Au lieu des cubes) */
+        /* Les Cartes (Glassmorphism High-Tech) */
         .iso-card {
             position: absolute;
-            width: 120px;
-            height: 80px;
-            background: rgba(15, 23, 42, 0.9);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 12px;
+            width: 160px; /* Plus grand */
+            height: 100px;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-left: 1px solid rgba(255, 255, 255, 0.3);
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 16px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            box-shadow: 20px 20px 50px rgba(0,0,0,0.5);
+            box-shadow: 10px 10px 30px rgba(0,0,0,0.5);
             transform-style: preserve-3d;
-            transition: transform 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* Effet de survol léger */
         .iso-card:hover {
-            transform: translateZ(10px);
+            transform: translateZ(20px) scale(1.05);
             border-color: #10b981;
+            box-shadow: 0 0 30px rgba(16, 185, 129, 0.2);
+            background: rgba(15, 23, 42, 0.95);
         }
 
-        /* Connexions (Lignes lumineuses) */
+        /* Connexions */
         .connection-line {
             position: absolute;
             height: 2px;
-            background: rgba(255, 255, 255, 0.1);
+            background: linear-gradient(90deg, rgba(59, 130, 246, 0) 0%, rgba(59, 130, 246, 0.5) 50%, rgba(59, 130, 246, 0) 100%);
             transform-origin: left center;
         }
 
         .data-packet {
             position: absolute;
-            width: 8px;
-            height: 8px;
-            background: #10b981;
+            width: 6px;
+            height: 6px;
+            background: #fff;
             border-radius: 50%;
-            box-shadow: 0 0 10px #10b981;
-            top: -3px;
-            animation: travel 3s infinite linear;
+            box-shadow: 0 0 15px #fff, 0 0 30px #3b82f6;
+            top: -2px;
+            animation: travel 2.5s infinite linear;
         }
 
         @keyframes travel {
@@ -99,15 +118,15 @@
             100% { left: 100%; opacity: 0; }
         }
 
-        /* Glassmorphism Standard */
+        /* UI Elements */
         .glass-card-ui {
-            background: rgba(15, 23, 42, 0.6);
+            background: rgba(30, 41, 59, 0.4);
             backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .gradient-text {
-            background: linear-gradient(90deg, #ffffff, #10b981);
+            background: linear-gradient(135deg, #ffffff 0%, #10b981 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -118,21 +137,28 @@
         body.english .lang-en { display: block; }
     </style>
 </head>
-<body class="bg-klyr-dark text-slate-300 font-sans antialiased overflow-x-hidden">
+<body class="text-slate-300 font-sans antialiased overflow-x-hidden">
 
     <!-- Navigation -->
-    <nav class="fixed w-full z-50 bg-klyr-dark/95 backdrop-blur border-b border-slate-800 shadow-lg">
+    <nav class="fixed w-full z-50 bg-[#0B1120]/90 backdrop-blur border-b border-slate-800/50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
                 <div class="flex items-center gap-3">
-                    <!-- LOGO -->
-                    <div class="w-12 h-12 relative flex items-center justify-center">
-                        <img src="logo.png" alt="KLYR Logo" class="w-full h-full object-contain" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                        <svg style="display:none;" width="40" height="40" viewBox="0 0 100 100" fill="none">
-                            <circle cx="50" cy="50" r="45" stroke="#1e3a8a" stroke-width="8"/>
-                            <path d="M50 20V50M50 50L70 70" stroke="#10b981" stroke-width="4" stroke-linecap="round"/>
-                            <circle cx="50" cy="50" r="10" fill="#10b981"/>
-                            <path d="M60 60L90 90" stroke="#1e3a8a" stroke-width="8" stroke-linecap="round"/>
+                    <!-- LOGO SVG INTEGRÉ (Plus de problème de fichier) -->
+                    <div class="w-10 h-10 relative flex items-center justify-center">
+                        <svg width="40" height="40" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Cercle extérieur -->
+                            <circle cx="50" cy="50" r="45" stroke="#1e3a8a" stroke-width="6"/>
+                            <!-- Circuit interne -->
+                            <path d="M50 20V50" stroke="#10b981" stroke-width="3" stroke-linecap="round"/>
+                            <path d="M50 50L75 25" stroke="#10b981" stroke-width="3" stroke-linecap="round"/>
+                            <path d="M50 50L25 25" stroke="#10b981" stroke-width="3" stroke-linecap="round"/>
+                            <path d="M50 50L25 75" stroke="#10b981" stroke-width="3" stroke-linecap="round"/>
+                            <path d="M50 50L75 75" stroke="#10b981" stroke-width="3" stroke-linecap="round"/>
+                            <!-- Point central -->
+                            <circle cx="50" cy="50" r="8" fill="#1e3a8a" stroke="#10b981" stroke-width="3"/>
+                            <!-- Loupe handle -->
+                            <path d="M82 82L95 95" stroke="#1e3a8a" stroke-width="8" stroke-linecap="round"/>
                         </svg>
                     </div>
                     <span class="text-2xl font-bold text-white tracking-widest">KLYR</span>
@@ -140,8 +166,8 @@
                 
                 <div class="flex items-center gap-6">
                     <div class="hidden md:flex space-x-6 text-sm font-medium">
-                        <a href="#particuliers" class="hover:text-klyr-green transition"><span class="lang-fr">Particuliers</span><span class="lang-en">Individuals</span></a>
-                        <a href="#entreprises" class="hover:text-klyr-green transition"><span class="lang-fr">Entreprises</span><span class="lang-en">Business</span></a>
+                        <a href="#particuliers" class="hover:text-klyr-green transition"><span class="lang-fr">Offres</span><span class="lang-en">Pricing</span></a>
+                        <a href="#methodologie" class="hover:text-klyr-green transition"><span class="lang-fr">Méthode</span><span class="lang-en">Process</span></a>
                         <a href="#avocats" class="hover:text-klyr-green transition"><span class="lang-fr">Avocats</span><span class="lang-en">Lawyers</span></a>
                     </div>
                     
@@ -149,7 +175,7 @@
                         <i class="fas fa-globe"></i> <span id="lang-label">EN</span>
                     </button>
 
-                    <a href="#contact" class="bg-klyr-green text-klyr-dark font-bold py-2 px-6 rounded-full hover:bg-white transition duration-300 hidden sm:block">
+                    <a href="#contact" class="bg-klyr-green text-klyr-dark font-bold py-2 px-6 rounded-full hover:bg-white transition duration-300 hidden sm:block shadow-[0_0_15px_rgba(16,185,129,0.4)]">
                         <span class="lang-fr">Démarrer</span><span class="lang-en">Start Now</span>
                     </a>
                 </div>
@@ -158,31 +184,32 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 grid lg:grid-cols-2 gap-16 items-center">
+    <section class="relative pt-32 lg:pt-40 pb-20 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 grid lg:grid-cols-2 gap-12 items-center">
             
             <!-- Text Content -->
-            <div class="order-2 lg:order-1">
-                <div class="inline-block mb-4 px-4 py-1 rounded-full bg-slate-800 border border-slate-700 text-klyr-green text-sm font-mono">
-                    <i class="fas fa-search mr-2"></i>
-                    <span class="lang-fr">Investigation On-Chain Certifiée</span>
-                    <span class="lang-en">Certified On-Chain Forensics</span>
+            <div class="order-2 lg:order-1 relative z-20">
+                <div class="inline-flex items-center gap-2 mb-6 px-4 py-1.5 rounded-full bg-slate-800/80 border border-slate-700 text-klyr-green text-xs font-mono uppercase tracking-wider">
+                    <span class="w-2 h-2 rounded-full bg-klyr-green animate-pulse"></span>
+                    <span class="lang-fr">Forensics Certifiés</span><span class="lang-en">Certified Forensics</span>
                 </div>
-                <h1 class="text-5xl font-bold text-white mb-6 leading-tight">
+                
+                <h1 class="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
                     <span class="lang-fr">Nous traçons ce que <br><span class="gradient-text">les autres ne voient pas.</span></span>
                     <span class="lang-en">We trace what <br><span class="gradient-text">others cannot see.</span></span>
                 </h1>
-                <p class="text-xl text-slate-400 mb-10">
+                
+                <p class="text-lg text-slate-400 mb-10 max-w-lg leading-relaxed">
                     <span class="lang-fr">
-                        Mixers, bridges, sauts cross-chain. Nous transformons la donnée brute en <strong>preuves judiciaires</strong> pour votre avocat.
+                        Mixers, bridges, sauts cross-chain. Nous transformons la donnée brute en <strong>preuves judiciaires</strong> exploitables (Rapport PDF + CSV Evidence) pour votre avocat.
                     </span>
                     <span class="lang-en">
-                        Mixers, bridges, cross-chain hops. We turn raw data into <strong>judicial-grade evidence</strong> for your lawyer.
+                        Mixers, bridges, cross-chain hops. We turn raw data into <strong>judicial-grade evidence</strong> (PDF Report + CSV Evidence) for your lawyer.
                     </span>
                 </p>
                 
                 <div class="flex flex-col sm:flex-row gap-4">
-                    <a href="mailto:tonirodolfo1@gmail.com" class="bg-white text-klyr-dark font-bold py-4 px-8 rounded-lg hover:bg-gray-200 transition flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+                    <a href="mailto:tonirodolfo1@gmail.com" class="bg-white text-klyr-dark font-bold py-4 px-8 rounded-lg hover:bg-gray-200 transition flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,255,255,0.2)]">
                         <i class="fas fa-envelope"></i> 
                         <span class="lang-fr">Expliquer mon cas</span><span class="lang-en">Explain my case</span>
                     </a>
@@ -193,91 +220,102 @@
                 </div>
             </div>
 
-            <!-- 3D Isometric Visual (Clean Style) -->
-            <div class="order-1 lg:order-2 relative h-[500px] flex items-center justify-center">
+            <!-- 3D Isometric Visual (BLUEPRINT STYLE) -->
+            <div class="order-1 lg:order-2 iso-wrapper">
                 
                 <div class="iso-container">
                     <!-- La Grille (Sol) -->
                     <div class="iso-grid"></div>
 
-                    <!-- Card 1: Victim -->
+                    <!-- Card 1: Victim (Top Left) -->
                     <div class="iso-card" style="top: 50px; left: 50px;">
-                        <i class="fas fa-user text-red-400 text-2xl mb-2"></i>
-                        <span class="text-[10px] text-slate-400 font-mono">VICTIM</span>
+                        <div class="w-10 h-10 rounded-full bg-red-500/20 flex items-center justify-center mb-2 border border-red-500/50">
+                            <i class="fas fa-user text-red-400"></i>
+                        </div>
+                        <span class="text-[10px] text-slate-400 font-mono tracking-widest">VICTIM WALLET</span>
+                        <span class="text-xs font-bold text-white mt-1">-45k USDC</span>
                     </div>
 
                     <!-- Card 2: Mixer (Center) -->
-                    <div class="iso-card" style="top: 200px; left: 200px; transform: translateZ(30px); border-color: #10b981; box-shadow: 0 0 20px rgba(16,185,129,0.2);">
-                        <i class="fas fa-random text-klyr-green text-3xl mb-2"></i>
-                        <span class="text-[10px] text-klyr-green font-mono font-bold">MIXER / HUB</span>
+                    <div class="iso-card" style="top: 250px; left: 250px; transform: translateZ(40px); border-color: #10b981; box-shadow: 0 0 40px rgba(16,185,129,0.15);">
+                        <div class="w-12 h-12 rounded-full bg-klyr-green/20 flex items-center justify-center mb-2 border border-klyr-green">
+                            <i class="fas fa-random text-klyr-green text-xl"></i>
+                        </div>
+                        <span class="text-[10px] text-klyr-green font-mono font-bold tracking-widest">MIXER / HUB</span>
+                        <span class="text-[10px] text-slate-400 mt-1">Demixing...</span>
                     </div>
 
-                    <!-- Card 3: CEX (Target) -->
-                    <div class="iso-card" style="top: 350px; left: 350px;">
-                        <i class="fas fa-building text-blue-400 text-2xl mb-2"></i>
-                        <span class="text-[10px] text-slate-400 font-mono">EXCHANGE (KYC)</span>
+                    <!-- Card 3: CEX (Bottom Right) -->
+                    <div class="iso-card" style="top: 450px; left: 450px;">
+                        <div class="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center mb-2 border border-blue-500/50">
+                            <i class="fas fa-building text-blue-400"></i>
+                        </div>
+                        <span class="text-[10px] text-slate-400 font-mono tracking-widest">EXCHANGE (KYC)</span>
+                        <span class="text-xs font-bold text-white mt-1">BINANCE / KRAKEN</span>
                     </div>
 
-                    <!-- Card 4: Evidence (Side) -->
-                    <div class="iso-card" style="top: 350px; left: 50px; border-style: dashed;">
-                        <i class="fas fa-file-pdf text-slate-500 text-2xl mb-2"></i>
-                        <span class="text-[10px] text-slate-500 font-mono">REPORT</span>
+                    <!-- Card 4: Report (Bottom Left - The Output) -->
+                    <div class="iso-card" style="top: 450px; left: 50px; border-style: dashed; background: rgba(15,23,42,0.4);">
+                        <i class="fas fa-file-contract text-slate-500 text-2xl mb-2"></i>
+                        <span class="text-[10px] text-slate-500 font-mono tracking-widest">EVIDENCE PACK</span>
+                        <span class="text-[9px] text-slate-600 mt-1">Ready for Court</span>
                     </div>
 
                     <!-- Connections -->
                     <!-- Line 1: Victim -> Mixer -->
-                    <div class="connection-line" style="width: 220px; top: 130px; left: 110px; transform: rotate(45deg);">
+                    <div class="connection-line" style="width: 280px; top: 150px; left: 130px; transform: rotate(45deg);">
                         <div class="data-packet"></div>
                     </div>
                     <!-- Line 2: Mixer -> CEX -->
-                    <div class="connection-line" style="width: 220px; top: 280px; left: 260px; transform: rotate(45deg);">
-                        <div class="data-packet" style="animation-delay: 1.5s;"></div>
+                    <div class="connection-line" style="width: 280px; top: 350px; left: 330px; transform: rotate(45deg);">
+                        <div class="data-packet" style="animation-delay: 1.2s;"></div>
                     </div>
-                     <!-- Line 3: Mixer -> Report -->
-                     <div class="connection-line" style="width: 220px; top: 280px; left: 110px; transform: rotate(135deg); border-style: dashed; background: none; border-top: 1px dashed rgba(255,255,255,0.2);"></div>
+                     <!-- Line 3: Mixer -> Report (Logic Flow) -->
+                     <div class="connection-line" style="width: 280px; top: 350px; left: 130px; transform: rotate(135deg); border-style: dotted; background: none; border-top: 2px dotted rgba(255,255,255,0.15);"></div>
 
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Methodology -->
-    <section class="py-20 bg-slate-900/50 border-y border-slate-800">
+    <!-- Methodology (CATC KLYR) -->
+    <section id="methodologie" class="py-20 bg-slate-900/30 border-y border-slate-800">
         <div class="max-w-7xl mx-auto px-4">
             <div class="text-center mb-16">
                 <h2 class="text-3xl font-bold text-white mb-4">
-                    <span class="lang-fr">Méthodologie Forensique</span><span class="lang-en">Forensic Methodology</span>
+                    <span class="lang-fr">Méthodologie CATC</span><span class="lang-en">CATC Methodology</span>
                 </h2>
                 <p class="text-slate-400">
-                    <span class="lang-fr">Rigueur technique et clarté juridique.</span><span class="lang-en">Technical rigor and legal clarity.</span>
+                    <span class="lang-fr">Notre standard d'investigation (Collecte - Analyse - Traçage - Corrélation).</span>
+                    <span class="lang-en">Our investigation standard (Collect - Analyze - Trace - Correlate).</span>
                 </p>
             </div>
             <div class="grid md:grid-cols-3 gap-8">
                 <!-- Step 1 -->
-                <div class="p-6 rounded-2xl bg-slate-800/50 border border-slate-700 relative overflow-hidden group hover:border-klyr-green transition duration-300">
-                    <div class="absolute -right-4 -top-4 text-9xl font-bold text-slate-700/20 group-hover:text-klyr-green/10 transition">1</div>
-                    <h3 class="text-xl font-bold text-white mb-2"><span class="lang-fr">Acquisition & Triage</span><span class="lang-en">Acquisition & Triage</span></h3>
-                    <p class="text-slate-400 text-sm">
-                        <span class="lang-fr">Analyse préliminaire. Nous validons sous 24h si les fonds sont traçables techniquement avant de vous engager.</span>
-                        <span class="lang-en">Preliminary analysis. We validate within 24h if funds are technically traceable before you commit.</span>
+                <div class="p-8 rounded-2xl bg-[#0F172A] border border-slate-800 hover:border-klyr-green/50 transition duration-300 shadow-lg">
+                    <div class="text-4xl font-bold text-slate-800 mb-4">01</div>
+                    <h3 class="text-xl font-bold text-white mb-3"><span class="lang-fr">Collecte & Triage</span><span class="lang-en">Collect & Triage</span></h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        <span class="lang-fr">Réception du contexte et des adresses. Triage gratuit sous 24h pour confirmer la faisabilité technique avant tout paiement.</span>
+                        <span class="lang-en">Context and address intake. Free 24h triage to confirm technical feasibility before any payment.</span>
                     </p>
                 </div>
                 <!-- Step 2 -->
-                <div class="p-6 rounded-2xl bg-slate-800/50 border border-slate-700 relative overflow-hidden group hover:border-klyr-green transition duration-300">
-                    <div class="absolute -right-4 -top-4 text-9xl font-bold text-slate-700/20 group-hover:text-klyr-green/10 transition">2</div>
-                    <h3 class="text-xl font-bold text-white mb-2"><span class="lang-fr">Traçage Profond</span><span class="lang-en">Deep-Dive Tracing</span></h3>
-                    <p class="text-slate-400 text-sm">
-                        <span class="lang-fr">Nous suivons l'argent à travers les mixeurs et bridges. But : identifier le point de sortie (CEX) qui détient le KYC.</span>
-                        <span class="lang-en">We follow the money through mixers and bridges. Goal: identify the exit point (CEX) holding the KYC.</span>
+                <div class="p-8 rounded-2xl bg-[#0F172A] border border-slate-800 hover:border-klyr-green/50 transition duration-300 shadow-lg">
+                    <div class="text-4xl font-bold text-slate-800 mb-4">02</div>
+                    <h3 class="text-xl font-bold text-white mb-3"><span class="lang-fr">Traçage & Corrélation</span><span class="lang-en">Trace & Correlate</span></h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        <span class="lang-fr">Suivi des fonds (EVM/BTC). Identification des hubs, démixage et corrélation avec des identités réelles (CEX, IBAN).</span>
+                        <span class="lang-en">Fund tracking (EVM/BTC). Hub identification, demixing, and correlation with real identities (CEX, IBAN).</span>
                     </p>
                 </div>
                 <!-- Step 3 -->
-                <div class="p-6 rounded-2xl bg-slate-800/50 border border-slate-700 relative overflow-hidden group hover:border-klyr-green transition duration-300">
-                    <div class="absolute -right-4 -top-4 text-9xl font-bold text-slate-700/20 group-hover:text-klyr-green/10 transition">3</div>
-                    <h3 class="text-xl font-bold text-white mb-2"><span class="lang-fr">Rapport Judiciaire</span><span class="lang-en">Judicial Report</span></h3>
-                    <p class="text-slate-400 text-sm">
-                        <span class="lang-fr">Un dossier technique blindé. Tableaux de preuves et modèles de réquisitions prêts pour les autorités.</span>
-                        <span class="lang-en">Bulletproof technical file. Evidence tables and subpoena templates ready for authorities.</span>
+                <div class="p-8 rounded-2xl bg-[#0F172A] border border-slate-800 hover:border-klyr-green/50 transition duration-300 shadow-lg">
+                    <div class="text-4xl font-bold text-slate-800 mb-4">03</div>
+                    <h3 class="text-xl font-bold text-white mb-3"><span class="lang-fr">Rapport Probatoire</span><span class="lang-en">Evidence Report</span></h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        <span class="lang-fr">Livraison du "Recovery-readiness pack" : Rapport PDF, CSV d'evidence et modèles de réquisitions pour la police.</span>
+                        <span class="lang-en">Delivery of the "Recovery-readiness pack": PDF Report, CSV evidence, and subpoena templates for police.</span>
                     </p>
                 </div>
             </div>
@@ -291,64 +329,64 @@
             <!-- Particuliers -->
             <div class="mb-20">
                 <div class="flex items-center gap-4 mb-8">
-                    <div class="bg-klyr-green w-2 h-12 rounded-full"></div>
+                    <div class="bg-klyr-green w-1 h-12"></div>
                     <div>
                         <h2 class="text-3xl font-bold text-white"><span class="lang-fr">Pour les Particuliers</span><span class="lang-en">For Individuals</span></h2>
-                        <p class="text-slate-400"><span class="lang-fr">Victimes de fraudes, scams, rug pulls. Obtenez des preuves tangibles.</span><span class="lang-en">Victims of fraud, scams, rug pulls. Get tangible evidence.</span></p>
+                        <p class="text-slate-400"><span class="lang-fr">Victimes de fraudes, scams, rug pulls.</span><span class="lang-en">Victims of fraud, scams, rug pulls.</span></p>
                     </div>
                 </div>
 
                 <div class="grid lg:grid-cols-4 gap-6">
                     <!-- Light -->
-                    <div class="glass-card-ui p-6 rounded-2xl border-t-4 border-slate-600 hover:border-slate-400 transition duration-300 opacity-80 hover:opacity-100">
-                        <h3 class="text-xl font-bold text-white">Light</h3>
+                    <div class="glass-card-ui p-6 rounded-2xl border-t-2 border-slate-600 hover:bg-slate-800 transition duration-300 opacity-75 hover:opacity-100">
+                        <h3 class="text-lg font-bold text-white">Light</h3>
                         <div class="text-3xl font-bold text-white my-3">350 €</div>
-                        <p class="text-xs text-slate-400 mb-4 font-mono bg-slate-800 p-1 rounded"><span class="lang-fr">Dossier simple</span><span class="lang-en">Simple case</span></p>
-                        <ul class="space-y-2 text-slate-400 mb-6 text-xs">
-                            <li class="flex items-start"><i class="fas fa-check text-slate-500 mt-1 mr-2"></i> ≤ 10 transactions</li>
-                            <li class="flex items-start"><i class="fas fa-check text-slate-500 mt-1 mr-2"></i> 1 Chaîne unique</li>
-                            <li class="flex items-start"><i class="fas fa-check text-slate-500 mt-1 mr-2"></i> Rapport condensé</li>
+                        <p class="text-xs text-slate-400 mb-4 font-mono bg-slate-800 p-1 rounded inline-block"><span class="lang-fr">Dossier simple</span><span class="lang-en">Simple case</span></p>
+                        <ul class="space-y-3 text-slate-400 mb-8 text-xs">
+                            <li class="flex items-start"><i class="fas fa-check text-slate-500 mt-0.5 mr-2"></i> ≤ 10 transactions</li>
+                            <li class="flex items-start"><i class="fas fa-check text-slate-500 mt-0.5 mr-2"></i> 1 Chaîne unique</li>
+                            <li class="flex items-start"><i class="fas fa-check text-slate-500 mt-0.5 mr-2"></i> Rapport condensé</li>
                         </ul>
                         <a href="mailto:tonirodolfo1@gmail.com?subject=Pack%20Light" class="block w-full text-center border border-slate-600 hover:bg-slate-700 text-white font-bold py-2 rounded text-sm transition"><span class="lang-fr">Choisir Light</span><span class="lang-en">Select Light</span></a>
                     </div>
 
                     <!-- Starter -->
-                    <div class="glass-card-ui p-6 rounded-2xl border-t-4 border-blue-500 hover:transform hover:-translate-y-2 transition duration-300">
-                        <h3 class="text-xl font-bold text-white">Starter</h3>
+                    <div class="glass-card-ui p-6 rounded-2xl border-t-2 border-blue-500 hover:bg-slate-800 transition duration-300">
+                        <h3 class="text-lg font-bold text-white">Starter</h3>
                         <div class="text-3xl font-bold text-blue-400 my-3">490 €</div>
-                        <p class="text-xs text-slate-400 mb-4 font-mono bg-slate-800 p-1 rounded">48h</p>
-                        <ul class="space-y-2 text-slate-300 mb-6 text-sm">
-                            <li class="flex items-start"><i class="fas fa-check text-blue-500 mt-1 mr-2"></i> 1 Chaîne / ≤ 30 tx</li>
-                            <li class="flex items-start"><i class="fas fa-check text-blue-500 mt-1 mr-2"></i> 1 Circuit simple</li>
-                            <li class="flex items-start"><i class="fas fa-check text-blue-500 mt-1 mr-2"></i> <strong>Recovery Pack</strong> (Modèles réquisition)</li>
+                        <p class="text-xs text-slate-400 mb-4 font-mono bg-slate-800 p-1 rounded inline-block">48h</p>
+                        <ul class="space-y-3 text-slate-300 mb-8 text-sm">
+                            <li class="flex items-start"><i class="fas fa-check text-blue-500 mt-0.5 mr-2"></i> 1 Chaîne / ≤ 30 tx</li>
+                            <li class="flex items-start"><i class="fas fa-check text-blue-500 mt-0.5 mr-2"></i> 1 Circuit simple</li>
+                            <li class="flex items-start"><i class="fas fa-check text-blue-500 mt-0.5 mr-2"></i> <strong>Recovery Pack</strong></li>
                         </ul>
                         <a href="mailto:tonirodolfo1@gmail.com?subject=Pack%20Starter" class="block w-full text-center bg-slate-700 hover:bg-slate-600 text-white font-bold py-2 rounded text-sm transition"><span class="lang-fr">Choisir Starter</span><span class="lang-en">Select Starter</span></a>
                     </div>
 
                     <!-- Express (Highlighted) -->
-                    <div class="glass-card-ui p-6 rounded-2xl border-t-4 border-klyr-green relative transform scale-105 shadow-2xl shadow-klyr-green/10 z-10 bg-slate-800">
+                    <div class="glass-card-ui p-6 rounded-2xl border-t-2 border-klyr-green relative transform scale-105 shadow-2xl shadow-klyr-green/5 z-10 bg-[#131d33]">
                         <div class="absolute top-0 right-0 bg-klyr-green text-klyr-dark text-[10px] font-bold px-2 py-1 rounded-bl-lg">POPULAIRE</div>
-                        <h3 class="text-xl font-bold text-white">Express</h3>
+                        <h3 class="text-lg font-bold text-white">Express</h3>
                         <div class="text-3xl font-bold text-klyr-green my-3">890 €</div>
-                        <p class="text-xs text-slate-400 mb-4 font-mono bg-slate-900 p-1 rounded">72h</p>
-                        <ul class="space-y-2 text-slate-300 mb-6 text-sm">
-                            <li class="flex items-start"><i class="fas fa-check text-klyr-green mt-1 mr-2"></i> Jusqu'à 3 adresses</li>
-                            <li class="flex items-start"><i class="fas fa-check text-klyr-green mt-1 mr-2"></i> 2 Chaînes ou 1 Bridge</li>
-                            <li class="flex items-start"><i class="fas fa-check text-klyr-green mt-1 mr-2"></i> Traçage vers CEX</li>
-                            <li class="flex items-start"><i class="fas fa-check text-klyr-green mt-1 mr-2"></i> Schéma visuel complet</li>
+                        <p class="text-xs text-slate-400 mb-4 font-mono bg-slate-900 p-1 rounded inline-block">72h</p>
+                        <ul class="space-y-3 text-slate-300 mb-8 text-sm">
+                            <li class="flex items-start"><i class="fas fa-check text-klyr-green mt-0.5 mr-2"></i> Jusqu'à 3 adresses</li>
+                            <li class="flex items-start"><i class="fas fa-check text-klyr-green mt-0.5 mr-2"></i> 2 Chaînes ou 1 Bridge</li>
+                            <li class="flex items-start"><i class="fas fa-check text-klyr-green mt-0.5 mr-2"></i> Traçage vers CEX</li>
+                            <li class="flex items-start"><i class="fas fa-check text-klyr-green mt-0.5 mr-2"></i> Schéma visuel complet</li>
                         </ul>
                         <a href="mailto:tonirodolfo1@gmail.com?subject=Pack%20Express" class="block w-full text-center bg-klyr-green hover:bg-white hover:text-klyr-dark text-klyr-dark font-bold py-3 rounded text-sm transition"><span class="lang-fr">Choisir Express</span><span class="lang-en">Select Express</span></a>
                     </div>
 
                     <!-- Complet -->
-                    <div class="glass-card-ui p-6 rounded-2xl border-t-4 border-purple-500 hover:transform hover:-translate-y-2 transition duration-300">
-                        <h3 class="text-xl font-bold text-white">Complet</h3>
+                    <div class="glass-card-ui p-6 rounded-2xl border-t-2 border-purple-500 hover:bg-slate-800 transition duration-300">
+                        <h3 class="text-lg font-bold text-white">Complet</h3>
                         <div class="text-3xl font-bold text-purple-400 my-3">1 190 €</div>
-                        <p class="text-xs text-slate-400 mb-4 font-mono bg-slate-800 p-1 rounded">≤ 5 jours</p>
-                        <ul class="space-y-2 text-slate-300 mb-6 text-sm">
-                            <li class="flex items-start"><i class="fas fa-check text-purple-500 mt-1 mr-2"></i> Multi-circuits complexes</li>
-                            <li class="flex items-start"><i class="fas fa-check text-purple-500 mt-1 mr-2"></i> Décodage logs de Bridge</li>
-                            <li class="flex items-start"><i class="fas fa-check text-purple-500 mt-1 mr-2"></i> +1 Mise à jour (30j)</li>
+                        <p class="text-xs text-slate-400 mb-4 font-mono bg-slate-800 p-1 rounded inline-block">≤ 5 jours</p>
+                        <ul class="space-y-3 text-slate-300 mb-8 text-sm">
+                            <li class="flex items-start"><i class="fas fa-check text-purple-500 mt-0.5 mr-2"></i> Multi-circuits complexes</li>
+                            <li class="flex items-start"><i class="fas fa-check text-purple-500 mt-0.5 mr-2"></i> Décodage logs de Bridge</li>
+                            <li class="flex items-start"><i class="fas fa-check text-purple-500 mt-0.5 mr-2"></i> +1 Mise à jour (30j)</li>
                         </ul>
                         <a href="mailto:tonirodolfo1@gmail.com?subject=Pack%20Complet" class="block w-full text-center bg-slate-700 hover:bg-slate-600 text-white font-bold py-2 rounded text-sm transition"><span class="lang-fr">Choisir Complet</span><span class="lang-en">Select Complete</span></a>
                     </div>
@@ -364,11 +402,11 @@
                         <i class="fas fa-building text-2xl text-blue-400"></i>
                         <h2 class="text-2xl font-bold text-white"><span class="lang-fr">Entreprises & Web3</span><span class="lang-en">Business & Web3</span></h2>
                     </div>
-                    <div class="bg-slate-800/50 p-6 rounded-xl mb-4 border border-slate-700">
+                    <div class="bg-slate-800/50 p-6 rounded-xl mb-4 border border-slate-700 hover:border-blue-500/30 transition">
                         <h3 class="text-lg font-bold text-white flex justify-between">Incident Response <span class="text-blue-400">4 900 - 9 800 €</span></h3>
                         <p class="text-sm text-slate-400 mt-2"><span class="lang-fr">Réponse à hack/exploit. Triage 24h, containment, traçage complet, dossier interne actionnable pour assurances.</span><span class="lang-en">Hack/exploit response. 24h triage, containment, full tracing, actionable internal report for insurance.</span></p>
                     </div>
-                    <div class="bg-slate-800/50 p-6 rounded-xl border border-slate-700">
+                    <div class="bg-slate-800/50 p-6 rounded-xl border border-slate-700 hover:border-blue-500/30 transition">
                         <h3 class="text-lg font-bold text-white flex justify-between">Due Diligence / Pre-trade <span class="text-blue-400">Dès 490 €</span></h3>
                         <p class="text-sm text-slate-400 mt-2"><span class="lang-fr">Vérification des contreparties, analyse d'exposition aux risques (AML), red flags avant transaction.</span><span class="lang-en">Counterparty verification, AML risk exposure analysis, red flags check before transaction.</span></p>
                     </div>
@@ -405,9 +443,26 @@
         </div>
     </section>
 
+    <!-- FAQ / CONFIDENTIALITÉ (Nouveau - Pour rassurer) -->
+    <section class="py-12 bg-slate-900/50 border-t border-slate-800">
+        <div class="max-w-4xl mx-auto px-4">
+            <h3 class="text-xl font-bold text-white mb-6 text-center"><span class="lang-fr">Questions Fréquentes</span><span class="lang-en">FAQ</span></h3>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="p-4 rounded bg-slate-800/50">
+                    <h4 class="font-bold text-white mb-2 text-sm"><span class="lang-fr">Garantissez-vous le recouvrement ?</span><span class="lang-en">Do you guarantee recovery?</span></h4>
+                    <p class="text-xs text-slate-400"><span class="lang-fr">Non. Nous fournissons la preuve technique et la localisation des fonds. Le gel et la saisie dépendent des plateformes (CEX) et de la justice.</span><span class="lang-en">No. We provide technical evidence and fund localization. Freezing/seizing depends on CEXs and law enforcement.</span></p>
+                </div>
+                <div class="p-4 rounded bg-slate-800/50">
+                    <h4 class="font-bold text-white mb-2 text-sm"><span class="lang-fr">Est-ce confidentiel ?</span><span class="lang-en">Is it confidential?</span></h4>
+                    <p class="text-xs text-slate-400"><span class="lang-fr">Oui. Toutes nos missions sont sous accord de confidentialité strict (voir Lettre de Mission). Vos données ne sont partagées qu'avec vous.</span><span class="lang-en">Yes. All missions are under strict NDA. Your data is only shared with you.</span></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- CONTACT SECTION -->
     <section id="contact" class="py-20 relative overflow-hidden">
-        <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-full h-full bg-gradient-to-b from-klyr-dark to-blue-900/20 z-0"></div>
+        <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-full h-full bg-gradient-to-b from-[#0B1120] to-blue-900/10 z-0"></div>
 
         <div class="max-w-4xl mx-auto px-4 relative z-10">
             <div class="bg-slate-800/80 backdrop-blur border border-slate-700 rounded-2xl p-8 md:p-12 shadow-2xl">
@@ -426,9 +481,6 @@
                         <div>
                             <h3 class="text-white font-bold text-lg mb-4 flex items-center gap-2"><i class="fas fa-video text-klyr-green"></i> Visio</h3>
                             <a href="https://calendar.app.google/bQWcTHd22XDzuCt6A" target="_blank" class="inline-flex items-center gap-2 text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition text-sm font-bold"><span class="lang-fr">Réserver un appel</span><span class="lang-en">Book a call</span></a>
-                        </div>
-                        <div class="pt-6 border-t border-slate-700">
-                            <p class="text-xs text-slate-500 italic"><i class="fas fa-info-circle mr-1"></i> <span class="lang-fr">Note : KLYR fournit la preuve et le traçage technique. Nous ne garantissons pas le recouvrement des fonds.</span><span class="lang-en">Note: KLYR provides technical evidence and tracing. We do not guarantee fund recovery.</span></p>
                         </div>
                     </div>
 
@@ -449,7 +501,7 @@
         </div>
     </section>
 
-    <footer class="bg-klyr-dark border-t border-slate-800 py-12 text-center">
+    <footer class="bg-[#0B1120] border-t border-slate-800 py-12 text-center">
         <div class="max-w-7xl mx-auto px-4">
             <p class="text-slate-600 text-sm">&copy; 2026 KLYR. On-Chain Forensics.</p>
         </div>
