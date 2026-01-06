@@ -23,13 +23,17 @@
                         mono: ['Fira Code', 'monospace'],
                     },
                     animation: {
-                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        'flow': 'flow 2s linear infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-ring': 'pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite',
                     },
                     keyframes: {
-                        flow: {
-                            '0%': { strokeDashoffset: '24' },
-                            '100%': { strokeDashoffset: '0' },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        'pulse-ring': {
+                            '0%': { transform: 'scale(0.8)', opacity: '1' },
+                            '100%': { transform: 'scale(2)', opacity: '0' },
                         }
                     }
                 }
@@ -49,7 +53,6 @@
 
         /* --- UI COMPONENTS "CLEAN TECH" --- */
         
-        /* Grille de fond subtile (2D) */
         .bg-grid {
             background-size: 40px 40px;
             background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
@@ -57,7 +60,6 @@
             mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
         }
 
-        /* Cartes effet verre */
         .glass-panel {
             background: rgba(21, 30, 50, 0.6);
             backdrop-filter: blur(12px);
@@ -70,16 +72,19 @@
             background: rgba(21, 30, 50, 0.8);
         }
 
-        /* Texte dégradé */
         .gradient-text {
             background: linear-gradient(135deg, #ffffff 0%, #10b981 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        /* Diagramme de flux (Hero Visual) */
+        /* --- DIAGRAMME ANIMÉ --- */
+        .flow-container {
+            animation: float 6s ease-in-out infinite; /* Lévitation */
+        }
+
         .flow-node {
-            background: rgba(11, 17, 33, 0.9);
+            background: rgba(11, 17, 33, 0.95);
             border: 1px solid rgba(255,255,255,0.1);
             border-radius: 8px;
             padding: 12px 20px;
@@ -89,17 +94,29 @@
             position: relative;
             z-index: 10;
             transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        /* Effet radar sur le noeud actif */
+        .flow-node.active::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: 8px;
+            border: 1px solid #10b981;
+            animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+            z-index: -1;
         }
         
         .flow-node.active {
             border-color: #10b981;
-            box-shadow: 0 0 20px rgba(16, 185, 129, 0.15);
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
         }
 
         .flow-line {
             position: absolute;
             height: 2px;
-            background: rgba(255,255,255,0.1);
+            background: linear-gradient(90deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.05) 100%);
             z-index: 0;
             top: 50%;
             transform: translateY(-50%);
@@ -107,19 +124,18 @@
 
         .flow-dot {
             position: absolute;
-            width: 6px;
-            height: 6px;
-            background: #10b981;
-            border-radius: 50%;
-            top: -2px;
-            box-shadow: 0 0 8px #10b981;
-            animation: moveRight 2s linear infinite;
+            width: 40px; /* Traînée plus longue */
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #10b981);
+            top: 0;
+            box-shadow: 0 0 10px #10b981;
+            animation: moveRight 1.5s linear infinite; /* Plus rapide */
         }
 
         @keyframes moveRight {
             0% { left: 0; opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
+            20% { opacity: 1; }
+            80% { opacity: 1; }
             100% { left: 100%; opacity: 0; }
         }
 
@@ -136,22 +152,30 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
                 <div class="flex items-center gap-3">
-                    <!-- LOGO SVG (Fiable) -->
-                    <!-- Si tu veux utiliser ton PNG, décommente la ligne ci-dessous et supprime le SVG -->
-                    <!-- <img src="logo.png" class="w-10 h-10 object-contain" alt="KLYR Logo"> -->
                     
-                    <div class="w-10 h-10 text-white">
-                        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
-                            <circle cx="50" cy="50" r="45" stroke="currentColor" stroke-width="6"/>
-                            <path d="M50 20V50" stroke="#10b981" stroke-width="4" stroke-linecap="round"/>
-                            <path d="M50 50L75 25" stroke="#10b981" stroke-width="4" stroke-linecap="round"/>
-                            <path d="M50 50L25 25" stroke="#10b981" stroke-width="4" stroke-linecap="round"/>
-                            <path d="M50 50L25 75" stroke="#10b981" stroke-width="4" stroke-linecap="round"/>
-                            <path d="M50 50L75 75" stroke="#10b981" stroke-width="4" stroke-linecap="round"/>
-                            <circle cx="50" cy="50" r="6" fill="#10b981"/>
-                            <path d="M82 82L95 95" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
-                        </svg>
+                    <!-- SYSTEME LOGO HYBRIDE -->
+                    <!-- Essaie d'afficher logo.png. Si erreur, cache l'image et affiche le SVG de secours -->
+                    <div class="relative w-12 h-12 flex items-center justify-center">
+                        <img src="logo.png" 
+                             class="w-full h-full object-contain" 
+                             alt="KLYR Logo" 
+                             onerror="this.style.display='none'; document.getElementById('fallback-logo').style.display='block';">
+                        
+                        <!-- SVG de secours (caché par défaut) -->
+                        <div id="fallback-logo" style="display:none;" class="w-10 h-10 text-white">
+                            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+                                <circle cx="50" cy="50" r="45" stroke="currentColor" stroke-width="6"/>
+                                <path d="M50 20V50" stroke="#10b981" stroke-width="4" stroke-linecap="round"/>
+                                <path d="M50 50L75 25" stroke="#10b981" stroke-width="4" stroke-linecap="round"/>
+                                <path d="M50 50L25 25" stroke="#10b981" stroke-width="4" stroke-linecap="round"/>
+                                <path d="M50 50L25 75" stroke="#10b981" stroke-width="4" stroke-linecap="round"/>
+                                <path d="M50 50L75 75" stroke="#10b981" stroke-width="4" stroke-linecap="round"/>
+                                <circle cx="50" cy="50" r="6" fill="#10b981"/>
+                                <path d="M82 82L95 95" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
+                            </svg>
+                        </div>
                     </div>
+
                     <span class="text-2xl font-bold text-white tracking-widest">KLYR</span>
                 </div>
                 
@@ -215,9 +239,9 @@
                     </div>
                 </div>
 
-                <!-- Visual: Clean Flow Diagram (2D) -->
+                <!-- Visual: Clean Flow Diagram (ANIMÉ) -->
                 <div class="order-1 lg:order-2 flex justify-center items-center">
-                    <div class="relative w-full max-w-lg h-[400px] bg-slate-900/40 border border-slate-800 rounded-2xl p-8 backdrop-blur-sm shadow-2xl">
+                    <div class="flow-container relative w-full max-w-lg h-[400px] bg-slate-900/40 border border-slate-800 rounded-2xl p-8 backdrop-blur-sm shadow-2xl">
                         <!-- Header du Dashboard -->
                         <div class="flex justify-between items-center mb-12 border-b border-slate-800 pb-4">
                             <div class="text-xs font-mono text-slate-500">CASE ID: #KLYR-8921</div>
@@ -243,7 +267,7 @@
                                 <div class="ml-auto text-xs text-red-400 font-mono">-45,000 USDC</div>
                             </div>
 
-                            <!-- Node 2: Mixer -->
+                            <!-- Node 2: Mixer (AVEC PULSE RADAR) -->
                             <div class="flow-node active ml-8">
                                 <div class="w-10 h-10 rounded bg-klyr-accent/10 border border-klyr-accent/30 flex items-center justify-center text-klyr-accent">
                                     <i class="fas fa-random"></i>
