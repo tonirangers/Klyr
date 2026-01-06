@@ -12,10 +12,10 @@
                 extend: {
                     colors: {
                         klyr: {
-                            dark: '#020617', // Noir bleuté très profond
+                            dark: '#0B1121', // Bleu nuit profond (Style Tesla Dark)
+                            card: '#151e32',
                             blue: '#3b82f6',
                             green: '#10b981', 
-                            light: '#f8fafc',
                         }
                     },
                     fontFamily: {
@@ -30,123 +30,108 @@
     <style>
         html { scroll-padding-top: 100px; }
         body { 
-            background-color: #020617; 
-            /* Fond avec une texture subtile pour éviter l'effet "plat" */
-            background-image: radial-gradient(circle at 15% 50%, rgba(16, 185, 129, 0.08) 0%, transparent 25%), 
-                              radial-gradient(circle at 85% 30%, rgba(59, 130, 246, 0.08) 0%, transparent 25%);
+            background-color: #0B1121;
+            color: #e2e8f0;
         }
 
-        /* --- MOTEUR 3D ISOMÉTRIQUE AMÉLIORÉ --- */
-        .iso-scene-wrapper {
+        /* --- NOUVEAU MOTEUR 3D STABILISÉ (Plateau Centré) --- */
+        .scene-container {
             position: relative;
             width: 100%;
-            height: 100%;
-            min-height: 600px;
+            height: 600px;
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden; /* Important pour l'effet infini */
+            perspective: 1000px; /* Perspective caméra fixe */
+            overflow: visible;
         }
 
-        .iso-container {
+        .iso-plane {
             position: relative;
-            /* Perspective ajustée pour plus de profondeur */
-            transform: perspective(1500px) rotateX(50deg) rotateZ(-35deg) scale(1.2);
+            width: 600px;
+            height: 600px;
+            /* Rotation Isométrique Standard */
+            transform: rotateX(60deg) rotateZ(-45deg);
             transform-style: preserve-3d;
-            /* On déplace un peu la scène vers la droite pour laisser la place au texte */
-            left: 50px; 
+            transition: transform 0.5s ease-out;
         }
 
-        /* Le sol INFINI (avec masque de fondu) */
-        .iso-grid {
+        /* Grille "Blueprint" propre */
+        .grid-floor {
             position: absolute;
-            width: 2000px; /* Très grand */
-            height: 2000px;
-            left: -800px;
-            top: -800px;
+            width: 100%;
+            height: 100%;
             background-image: 
-                linear-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
-            background-size: 100px 100px;
-            transform: translateZ(-50px);
-            /* Le secret : un masque radial pour fondre les bords */
-            -webkit-mask-image: radial-gradient(circle at center, black 30%, transparent 70%);
-            mask-image: radial-gradient(circle at center, black 30%, transparent 70%);
+                linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 100px rgba(0,0,0,0.5);
+            background-color: rgba(11, 17, 33, 0.8);
         }
 
-        /* Lueur centrale sous le hub */
-        .iso-glow {
+        /* Cartes Flottantes (Style Verre) */
+        .node-card {
             position: absolute;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, transparent 70%);
-            transform: translateZ(-49px);
-            top: 50px;
-            left: 50px;
-            border-radius: 50%;
-        }
-
-        /* Les Cartes (Plus lumineuses et contrastées) */
-        .iso-card {
-            position: absolute;
-            width: 180px;
-            height: 110px;
-            background: rgba(15, 23, 42, 0.9);
-            /* Bordure lumineuse en haut pour simuler la lumière */
-            border-top: 1px solid rgba(255, 255, 255, 0.4);
-            border-left: 1px solid rgba(255, 255, 255, 0.2);
-            border-right: 1px solid rgba(0, 0, 0, 0.5);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+            width: 140px;
+            height: 90px;
+            background: rgba(21, 30, 50, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 12px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            /* Ombre portée réaliste */
-            box-shadow: 20px 20px 60px rgba(0,0,0,0.6);
-            transform-style: preserve-3d;
+            /* L'astuce pour qu'elles fassent face à la caméra */
+            transform: translateZ(40px) rotateZ(45deg) rotateX(-60deg); 
+            box-shadow: 10px 10px 30px rgba(0,0,0,0.4);
             transition: all 0.3s ease;
         }
 
-        .iso-card:hover {
-            transform: translateZ(15px);
-            background: rgba(30, 41, 59, 0.95);
+        .node-card:hover {
+            transform: translateZ(60px) rotateZ(45deg) rotateX(-60deg) scale(1.1);
             border-color: #10b981;
-            box-shadow: 0 0 30px rgba(16, 185, 129, 0.3);
+            box-shadow: 0 0 40px rgba(16, 185, 129, 0.3);
+            z-index: 50;
         }
 
-        /* Connexions (Plus visibles) */
-        .connection-line {
+        /* Positionnement sur la grille (en % pour être responsive) */
+        .pos-victim { top: 10%; left: 10%; }
+        .pos-mixer  { top: 40%; left: 40%; }
+        .pos-cex    { top: 70%; left: 70%; }
+        .pos-report { top: 70%; left: 10%; }
+
+        /* Lignes de connexion (Dessinées à plat sur la grille) */
+        .connector {
             position: absolute;
             height: 2px;
-            background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
+            background: rgba(59, 130, 246, 0.3);
             transform-origin: left center;
-            box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+            z-index: 0;
         }
 
-        .data-packet {
+        .packet {
             position: absolute;
-            width: 8px;
-            height: 8px;
+            width: 6px;
+            height: 6px;
             background: #fff;
             border-radius: 50%;
-            box-shadow: 0 0 10px #fff, 0 0 20px #10b981;
-            top: -3px;
-            animation: travel 3s infinite linear;
+            box-shadow: 0 0 10px #fff;
+            top: -2px;
+            animation: flow 2s infinite linear;
         }
 
-        @keyframes travel {
-            0% { left: 0; opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { left: 100%; opacity: 0; }
+        @keyframes flow {
+            from { left: 0; opacity: 0; }
+            50% { opacity: 1; }
+            to { left: 100%; opacity: 0; }
         }
 
-        /* UI Elements */
-        .glass-card-ui {
-            background: rgba(30, 41, 59, 0.4);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+        /* --- UI ELEMENTS --- */
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .gradient-text {
@@ -161,37 +146,39 @@
         body.english .lang-en { display: block; }
     </style>
 </head>
-<body class="text-slate-300 font-sans antialiased overflow-x-hidden">
+<body class="antialiased overflow-x-hidden">
 
     <!-- Navigation -->
-    <nav class="fixed w-full z-50 bg-[#020617]/90 backdrop-blur border-b border-slate-800/50">
+    <nav class="fixed w-full z-50 bg-klyr-dark/90 backdrop-blur border-b border-slate-800/50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
                 <div class="flex items-center gap-3">
-                    <!-- LOGO SVG -->
-                    <div class="w-10 h-10 relative flex items-center justify-center">
-                        <svg width="40" height="40" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="50" cy="50" r="45" stroke="#1e3a8a" stroke-width="6"/>
-                            <path d="M50 20V50" stroke="#10b981" stroke-width="3" stroke-linecap="round"/>
-                            <path d="M50 50L75 25" stroke="#10b981" stroke-width="3" stroke-linecap="round"/>
-                            <path d="M50 50L25 25" stroke="#10b981" stroke-width="3" stroke-linecap="round"/>
-                            <path d="M50 50L25 75" stroke="#10b981" stroke-width="3" stroke-linecap="round"/>
-                            <path d="M50 50L75 75" stroke="#10b981" stroke-width="3" stroke-linecap="round"/>
-                            <circle cx="50" cy="50" r="8" fill="#1e3a8a" stroke="#10b981" stroke-width="3"/>
-                            <path d="M82 82L95 95" stroke="#1e3a8a" stroke-width="8" stroke-linecap="round"/>
+                    <!-- LOGO SVG CORRIGÉ (Code direct, couleur forcée) -->
+                    <div class="w-10 h-10 text-white">
+                        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+                            <circle cx="50" cy="50" r="45" stroke="currentColor" stroke-width="6"/>
+                            <!-- Circuit interne Vert -->
+                            <path d="M50 20V50" stroke="#10b981" stroke-width="4" stroke-linecap="round"/>
+                            <path d="M50 50L75 25" stroke="#10b981" stroke-width="4" stroke-linecap="round"/>
+                            <path d="M50 50L25 25" stroke="#10b981" stroke-width="4" stroke-linecap="round"/>
+                            <path d="M50 50L25 75" stroke="#10b981" stroke-width="4" stroke-linecap="round"/>
+                            <path d="M50 50L75 75" stroke="#10b981" stroke-width="4" stroke-linecap="round"/>
+                            <circle cx="50" cy="50" r="6" fill="#10b981"/>
+                            <!-- Manche Loupe -->
+                            <path d="M82 82L95 95" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
                         </svg>
                     </div>
                     <span class="text-2xl font-bold text-white tracking-widest">KLYR</span>
                 </div>
                 
                 <div class="flex items-center gap-6">
-                    <div class="hidden md:flex space-x-6 text-sm font-medium">
+                    <div class="hidden md:flex space-x-6 text-sm font-medium text-slate-300">
                         <a href="#particuliers" class="hover:text-klyr-green transition"><span class="lang-fr">Offres</span><span class="lang-en">Pricing</span></a>
                         <a href="#methodologie" class="hover:text-klyr-green transition"><span class="lang-fr">Méthode</span><span class="lang-en">Process</span></a>
                         <a href="#avocats" class="hover:text-klyr-green transition"><span class="lang-fr">Avocats</span><span class="lang-en">Lawyers</span></a>
                     </div>
                     
-                    <button onclick="toggleLang()" class="flex items-center gap-2 px-3 py-1 rounded border border-slate-700 hover:border-klyr-green transition text-xs font-mono">
+                    <button onclick="toggleLang()" class="flex items-center gap-2 px-3 py-1 rounded border border-slate-700 hover:border-klyr-green transition text-xs font-mono text-slate-300">
                         <i class="fas fa-globe"></i> <span id="lang-label">EN</span>
                     </button>
 
@@ -204,11 +191,11 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="relative pt-24 lg:pt-32 pb-20 overflow-hidden min-h-screen flex items-center">
+    <section class="relative pt-32 lg:pt-40 pb-20 overflow-hidden min-h-screen flex items-center">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
             <div class="grid lg:grid-cols-12 gap-12 items-center">
                 
-                <!-- Text Content (5 cols) -->
+                <!-- Text Content (Gauche) -->
                 <div class="lg:col-span-5 order-2 lg:order-1 relative z-20">
                     <div class="inline-flex items-center gap-2 mb-6 px-4 py-1.5 rounded-full bg-slate-800/80 border border-slate-700 text-klyr-green text-xs font-mono uppercase tracking-wider shadow-lg">
                         <span class="w-2 h-2 rounded-full bg-klyr-green animate-pulse"></span>
@@ -220,7 +207,7 @@
                         <span class="lang-en">We trace what <br><span class="text-klyr-green drop-shadow-[0_0_15px_rgba(16,185,129,0.5)]">others cannot see.</span></span>
                     </h1>
                     
-                    <p class="text-lg text-slate-400 mb-10 leading-relaxed">
+                    <p class="text-lg text-slate-400 mb-10 max-w-lg leading-relaxed">
                         <span class="lang-fr">
                             Mixers, bridges, sauts cross-chain. Nous transformons la donnée brute en <strong>preuves judiciaires</strong> exploitables (Rapport PDF + CSV Evidence) pour votre avocat.
                         </span>
@@ -234,66 +221,63 @@
                             <i class="fas fa-envelope"></i> 
                             <span class="lang-fr">Expliquer mon cas</span><span class="lang-en">Explain my case</span>
                         </a>
-                        <a href="https://calendar.app.google/bQWcTHd22XDzuCt6A" target="_blank" class="glass-card-ui text-white font-bold py-4 px-8 rounded-lg hover:bg-slate-800 transition flex items-center justify-center gap-2">
+                        <a href="https://calendar.app.google/bQWcTHd22XDzuCt6A" target="_blank" class="glass-panel text-white font-bold py-4 px-8 rounded-lg hover:bg-slate-800 transition flex items-center justify-center gap-2">
                             <i class="fas fa-phone"></i> 
                             <span class="lang-fr">Audit gratuit (15 min)</span><span class="lang-en">Free Audit (15 min)</span>
                         </a>
                     </div>
                 </div>
 
-                <!-- 3D Isometric Visual (7 cols) -->
-                <div class="lg:col-span-7 order-1 lg:order-2 h-[600px] relative">
-                    <div class="iso-scene-wrapper">
-                        <div class="iso-container">
-                            <!-- La Grille (Sol Infini) -->
-                            <div class="iso-grid"></div>
-                            
-                            <!-- Lueur d'ambiance -->
-                            <div class="iso-glow"></div>
+                <!-- 3D Scene (Droite) - CORRIGÉE -->
+                <div class="lg:col-span-7 order-1 lg:order-2 h-[500px] relative">
+                    <div class="scene-container">
+                        <!-- Le Plateau Isométrique -->
+                        <div class="iso-plane">
+                            <div class="grid-floor"></div>
 
-                            <!-- Card 1: Victim (Top Left) -->
-                            <div class="iso-card" style="top: 0px; left: 0px;">
-                                <div class="w-10 h-10 rounded-full bg-red-500/20 flex items-center justify-center mb-2 border border-red-500/50 shadow-[0_0_15px_rgba(239,68,68,0.3)]">
-                                    <i class="fas fa-user text-red-400"></i>
+                            <!-- Carte 1: Victime -->
+                            <div class="node-card pos-victim">
+                                <div class="w-8 h-8 rounded-full bg-red-500/20 flex items-center justify-center mb-1 border border-red-500">
+                                    <i class="fas fa-user text-red-500 text-sm"></i>
                                 </div>
-                                <span class="text-[10px] text-slate-400 font-mono tracking-widest uppercase">Victim Wallet</span>
-                                <span class="text-sm font-bold text-white mt-1">-45k USDC</span>
+                                <span class="text-[10px] text-slate-400 font-mono">VICTIM</span>
+                                <span class="text-xs font-bold text-white">-45k USDC</span>
                             </div>
 
-                            <!-- Card 2: Mixer (Center) -->
-                            <div class="iso-card" style="top: 200px; left: 250px; transform: translateZ(40px); border-color: #10b981; box-shadow: 0 0 50px rgba(16,185,129,0.2);">
-                                <div class="w-12 h-12 rounded-full bg-klyr-green/20 flex items-center justify-center mb-2 border border-klyr-green shadow-[0_0_20px_rgba(16,185,129,0.4)]">
-                                    <i class="fas fa-random text-klyr-green text-xl"></i>
+                            <!-- Carte 2: Mixer (Centre) -->
+                            <div class="node-card pos-mixer" style="border-color: #10b981; box-shadow: 0 0 20px rgba(16,185,129,0.2);">
+                                <div class="w-10 h-10 rounded-full bg-klyr-green/20 flex items-center justify-center mb-1 border border-klyr-green">
+                                    <i class="fas fa-random text-klyr-green text-lg"></i>
                                 </div>
-                                <span class="text-[10px] text-klyr-green font-mono font-bold tracking-widest uppercase">Mixer / Hub</span>
-                                <span class="text-[10px] text-slate-300 mt-1">Demixing...</span>
+                                <span class="text-[10px] text-klyr-green font-mono font-bold">MIXER / HUB</span>
                             </div>
 
-                            <!-- Card 3: CEX (Bottom Right) -->
-                            <div class="iso-card" style="top: 400px; left: 500px;">
-                                <div class="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center mb-2 border border-blue-500/50 shadow-[0_0_15px_rgba(59,130,246,0.3)]">
-                                    <i class="fas fa-building text-blue-400"></i>
+                            <!-- Carte 3: CEX -->
+                            <div class="node-card pos-cex">
+                                <div class="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center mb-1 border border-blue-500">
+                                    <i class="fas fa-building text-blue-500 text-sm"></i>
                                 </div>
-                                <span class="text-[10px] text-slate-400 font-mono tracking-widest uppercase">Exchange (KYC)</span>
-                                <span class="text-xs font-bold text-white mt-1">BINANCE / KRAKEN</span>
+                                <span class="text-[10px] text-slate-400 font-mono">EXCHANGE</span>
+                                <span class="text-xs font-bold text-white">BINANCE</span>
                             </div>
 
-                            <!-- Card 4: Report (Bottom Left) -->
-                            <div class="iso-card" style="top: 400px; left: 0px; border-style: dashed; background: rgba(15,23,42,0.3);">
-                                <i class="fas fa-file-contract text-slate-500 text-3xl mb-2"></i>
-                                <span class="text-[10px] text-slate-500 font-mono tracking-widest uppercase">Evidence Pack</span>
-                                <span class="text-[9px] text-slate-500 mt-1">Ready for Court</span>
+                            <!-- Carte 4: Rapport -->
+                            <div class="node-card pos-report" style="border-style: dashed; background: rgba(11,17,33,0.6);">
+                                <i class="fas fa-file-contract text-slate-500 text-2xl mb-1"></i>
+                                <span class="text-[10px] text-slate-500 font-mono">EVIDENCE</span>
                             </div>
 
-                            <!-- Connections -->
-                            <div class="connection-line" style="width: 320px; top: 100px; left: 90px; transform: rotate(38deg);">
-                                <div class="data-packet"></div>
+                            <!-- Connexions (Lignes sur le sol) -->
+                            <!-- Victime -> Mixer -->
+                            <div class="connector" style="width: 250px; top: 25%; left: 15%; transform: rotate(45deg);">
+                                <div class="packet"></div>
                             </div>
-                            <div class="connection-line" style="width: 350px; top: 300px; left: 340px; transform: rotate(38deg);">
-                                <div class="data-packet" style="animation-delay: 1.5s;"></div>
+                            <!-- Mixer -> CEX -->
+                            <div class="connector" style="width: 250px; top: 55%; left: 45%; transform: rotate(45deg);">
+                                <div class="packet" style="animation-delay: 1s;"></div>
                             </div>
-                            <!-- Dashed Line to Report -->
-                            <div class="connection-line" style="width: 250px; top: 320px; left: 130px; transform: rotate(140deg); border-style: dotted; background: none; border-top: 2px dotted rgba(255,255,255,0.1);"></div>
+                             <!-- Mixer -> Report -->
+                             <div class="connector" style="width: 250px; top: 55%; left: 15%; transform: rotate(135deg); border-top: 1px dashed rgba(255,255,255,0.2); background: none;"></div>
 
                         </div>
                     </div>
@@ -316,8 +300,8 @@
             </div>
             <div class="grid md:grid-cols-3 gap-8">
                 <!-- Step 1 -->
-                <div class="p-8 rounded-2xl bg-[#0F172A] border border-slate-800 hover:border-klyr-green/50 transition duration-300 shadow-lg">
-                    <div class="text-4xl font-bold text-slate-800 mb-4">01</div>
+                <div class="p-8 rounded-2xl bg-klyr-card border border-slate-800 hover:border-klyr-green/50 transition duration-300 shadow-lg">
+                    <div class="text-4xl font-bold text-slate-700 mb-4">01</div>
                     <h3 class="text-xl font-bold text-white mb-3"><span class="lang-fr">Collecte & Triage</span><span class="lang-en">Collect & Triage</span></h3>
                     <p class="text-slate-400 text-sm leading-relaxed">
                         <span class="lang-fr">Réception du contexte et des adresses. Triage gratuit sous 24h pour confirmer la faisabilité technique avant tout paiement.</span>
@@ -325,8 +309,8 @@
                     </p>
                 </div>
                 <!-- Step 2 -->
-                <div class="p-8 rounded-2xl bg-[#0F172A] border border-slate-800 hover:border-klyr-green/50 transition duration-300 shadow-lg">
-                    <div class="text-4xl font-bold text-slate-800 mb-4">02</div>
+                <div class="p-8 rounded-2xl bg-klyr-card border border-slate-800 hover:border-klyr-green/50 transition duration-300 shadow-lg">
+                    <div class="text-4xl font-bold text-slate-700 mb-4">02</div>
                     <h3 class="text-xl font-bold text-white mb-3"><span class="lang-fr">Traçage & Corrélation</span><span class="lang-en">Trace & Correlate</span></h3>
                     <p class="text-slate-400 text-sm leading-relaxed">
                         <span class="lang-fr">Suivi des fonds (EVM/BTC). Identification des hubs, démixage et corrélation avec des identités réelles (CEX, IBAN).</span>
@@ -334,8 +318,8 @@
                     </p>
                 </div>
                 <!-- Step 3 -->
-                <div class="p-8 rounded-2xl bg-[#0F172A] border border-slate-800 hover:border-klyr-green/50 transition duration-300 shadow-lg">
-                    <div class="text-4xl font-bold text-slate-800 mb-4">03</div>
+                <div class="p-8 rounded-2xl bg-klyr-card border border-slate-800 hover:border-klyr-green/50 transition duration-300 shadow-lg">
+                    <div class="text-4xl font-bold text-slate-700 mb-4">03</div>
                     <h3 class="text-xl font-bold text-white mb-3"><span class="lang-fr">Rapport Probatoire</span><span class="lang-en">Evidence Report</span></h3>
                     <p class="text-slate-400 text-sm leading-relaxed">
                         <span class="lang-fr">Livraison du "Recovery-readiness pack" : Rapport PDF, CSV d'evidence et modèles de réquisitions pour la police.</span>
@@ -362,7 +346,7 @@
 
                 <div class="grid lg:grid-cols-4 gap-6">
                     <!-- Light -->
-                    <div class="glass-card-ui p-6 rounded-2xl border-t-2 border-slate-600 hover:bg-slate-800 transition duration-300 opacity-75 hover:opacity-100">
+                    <div class="glass-panel p-6 rounded-2xl border-t-2 border-slate-600 hover:bg-slate-800 transition duration-300 opacity-75 hover:opacity-100">
                         <h3 class="text-lg font-bold text-white">Light</h3>
                         <div class="text-3xl font-bold text-white my-3">350 €</div>
                         <p class="text-xs text-slate-400 mb-4 font-mono bg-slate-800 p-1 rounded inline-block"><span class="lang-fr">Dossier simple</span><span class="lang-en">Simple case</span></p>
@@ -375,7 +359,7 @@
                     </div>
 
                     <!-- Starter -->
-                    <div class="glass-card-ui p-6 rounded-2xl border-t-2 border-blue-500 hover:bg-slate-800 transition duration-300">
+                    <div class="glass-panel p-6 rounded-2xl border-t-2 border-blue-500 hover:bg-slate-800 transition duration-300">
                         <h3 class="text-lg font-bold text-white">Starter</h3>
                         <div class="text-3xl font-bold text-blue-400 my-3">490 €</div>
                         <p class="text-xs text-slate-400 mb-4 font-mono bg-slate-800 p-1 rounded inline-block">48h</p>
@@ -388,7 +372,7 @@
                     </div>
 
                     <!-- Express (Highlighted) -->
-                    <div class="glass-card-ui p-6 rounded-2xl border-t-2 border-klyr-green relative transform scale-105 shadow-2xl shadow-klyr-green/5 z-10 bg-[#131d33]">
+                    <div class="glass-panel p-6 rounded-2xl border-t-2 border-klyr-green relative transform scale-105 shadow-2xl shadow-klyr-green/5 z-10 bg-[#131d33]">
                         <div class="absolute top-0 right-0 bg-klyr-green text-klyr-dark text-[10px] font-bold px-2 py-1 rounded-bl-lg">POPULAIRE</div>
                         <h3 class="text-lg font-bold text-white">Express</h3>
                         <div class="text-3xl font-bold text-klyr-green my-3">890 €</div>
@@ -403,7 +387,7 @@
                     </div>
 
                     <!-- Complet -->
-                    <div class="glass-card-ui p-6 rounded-2xl border-t-2 border-purple-500 hover:bg-slate-800 transition duration-300">
+                    <div class="glass-panel p-6 rounded-2xl border-t-2 border-purple-500 hover:bg-slate-800 transition duration-300">
                         <h3 class="text-lg font-bold text-white">Complet</h3>
                         <div class="text-3xl font-bold text-purple-400 my-3">1 190 €</div>
                         <p class="text-xs text-slate-400 mb-4 font-mono bg-slate-800 p-1 rounded inline-block">≤ 5 jours</p>
@@ -426,11 +410,11 @@
                         <i class="fas fa-building text-2xl text-blue-400"></i>
                         <h2 class="text-2xl font-bold text-white"><span class="lang-fr">Entreprises & Web3</span><span class="lang-en">Business & Web3</span></h2>
                     </div>
-                    <div class="bg-slate-800/50 p-6 rounded-xl mb-4 border border-slate-700 hover:border-blue-500/30 transition">
+                    <div class="bg-klyr-card p-6 rounded-xl mb-4 border border-slate-700 hover:border-blue-500/30 transition">
                         <h3 class="text-lg font-bold text-white flex justify-between">Incident Response <span class="text-blue-400">4 900 - 9 800 €</span></h3>
                         <p class="text-sm text-slate-400 mt-2"><span class="lang-fr">Réponse à hack/exploit. Triage 24h, containment, traçage complet, dossier interne actionnable pour assurances.</span><span class="lang-en">Hack/exploit response. 24h triage, containment, full tracing, actionable internal report for insurance.</span></p>
                     </div>
-                    <div class="bg-slate-800/50 p-6 rounded-xl border border-slate-700 hover:border-blue-500/30 transition">
+                    <div class="bg-klyr-card p-6 rounded-xl border border-slate-700 hover:border-blue-500/30 transition">
                         <h3 class="text-lg font-bold text-white flex justify-between">Due Diligence / Pre-trade <span class="text-blue-400">Dès 490 €</span></h3>
                         <p class="text-sm text-slate-400 mt-2"><span class="lang-fr">Vérification des contreparties, analyse d'exposition aux risques (AML), red flags avant transaction.</span><span class="lang-en">Counterparty verification, AML risk exposure analysis, red flags check before transaction.</span></p>
                     </div>
@@ -486,7 +470,7 @@
 
     <!-- CONTACT SECTION -->
     <section id="contact" class="py-20 relative overflow-hidden">
-        <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-full h-full bg-gradient-to-b from-[#020617] to-blue-900/10 z-0"></div>
+        <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-full h-full bg-gradient-to-b from-klyr-dark to-blue-900/10 z-0"></div>
 
         <div class="max-w-4xl mx-auto px-4 relative z-10">
             <div class="bg-slate-800/80 backdrop-blur border border-slate-700 rounded-2xl p-8 md:p-12 shadow-2xl">
@@ -525,7 +509,7 @@
         </div>
     </section>
 
-    <footer class="bg-[#020617] border-t border-slate-800 py-12 text-center">
+    <footer class="bg-klyr-dark border-t border-slate-800 py-12 text-center">
         <div class="max-w-7xl mx-auto px-4">
             <p class="text-slate-600 text-sm">&copy; 2026 KLYR. On-Chain Forensics.</p>
         </div>
