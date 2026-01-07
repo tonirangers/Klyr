@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KLYR | Investigations Crypto & Forensics</title>
     <meta name="description" content="Cabinet d'investigation blockchain français. Traçage de fonds, rapports d'expertise pour avocats et victimes. SIRET 514 635 382.">
+    
+    <!-- FAVICON (Icône Loupe Blanche dans l'onglet) -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='45' cy='45' r='30' stroke='white' stroke-width='8' fill='none'/><path d='M68 68L90 90' stroke='white' stroke-width='10' stroke-linecap='round'/></svg>">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script>
@@ -61,11 +65,37 @@
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.08);
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            position: relative;
+            overflow: hidden; /* Pour contenir l'effet de scan */
         }
 
         .glass-panel:hover {
             border-color: rgba(16, 185, 129, 0.3);
             background: rgba(21, 30, 50, 0.9);
+        }
+
+        /* EFFET "SCAN ON HOVER" (Le petit caprice fun & pro) */
+        .glass-panel::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom,
+                transparent,
+                rgba(16, 185, 129, 0.1),
+                transparent
+            );
+            transform: rotate(45deg) translateY(-100%);
+            transition: transform 0.6s;
+            pointer-events: none;
+        }
+
+        .glass-panel:hover::after {
+            transform: rotate(45deg) translateY(100%);
+            transition: transform 0.6s;
         }
 
         .gradient-text {
@@ -74,14 +104,11 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* --- ANIMATIONS DASHBOARD (Subtiles & Techniques) --- */
-        
-        /* 1. Lévitation légère */
+        /* --- ANIMATIONS DASHBOARD --- */
         .animate-float {
             animation: float 6s ease-in-out infinite;
         }
 
-        /* 2. Flux de données (Data Flow) */
         @keyframes moveRight {
             0% { left: 0; opacity: 0; }
             20% { opacity: 1; }
@@ -98,7 +125,7 @@
             animation: moveRight 2s linear infinite;
         }
 
-        /* 3. Console Logs (Lignes de code qui défilent) */
+        /* Console Logs */
         .console-logs {
             font-family: 'Fira Code', monospace;
             font-size: 10px;
@@ -126,7 +153,7 @@
             100% { opacity: 0; transform: translateY(-10px); }
         }
 
-        /* --- STRUCTURE DU DASHBOARD --- */
+        /* --- STRUCTURE DASHBOARD --- */
         .flow-node {
             background: rgba(11, 17, 33, 0.95);
             border: 1px solid rgba(255,255,255,0.1);
@@ -174,12 +201,10 @@
                 
                 <!-- Logo & Brand -->
                 <div class="flex items-center gap-3">
-                    <!-- LOGO KLYR SVG (Loupe Blanche Minimaliste) -->
+                    <!-- LOGO SVG (Loupe Blanche Minimaliste) -->
                     <div class="w-10 h-10 text-white relative">
                         <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full drop-shadow-md">
-                            <!-- Cercle de la loupe -->
                             <circle cx="45" cy="45" r="30" stroke="white" stroke-width="6"/>
-                            <!-- Manche de la loupe -->
                             <path d="M68 68L90 90" stroke="white" stroke-width="8" stroke-linecap="round"/>
                         </svg>
                     </div>
@@ -238,7 +263,6 @@
                 
                 <!-- Text Content -->
                 <div class="order-2 lg:order-1">
-                    <!-- BADGE DRAPEAU FRANCAIS -->
                     <div class="inline-flex items-center gap-2 mb-6 px-4 py-1.5 rounded-full bg-slate-800/80 border border-slate-700 text-klyr-accent text-xs font-mono uppercase tracking-wider shadow-lg">
                         <span class="w-2 h-2 rounded-full bg-klyr-accent animate-pulse"></span>
                         <span class="lang-fr">Entreprise Française Certifiée 🇫🇷</span><span class="lang-en">Certified French Company 🇫🇷</span>
@@ -345,7 +369,7 @@
         </div>
     </section>
 
-    <!-- SECTION HUMAN & TRUST (Expertise) -->
+    <!-- SECTION HUMAN & TRUST -->
     <section id="humain" class="py-20 bg-[#0F172A] border-y border-slate-800">
         <div class="max-w-7xl mx-auto px-4">
             <div class="grid md:grid-cols-2 gap-12 items-center">
@@ -408,6 +432,50 @@
                         <h3 class="text-white font-bold mb-1">Support</h3>
                         <p class="text-xs text-slate-400">Accompagnement humain dédié</p>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Methodology (CATC KLYR) -->
+    <section id="methodologie" class="py-20 border-y border-slate-800 bg-[#0d1426]">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-white mb-4">
+                    <span class="lang-fr">Méthodologie CATC</span><span class="lang-en">CATC Methodology</span>
+                </h2>
+                <p class="text-slate-400">
+                    <span class="lang-fr">Notre standard d'investigation (Collecte - Analyse - Traçage - Corrélation).</span>
+                    <span class="lang-en">Our investigation standard (Collect - Analyze - Trace - Correlate).</span>
+                </p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Step 1 (Scan effect on hover) -->
+                <div class="glass-panel p-8 rounded-2xl hover:border-klyr-accent/50 transition duration-300 group">
+                    <div class="text-4xl font-bold text-slate-700 mb-4 group-hover:text-klyr-accent transition">01</div>
+                    <h3 class="text-xl font-bold text-white mb-3"><span class="lang-fr">Collecte & Triage</span><span class="lang-en">Collect & Triage</span></h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        <span class="lang-fr">Réception du contexte et des adresses. Triage gratuit sous 24h pour confirmer la faisabilité technique avant tout paiement.</span>
+                        <span class="lang-en">Context and address intake. Free 24h triage to confirm technical feasibility before any payment.</span>
+                    </p>
+                </div>
+                <!-- Step 2 (Scan effect on hover) -->
+                <div class="glass-panel p-8 rounded-2xl hover:border-klyr-accent/50 transition duration-300 group">
+                    <div class="text-4xl font-bold text-slate-700 mb-4 group-hover:text-klyr-accent transition">02</div>
+                    <h3 class="text-xl font-bold text-white mb-3"><span class="lang-fr">Traçage & Corrélation</span><span class="lang-en">Trace & Correlate</span></h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        <span class="lang-fr">Suivi des fonds (EVM/BTC). Identification des hubs, démixage et corrélation avec des identités réelles (CEX, IBAN).</span>
+                        <span class="lang-en">Fund tracking (EVM/BTC). Hub identification, demixing, and correlation with real identities (CEX, IBAN).</span>
+                    </p>
+                </div>
+                <!-- Step 3 (Scan effect on hover) -->
+                <div class="glass-panel p-8 rounded-2xl hover:border-klyr-accent/50 transition duration-300 group">
+                    <div class="text-4xl font-bold text-slate-700 mb-4 group-hover:text-klyr-accent transition">03</div>
+                    <h3 class="text-xl font-bold text-white mb-3"><span class="lang-fr">Rapport Probatoire</span><span class="lang-en">Evidence Report</span></h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        <span class="lang-fr">Livraison du "Recovery-readiness pack" : Rapport PDF, CSV d'evidence et modèles de réquisitions pour la police.</span>
+                        <span class="lang-en">Delivery of the "Recovery-readiness pack": PDF Report, CSV evidence, and subpoena templates for police.</span>
+                    </p>
                 </div>
             </div>
         </div>
