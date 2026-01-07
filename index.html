@@ -22,6 +22,16 @@
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
                         mono: ['Fira Code', 'monospace'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
                     }
                 }
             }
@@ -64,41 +74,18 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* --- ANIMATIONS CSS PURES (Pour garantir le fonctionnement) --- */
+        /* --- ANIMATIONS DASHBOARD (Subtiles & Techniques) --- */
         
-        /* 1. Lévitation du Dashboard */
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
+        /* 1. Lévitation légère */
         .animate-float {
             animation: float 6s ease-in-out infinite;
         }
 
-        /* 2. Scanner Laser (Ligne verte qui descend) */
-        @keyframes scan {
-            0% { top: -10%; opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { top: 110%; opacity: 0; }
-        }
-        .scan-line {
-            position: absolute;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(to right, transparent, #10b981, transparent);
-            box-shadow: 0 0 15px #10b981;
-            z-index: 20;
-            animation: scan 3s linear infinite;
-            pointer-events: none;
-        }
-
-        /* 3. Flux de données (Points qui bougent) */
+        /* 2. Flux de données (Data Flow) */
         @keyframes moveRight {
             0% { left: 0; opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
+            20% { opacity: 1; }
+            80% { opacity: 1; }
             100% { left: 100%; opacity: 0; }
         }
         .flow-dot {
@@ -108,30 +95,38 @@
             background: linear-gradient(90deg, transparent, #10b981);
             top: 0;
             box-shadow: 0 0 10px #10b981;
-            animation: moveRight 1.5s linear infinite;
+            animation: moveRight 2s linear infinite;
         }
 
-        /* 4. Pulsation Radar */
-        @keyframes pulse-ring {
-            0% { transform: scale(0.8); opacity: 1; }
-            100% { transform: scale(1.5); opacity: 0; }
+        /* 3. Console Logs (Lignes de code qui défilent) */
+        .console-logs {
+            font-family: 'Fira Code', monospace;
+            font-size: 10px;
+            color: #10b981;
+            opacity: 0.8;
+            line-height: 1.6;
+            overflow: hidden;
+            height: 60px;
+            position: relative;
         }
-        .pulse-effect::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            border-radius: 8px;
-            border: 1px solid #10b981;
-            animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
-            z-index: -1;
+        
+        .log-line {
+            animation: fadeLog 4s infinite;
+            display: block;
+        }
+        
+        .log-line:nth-child(1) { animation-delay: 0s; }
+        .log-line:nth-child(2) { animation-delay: 1.3s; }
+        .log-line:nth-child(3) { animation-delay: 2.6s; }
+
+        @keyframes fadeLog {
+            0% { opacity: 0; transform: translateY(10px); }
+            10% { opacity: 1; transform: translateY(0); }
+            90% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-10px); }
         }
 
         /* --- STRUCTURE DU DASHBOARD --- */
-        .flow-container {
-            position: relative;
-            overflow: hidden; /* Important pour que le scan ne sorte pas */
-        }
-
         .flow-node {
             background: rgba(11, 17, 33, 0.95);
             border: 1px solid rgba(255,255,255,0.1);
@@ -148,7 +143,7 @@
 
         .flow-node.active {
             border-color: #10b981;
-            box-shadow: 0 0 25px rgba(16, 185, 129, 0.15);
+            box-shadow: 0 0 25px rgba(16, 185, 129, 0.1);
         }
 
         .flow-line {
@@ -179,21 +174,13 @@
                 
                 <!-- Logo & Brand -->
                 <div class="flex items-center gap-3">
-                    <!-- LOGO KLYR SVG (Loupe Blanche Pure) -->
+                    <!-- LOGO KLYR SVG (Loupe Blanche Minimaliste) -->
                     <div class="w-10 h-10 text-white relative">
                         <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full drop-shadow-md">
-                            <!-- Cercle Extérieur Blanc -->
-                            <circle cx="50" cy="50" r="45" stroke="white" stroke-width="5"/>
-                            <!-- Circuit Intérieur Blanc (Pas de vert) -->
-                            <path d="M50 15V50" stroke="white" stroke-width="4" stroke-linecap="round"/>
-                            <path d="M50 50L80 30" stroke="white" stroke-width="4" stroke-linecap="round"/>
-                            <path d="M50 50L20 30" stroke="white" stroke-width="4" stroke-linecap="round"/>
-                            <path d="M50 50L30 80" stroke="white" stroke-width="4" stroke-linecap="round"/>
-                            <path d="M50 50L70 80" stroke="white" stroke-width="4" stroke-linecap="round"/>
-                            <!-- Point Central Blanc -->
-                            <circle cx="50" cy="50" r="8" fill="white"/>
-                            <!-- Manche de la loupe Blanc -->
-                            <path d="M85 85L95 95" stroke="white" stroke-width="8" stroke-linecap="round"/>
+                            <!-- Cercle de la loupe -->
+                            <circle cx="45" cy="45" r="30" stroke="white" stroke-width="6"/>
+                            <!-- Manche de la loupe -->
+                            <path d="M68 68L90 90" stroke="white" stroke-width="8" stroke-linecap="round"/>
                         </svg>
                     </div>
                     <span class="text-2xl font-bold text-white tracking-widest">KLYR</span>
@@ -286,13 +273,10 @@
                     </p>
                 </div>
 
-                <!-- Visual: Dashboard Animé (SCANNER + FLOW) -->
+                <!-- Visual: Dashboard Forensic (Console + Flow) -->
                 <div class="order-1 lg:order-2 flex justify-center items-center w-full">
                     <div class="flow-container animate-float relative w-full max-w-lg bg-slate-900/40 border border-slate-800 rounded-2xl p-6 md:p-8 backdrop-blur-sm shadow-2xl">
                         
-                        <!-- SCANNER LASER EFFECT (Ligne verte qui descend) -->
-                        <div class="scan-line"></div>
-
                         <!-- Header du Dashboard -->
                         <div class="flex justify-between items-center mb-8 border-b border-slate-800 pb-4">
                             <div class="text-xs font-mono text-slate-500">CASE ID: #KLYR-8921</div>
@@ -303,7 +287,7 @@
                         </div>
 
                         <!-- Le Flux -->
-                        <div class="flex flex-col justify-between gap-6 relative">
+                        <div class="flex flex-col justify-between gap-6 relative mb-6">
                             <!-- Ligne verticale connectrice -->
                             <div class="absolute left-[24px] top-[20px] bottom-[20px] w-[2px] bg-slate-800 z-0">
                                 <div class="absolute w-full h-[40%] bg-klyr-accent opacity-50 top-0 animate-pulse"></div>
@@ -321,8 +305,8 @@
                                 <div class="text-xs text-red-400 font-mono">-45k</div>
                             </div>
 
-                            <!-- Node 2: Mixer (AVEC PULSE RADAR) -->
-                            <div class="flow-node active ml-8 pulse-effect">
+                            <!-- Node 2: Mixer -->
+                            <div class="flow-node active ml-8">
                                 <div class="w-10 h-10 rounded bg-klyr-accent/10 border border-klyr-accent/30 flex items-center justify-center text-klyr-accent shrink-0">
                                     <i class="fas fa-random"></i>
                                 </div>
@@ -346,13 +330,15 @@
                             </div>
                         </div>
 
-                        <!-- Footer du Dashboard -->
-                        <div class="mt-8 pt-4 border-t border-slate-800 flex justify-between items-center">
-                            <div class="text-[10px] text-slate-600 font-mono">STATUS: CONFIRMED</div>
-                            <div class="bg-slate-800 px-2 py-1 rounded text-[10px] text-klyr-accent font-mono border border-slate-700">
-                                CONFIDENCE: 98%
+                        <!-- Console Logs (L'effet "Matrix/Expert") -->
+                        <div class="bg-black/50 rounded p-3 border border-slate-800">
+                            <div class="console-logs">
+                                <span class="log-line">> Initiating deep scan on 0x7a...</span>
+                                <span class="log-line">> Hop detected: Tornado Cash Router</span>
+                                <span class="log-line">> Correlation found: Binance Deposit 14:02 UTC</span>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
