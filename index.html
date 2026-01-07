@@ -6,7 +6,7 @@
     <title>KLYR | Investigations Crypto & Forensics</title>
     <meta name="description" content="Cabinet d'investigation blockchain français. Traçage de fonds, rapports d'expertise pour avocats et victimes. SIRET 514 635 382.">
     
-    <!-- FAVICON (Icône Loupe Blanche dans l'onglet) -->
+    <!-- FAVICON -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='45' cy='45' r='30' stroke='white' stroke-width='8' fill='none'/><path d='M68 68L90 90' stroke='white' stroke-width='10' stroke-linecap='round'/></svg>">
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -66,7 +66,7 @@
             border: 1px solid rgba(255, 255, 255, 0.08);
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
             position: relative;
-            overflow: hidden; /* Pour contenir l'effet de scan */
+            overflow: hidden;
         }
 
         .glass-panel:hover {
@@ -74,7 +74,7 @@
             background: rgba(21, 30, 50, 0.9);
         }
 
-        /* EFFET "SCAN ON HOVER" (Le petit caprice fun & pro) */
+        /* Effet Scan on Hover */
         .glass-panel::after {
             content: '';
             position: absolute;
@@ -82,12 +82,7 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: linear-gradient(
-                to bottom,
-                transparent,
-                rgba(16, 185, 129, 0.1),
-                transparent
-            );
+            background: linear-gradient(to bottom, transparent, rgba(16, 185, 129, 0.1), transparent);
             transform: rotate(45deg) translateY(-100%);
             transition: transform 0.6s;
             pointer-events: none;
@@ -283,7 +278,7 @@
                     </p>
                     
                     <div class="flex flex-col sm:flex-row gap-4">
-                        <a href="mailto:dossiers@klyr-investigations.fr" class="bg-white text-klyr-bg font-bold py-4 px-8 rounded-lg hover:bg-gray-200 transition flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,255,255,0.15)]">
+                        <a href="#contact" class="bg-white text-klyr-bg font-bold py-4 px-8 rounded-lg hover:bg-gray-200 transition flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,255,255,0.15)]">
                             <i class="fas fa-envelope"></i> 
                             <span class="lang-fr">Expliquer mon cas</span><span class="lang-en">Explain my case</span>
                         </a>
@@ -354,7 +349,7 @@
                             </div>
                         </div>
 
-                        <!-- Console Logs (L'effet "Matrix/Expert") -->
+                        <!-- Console Logs -->
                         <div class="bg-black/50 rounded p-3 border border-slate-800">
                             <div class="console-logs">
                                 <span class="log-line">> Initiating deep scan on 0x7a...</span>
@@ -450,7 +445,7 @@
                 </p>
             </div>
             <div class="grid md:grid-cols-3 gap-8">
-                <!-- Step 1 (Scan effect on hover) -->
+                <!-- Step 1 -->
                 <div class="glass-panel p-8 rounded-2xl hover:border-klyr-accent/50 transition duration-300 group">
                     <div class="text-4xl font-bold text-slate-700 mb-4 group-hover:text-klyr-accent transition">01</div>
                     <h3 class="text-xl font-bold text-white mb-3"><span class="lang-fr">Collecte & Triage</span><span class="lang-en">Collect & Triage</span></h3>
@@ -459,7 +454,7 @@
                         <span class="lang-en">Context and address intake. Free 24h triage to confirm technical feasibility before any payment.</span>
                     </p>
                 </div>
-                <!-- Step 2 (Scan effect on hover) -->
+                <!-- Step 2 -->
                 <div class="glass-panel p-8 rounded-2xl hover:border-klyr-accent/50 transition duration-300 group">
                     <div class="text-4xl font-bold text-slate-700 mb-4 group-hover:text-klyr-accent transition">02</div>
                     <h3 class="text-xl font-bold text-white mb-3"><span class="lang-fr">Traçage & Corrélation</span><span class="lang-en">Trace & Correlate</span></h3>
@@ -468,7 +463,7 @@
                         <span class="lang-en">Fund tracking (EVM/BTC). Hub identification, demixing, and correlation with real identities (CEX, IBAN).</span>
                     </p>
                 </div>
-                <!-- Step 3 (Scan effect on hover) -->
+                <!-- Step 3 -->
                 <div class="glass-panel p-8 rounded-2xl hover:border-klyr-accent/50 transition duration-300 group">
                     <div class="text-4xl font-bold text-slate-700 mb-4 group-hover:text-klyr-accent transition">03</div>
                     <h3 class="text-xl font-bold text-white mb-3"><span class="lang-fr">Rapport Probatoire</span><span class="lang-en">Evidence Report</span></h3>
@@ -506,7 +501,7 @@
                             <li class="flex items-start"><i class="fas fa-check text-slate-500 mt-0.5 mr-2"></i> 1 Chaîne unique</li>
                             <li class="flex items-start"><i class="fas fa-check text-slate-500 mt-0.5 mr-2"></i> Rapport condensé</li>
                         </ul>
-                        <a href="mailto:dossiers@klyr-investigations.fr?subject=Pack%20Light" class="block w-full text-center border border-slate-600 hover:bg-slate-700 text-white font-bold py-2 rounded text-sm transition"><span class="lang-fr">Choisir Light</span><span class="lang-en">Select Light</span></a>
+                        <a href="#contact" class="block w-full text-center border border-slate-600 hover:bg-slate-700 text-white font-bold py-2 rounded text-sm transition"><span class="lang-fr">Choisir Light</span><span class="lang-en">Select Light</span></a>
                     </div>
 
                     <!-- Starter -->
@@ -519,7 +514,7 @@
                             <li class="flex items-start"><i class="fas fa-check text-blue-500 mt-0.5 mr-2"></i> 1 Circuit simple</li>
                             <li class="flex items-start"><i class="fas fa-check text-blue-500 mt-0.5 mr-2"></i> <strong>Recovery Pack</strong></li>
                         </ul>
-                        <a href="mailto:dossiers@klyr-investigations.fr?subject=Pack%20Starter" class="block w-full text-center bg-slate-700 hover:bg-slate-600 text-white font-bold py-2 rounded text-sm transition"><span class="lang-fr">Choisir Starter</span><span class="lang-en">Select Starter</span></a>
+                        <a href="#contact" class="block w-full text-center bg-slate-700 hover:bg-slate-600 text-white font-bold py-2 rounded text-sm transition"><span class="lang-fr">Choisir Starter</span><span class="lang-en">Select Starter</span></a>
                     </div>
 
                     <!-- Express (Highlighted) -->
@@ -534,7 +529,7 @@
                             <li class="flex items-start"><i class="fas fa-check text-klyr-accent mt-0.5 mr-2"></i> Traçage vers CEX</li>
                             <li class="flex items-start"><i class="fas fa-check text-klyr-accent mt-0.5 mr-2"></i> Schéma visuel complet</li>
                         </ul>
-                        <a href="mailto:dossiers@klyr-investigations.fr?subject=Pack%20Express" class="block w-full text-center bg-klyr-accent hover:bg-white hover:text-klyr-bg text-klyr-bg font-bold py-3 rounded text-sm transition"><span class="lang-fr">Choisir Express</span><span class="lang-en">Select Express</span></a>
+                        <a href="#contact" class="block w-full text-center bg-klyr-accent hover:bg-white hover:text-klyr-bg text-klyr-bg font-bold py-3 rounded text-sm transition"><span class="lang-fr">Choisir Express</span><span class="lang-en">Select Express</span></a>
                     </div>
 
                     <!-- Complet -->
@@ -547,7 +542,7 @@
                             <li class="flex items-start"><i class="fas fa-check text-purple-500 mt-0.5 mr-2"></i> Décodage logs de Bridge</li>
                             <li class="flex items-start"><i class="fas fa-check text-purple-500 mt-0.5 mr-2"></i> +1 Mise à jour (30j)</li>
                         </ul>
-                        <a href="mailto:dossiers@klyr-investigations.fr?subject=Pack%20Complet" class="block w-full text-center bg-slate-700 hover:bg-slate-600 text-white font-bold py-2 rounded text-sm transition"><span class="lang-fr">Choisir Complet</span><span class="lang-en">Select Complete</span></a>
+                        <a href="#contact" class="block w-full text-center bg-slate-700 hover:bg-slate-600 text-white font-bold py-2 rounded text-sm transition"><span class="lang-fr">Choisir Complet</span><span class="lang-en">Select Complete</span></a>
                     </div>
                 </div>
             </div>
@@ -645,15 +640,32 @@
 
                     <div class="bg-slate-900/50 p-6 rounded-xl border border-slate-700/50">
                         <h3 class="text-white font-bold text-sm mb-4 uppercase tracking-wider text-slate-500"><span class="lang-fr">Informations requises</span><span class="lang-en">Required Info</span></h3>
-                        <form action="mailto:dossiers@klyr-investigations.fr" method="post" enctype="text/plain" class="space-y-4">
-                            <div><label class="block text-xs text-slate-400 mb-1">Nom / Name</label><input type="text" name="nom" class="w-full bg-slate-800 border border-slate-600 rounded p-2 text-white text-sm focus:border-klyr-accent outline-none"></div>
-                            <div class="grid grid-cols-2 gap-4">
-                                <div><label class="block text-xs text-slate-400 mb-1">Montant / Amount</label><input type="text" name="montant" class="w-full bg-slate-800 border border-slate-600 rounded p-2 text-white text-sm outline-none"></div>
-                                <div><label class="block text-xs text-slate-400 mb-1">Date (UTC)</label><input type="text" name="date" class="w-full bg-slate-800 border border-slate-600 rounded p-2 text-white text-sm outline-none"></div>
+                        
+                        <!-- FORMULAIRE SÉCURISÉ (Option B) -->
+                        <form id="contactForm" class="space-y-4">
+                            <div>
+                                <label class="block text-xs text-slate-400 mb-1">Nom / Name</label>
+                                <input id="formName" type="text" class="w-full bg-slate-800 border border-slate-600 rounded p-2 text-white text-sm focus:border-klyr-accent outline-none" required>
                             </div>
-                            <div><label class="block text-xs text-slate-400 mb-1">Adresses / TXIDs</label><textarea name="adresses" rows="3" class="w-full bg-slate-800 border border-slate-600 rounded p-2 text-white text-sm font-mono outline-none"></textarea></div>
-                            <button type="submit" class="w-full bg-klyr-accent hover:bg-white hover:text-klyr-bg text-klyr-bg font-bold py-3 rounded transition duration-300"><span class="lang-fr">Préparer l'email</span><span class="lang-en">Draft Email</span></button>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs text-slate-400 mb-1">Montant / Amount</label>
+                                    <input id="formAmount" type="text" class="w-full bg-slate-800 border border-slate-600 rounded p-2 text-white text-sm outline-none" required>
+                                </div>
+                                <div>
+                                    <label class="block text-xs text-slate-400 mb-1">Date (UTC)</label>
+                                    <input id="formDate" type="text" class="w-full bg-slate-800 border border-slate-600 rounded p-2 text-white text-sm outline-none" required>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-xs text-slate-400 mb-1">Adresses / TXIDs</label>
+                                <textarea id="formAddress" rows="3" class="w-full bg-slate-800 border border-slate-600 rounded p-2 text-white text-sm font-mono outline-none" required></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-klyr-accent hover:bg-white hover:text-klyr-bg text-klyr-bg font-bold py-3 rounded transition duration-300">
+                                <span class="lang-fr">Préparer l'email</span><span class="lang-en">Draft Email</span>
+                            </button>
                         </form>
+
                     </div>
                 </div>
             </div>
@@ -670,6 +682,7 @@
     </footer>
 
     <script>
+        // --- GESTION LANGUES ---
         function toggleLang() {
             const body = document.body;
             const btn = document.getElementById('lang-label');
@@ -686,7 +699,7 @@
             }
         }
 
-        // Mobile Menu Logic
+        // --- MENU MOBILE ---
         const btn = document.getElementById('mobile-menu-btn');
         const menu = document.getElementById('mobile-menu');
 
@@ -698,6 +711,21 @@
                 menu.classList.add('mobile-hidden');
                 menu.classList.remove('mobile-visible');
             }
+        });
+
+        // --- FORMULAIRE SÉCURISÉ (JS) ---
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('formName').value;
+            const amount = document.getElementById('formAmount').value;
+            const date = document.getElementById('formDate').value;
+            const address = document.getElementById('formAddress').value;
+
+            const subject = "Nouveau dossier KLYR - " + name;
+            const body = `Nom: ${name}\nMontant: ${amount}\nDate: ${date}\n\nAdresses / TXIDs:\n${address}`;
+
+            window.location.href = `mailto:dossiers@klyr-investigations.fr?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
         });
     </script>
 </body>
