@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KLYR | On-Chain Forensics</title>
+    <title>KLYR | Investigations Crypto & Forensics</title>
+    <meta name="description" content="Cabinet d'investigation blockchain français. Traçage de fonds, rapports d'expertise pour avocats et victimes. SIRET 514 635 382.">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script>
@@ -12,10 +13,10 @@
                 extend: {
                     colors: {
                         klyr: {
-                            bg: '#0B1121',      // Fond principal
-                            surface: '#151e32', // Cartes
-                            accent: '#10b981',  // Vert KLYR
-                            blue: '#3b82f6',    // Bleu Tech
+                            bg: '#0B1121',      
+                            surface: '#151e32', 
+                            accent: '#10b981',  
+                            blue: '#3b82f6',    
                         }
                     },
                     fontFamily: {
@@ -24,16 +25,17 @@
                     },
                     animation: {
                         'float': 'float 6s ease-in-out infinite',
-                        'pulse-ring': 'pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'breathe': 'breathe 4s ease-in-out infinite',
                     },
                     keyframes: {
                         float: {
                             '0%, 100%': { transform: 'translateY(0)' },
                             '50%': { transform: 'translateY(-15px)' },
                         },
-                        'pulse-ring': {
-                            '0%': { transform: 'scale(0.8)', opacity: '1' },
-                            '100%': { transform: 'scale(2)', opacity: '0' },
+                        breathe: {
+                            '0%, 100%': { transform: 'scale(1)' },
+                            '50%': { transform: 'scale(1.02)' },
                         }
                     }
                 }
@@ -77,7 +79,7 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* --- DIAGRAMME ANIMÉ --- */
+        /* --- DIAGRAMME ANIMÉ (HERO) --- */
         .flow-container {
             animation: float 6s ease-in-out infinite;
         }
@@ -94,18 +96,14 @@
             z-index: 10;
             transition: all 0.3s ease;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            animation: breathe 4s ease-in-out infinite; /* Effet de respiration */
         }
 
-        .flow-node.active::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            border-radius: 8px;
-            border: 1px solid #10b981;
-            animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
-            z-index: -1;
-        }
-        
+        /* Décalage de l'animation pour chaque noeud */
+        .flow-node:nth-child(1) { animation-delay: 0s; }
+        .flow-node:nth-child(2) { animation-delay: 1s; }
+        .flow-node:nth-child(3) { animation-delay: 2s; }
+
         .flow-node.active {
             border-color: #10b981;
             box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
@@ -142,7 +140,6 @@
         body.english .lang-fr { display: none; }
         body.english .lang-en { display: block; }
         
-        /* Menu Mobile Transition */
         #mobile-menu { transition: all 0.3s ease-in-out; }
         .mobile-hidden { max-height: 0; opacity: 0; overflow: hidden; }
         .mobile-visible { max-height: 400px; opacity: 1; }
@@ -157,18 +154,26 @@
                 
                 <!-- Logo & Brand -->
                 <div class="flex items-center gap-3">
-                    <!-- LOGO SVG RENFORCÉ (Plus visible) -->
-                    <div class="w-12 h-12 text-white">
-                        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full drop-shadow-lg">
-                            <circle cx="50" cy="50" r="45" stroke="currentColor" stroke-width="6"/>
-                            <path d="M50 20V50" stroke="#10b981" stroke-width="5" stroke-linecap="round"/>
-                            <path d="M50 50L75 25" stroke="#10b981" stroke-width="5" stroke-linecap="round"/>
-                            <path d="M50 50L25 25" stroke="#10b981" stroke-width="5" stroke-linecap="round"/>
-                            <path d="M50 50L25 75" stroke="#10b981" stroke-width="5" stroke-linecap="round"/>
-                            <path d="M50 50L75 75" stroke="#10b981" stroke-width="5" stroke-linecap="round"/>
-                            <circle cx="50" cy="50" r="7" fill="#10b981"/>
-                            <path d="M82 82L95 95" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
-                        </svg>
+                    <div class="relative w-12 h-12 flex items-center justify-center">
+                        <!-- Priorité au PNG s'il existe -->
+                        <img src="logo.png" 
+                             class="w-full h-full object-contain" 
+                             alt="KLYR Logo" 
+                             onerror="this.style.display='none'; document.getElementById('fallback-logo').style.display='block';">
+                        
+                        <!-- SVG de secours (Blanc et Vert) -->
+                        <div id="fallback-logo" style="display:none;" class="w-10 h-10 text-white">
+                            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+                                <circle cx="50" cy="50" r="45" stroke="currentColor" stroke-width="6"/>
+                                <path d="M50 20V50" stroke="#10b981" stroke-width="4" stroke-linecap="round"/>
+                                <path d="M50 50L75 25" stroke="#10b981" stroke-width="4" stroke-linecap="round"/>
+                                <path d="M50 50L25 25" stroke="#10b981" stroke-width="4" stroke-linecap="round"/>
+                                <path d="M50 50L25 75" stroke="#10b981" stroke-width="4" stroke-linecap="round"/>
+                                <path d="M50 50L75 75" stroke="#10b981" stroke-width="4" stroke-linecap="round"/>
+                                <circle cx="50" cy="50" r="6" fill="#10b981"/>
+                                <path d="M82 82L95 95" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
+                            </svg>
+                        </div>
                     </div>
                     <span class="text-2xl font-bold text-white tracking-widest">KLYR</span>
                 </div>
@@ -176,8 +181,8 @@
                 <!-- Desktop Menu -->
                 <div class="hidden md:flex items-center gap-6">
                     <div class="flex space-x-6 text-sm font-medium text-slate-300">
+                        <a href="#humain" class="hover:text-klyr-accent transition"><span class="lang-fr">Qui sommes-nous</span><span class="lang-en">About Us</span></a>
                         <a href="#particuliers" class="hover:text-klyr-accent transition"><span class="lang-fr">Offres</span><span class="lang-en">Pricing</span></a>
-                        <a href="#methodologie" class="hover:text-klyr-accent transition"><span class="lang-fr">Méthode</span><span class="lang-en">Process</span></a>
                         <a href="#avocats" class="hover:text-klyr-accent transition"><span class="lang-fr">Avocats</span><span class="lang-en">Lawyers</span></a>
                     </div>
                     
@@ -205,8 +210,8 @@
         <!-- Mobile Menu Dropdown -->
         <div id="mobile-menu" class="mobile-hidden md:hidden bg-klyr-bg border-b border-slate-800">
             <div class="px-4 pt-2 pb-6 space-y-4">
+                <a href="#humain" class="block text-slate-300 hover:text-klyr-accent py-2"><span class="lang-fr">Qui sommes-nous</span><span class="lang-en">About Us</span></a>
                 <a href="#particuliers" class="block text-slate-300 hover:text-klyr-accent py-2"><span class="lang-fr">Offres</span><span class="lang-en">Pricing</span></a>
-                <a href="#methodologie" class="block text-slate-300 hover:text-klyr-accent py-2"><span class="lang-fr">Méthode</span><span class="lang-en">Process</span></a>
                 <a href="#avocats" class="block text-slate-300 hover:text-klyr-accent py-2"><span class="lang-fr">Avocats</span><span class="lang-en">Lawyers</span></a>
                 <a href="#contact" class="block w-full text-center bg-klyr-accent text-klyr-bg font-bold py-3 rounded-lg">
                     <span class="lang-fr">Démarrer un dossier</span><span class="lang-en">Start a Case</span>
@@ -227,36 +232,41 @@
                 <div class="order-2 lg:order-1">
                     <div class="inline-flex items-center gap-2 mb-6 px-4 py-1.5 rounded-full bg-slate-800/80 border border-slate-700 text-klyr-accent text-xs font-mono uppercase tracking-wider shadow-lg">
                         <span class="w-2 h-2 rounded-full bg-klyr-accent animate-pulse"></span>
-                        <span class="lang-fr">Forensics Certifiés</span><span class="lang-en">Certified Forensics</span>
+                        <span class="lang-fr">Entreprise Française Certifiée 🇫🇷</span><span class="lang-en">Certified French Company 🇫🇷</span>
                     </div>
                     
                     <h1 class="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
-                        <span class="lang-fr">Nous traçons ce que <br><span class="text-klyr-accent drop-shadow-[0_0_25px_rgba(16,185,129,0.3)]">les autres ne voient pas.</span></span>
-                        <span class="lang-en">We trace what <br><span class="text-klyr-accent drop-shadow-[0_0_25px_rgba(16,185,129,0.3)]">others cannot see.</span></span>
+                        <span class="lang-fr">Investigation Crypto par des <br><span class="text-klyr-accent drop-shadow-[0_0_25px_rgba(16,185,129,0.3)]">Experts Humains.</span></span>
+                        <span class="lang-en">Crypto Investigation by <br><span class="text-klyr-accent drop-shadow-[0_0_25px_rgba(16,185,129,0.3)]">Human Experts.</span></span>
                     </h1>
                     
                     <p class="text-base md:text-lg text-slate-400 mb-10 max-w-lg leading-relaxed">
                         <span class="lang-fr">
-                            Mixers, bridges, sauts cross-chain. Nous transformons la donnée brute en <strong>preuves judiciaires</strong> exploitables (Rapport PDF + CSV Evidence) pour votre avocat.
+                            Victime de fraude ? <strong>Vous n'êtes pas seul.</strong><br>
+                            KLYR est un cabinet d'expertise français (SIRET 514 635 382) dédié au traçage de fonds et à l'accompagnement des victimes et avocats.
                         </span>
                         <span class="lang-en">
-                            Mixers, bridges, cross-chain hops. We turn raw data into <strong>judicial-grade evidence</strong> (PDF Report + CSV Evidence) for your lawyer.
+                            Victim of fraud? <strong>You are not alone.</strong><br>
+                            KLYR is a registered French firm dedicated to fund tracing and supporting victims and lawyers.
                         </span>
                     </p>
                     
                     <div class="flex flex-col sm:flex-row gap-4">
-                        <a href="mailto:tonirodolfo1@gmail.com" class="bg-white text-klyr-bg font-bold py-4 px-8 rounded-lg hover:bg-gray-200 transition flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,255,255,0.15)]">
+                        <a href="mailto:contact@klyr-investigations.fr" class="bg-white text-klyr-bg font-bold py-4 px-8 rounded-lg hover:bg-gray-200 transition flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,255,255,0.15)]">
                             <i class="fas fa-envelope"></i> 
                             <span class="lang-fr">Expliquer mon cas</span><span class="lang-en">Explain my case</span>
                         </a>
                         <a href="https://calendar.app.google/bQWcTHd22XDzuCt6A" target="_blank" class="glass-panel text-white font-bold py-4 px-8 rounded-lg hover:bg-slate-800 transition flex items-center justify-center gap-2">
                             <i class="fas fa-phone"></i> 
-                            <span class="lang-fr">Audit gratuit (15 min)</span><span class="lang-en">Free Audit (15 min)</span>
+                            <span class="lang-fr">Parler à un expert (15 min)</span><span class="lang-en">Talk to an expert (15 min)</span>
                         </a>
                     </div>
+                    <p class="mt-4 text-xs text-slate-500 font-mono">
+                        <i class="fas fa-check-circle text-klyr-accent mr-1"></i> Enregistré au RCS Créteil
+                    </p>
                 </div>
 
-                <!-- Visual: Clean Flow Diagram (CORRIGÉ & RECADRÉ) -->
+                <!-- Visual: Clean Flow Diagram (ANIMÉ) -->
                 <div class="order-1 lg:order-2 flex justify-center items-center w-full">
                     <div class="flow-container relative w-full max-w-lg bg-slate-900/40 border border-slate-800 rounded-2xl p-6 md:p-8 backdrop-blur-sm shadow-2xl">
                         <!-- Header du Dashboard -->
@@ -309,7 +319,7 @@
                             </div>
                         </div>
 
-                        <!-- Footer du Dashboard (Intégré pour éviter le débordement) -->
+                        <!-- Footer du Dashboard -->
                         <div class="mt-8 pt-4 border-t border-slate-800 flex justify-between items-center">
                             <div class="text-[10px] text-slate-600 font-mono">STATUS: CONFIRMED</div>
                             <div class="bg-slate-800 px-2 py-1 rounded text-[10px] text-klyr-accent font-mono border border-slate-700">
@@ -322,45 +332,69 @@
         </div>
     </section>
 
-    <!-- Methodology (CATC KLYR) -->
-    <section id="methodologie" class="py-20 border-y border-slate-800 bg-[#0d1426]">
+    <!-- SECTION HUMAN & TRUST (NOUVEAU) -->
+    <section id="humain" class="py-20 bg-[#0F172A] border-y border-slate-800">
         <div class="max-w-7xl mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold text-white mb-4">
-                    <span class="lang-fr">Méthodologie CATC</span><span class="lang-en">CATC Methodology</span>
-                </h2>
-                <p class="text-slate-400">
-                    <span class="lang-fr">Notre standard d'investigation (Collecte - Analyse - Traçage - Corrélation).</span>
-                    <span class="lang-en">Our investigation standard (Collect - Analyze - Trace - Correlate).</span>
-                </p>
-            </div>
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Step 1 -->
-                <div class="glass-panel p-8 rounded-2xl hover:border-klyr-accent/50 transition duration-300 group">
-                    <div class="text-4xl font-bold text-slate-700 mb-4 group-hover:text-klyr-accent transition">01</div>
-                    <h3 class="text-xl font-bold text-white mb-3"><span class="lang-fr">Collecte & Triage</span><span class="lang-en">Collect & Triage</span></h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">
-                        <span class="lang-fr">Réception du contexte et des adresses. Triage gratuit sous 24h pour confirmer la faisabilité technique avant tout paiement.</span>
-                        <span class="lang-en">Context and address intake. Free 24h triage to confirm technical feasibility before any payment.</span>
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <div class="inline-block mb-4 px-4 py-1 rounded-full bg-blue-900/30 border border-blue-500/30 text-blue-400 text-sm font-mono">
+                        <i class="fas fa-hand-holding-heart mr-2"></i>
+                        <span class="lang-fr">Approche Humaine</span><span class="lang-en">Human Approach</span>
+                    </div>
+                    <h2 class="text-3xl font-bold text-white mb-6">
+                        <span class="lang-fr">Derrière l'expertise, <br>un partenaire.</span>
+                        <span class="lang-en">Behind the expertise, <br>a partner.</span>
+                    </h2>
+                    <p class="text-slate-400 mb-6 leading-relaxed">
+                        <span class="lang-fr">
+                            Se faire arnaquer est une épreuve psychologique difficile. Contrairement aux outils automatisés, chez KLYR, chaque dossier est pris en charge personnellement par <strong>Toni Rodolfo</strong>, expert en analyse technique.
+                        </span>
+                        <span class="lang-en">
+                            Being scammed is a psychological burden. Unlike automated tools, at KLYR, every case is personally handled by <strong>Toni Rodolfo</strong>, technical analysis expert.
+                        </span>
                     </p>
+                    <p class="text-slate-400 mb-8 leading-relaxed">
+                        <span class="lang-fr">
+                            Nous ne sommes pas une IA. Nous sommes une entreprise française réelle, enregistrée, qui comprend votre détresse et travaille à vos côtés pour constituer un dossier solide pour la justice.
+                        </span>
+                        <span class="lang-en">
+                            We are not an AI. We are a real, registered French company that understands your distress and works by your side to build a solid case for justice.
+                        </span>
+                    </p>
+                    
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-full bg-slate-700 border border-slate-600 flex items-center justify-center text-xl text-slate-400">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <div>
+                            <div class="text-white font-bold">Toni Rodolfo</div>
+                            <div class="text-sm text-klyr-accent">Fondateur & Expert Analyste</div>
+                        </div>
+                    </div>
                 </div>
-                <!-- Step 2 -->
-                <div class="glass-panel p-8 rounded-2xl hover:border-klyr-accent/50 transition duration-300 group">
-                    <div class="text-4xl font-bold text-slate-700 mb-4 group-hover:text-klyr-accent transition">02</div>
-                    <h3 class="text-xl font-bold text-white mb-3"><span class="lang-fr">Traçage & Corrélation</span><span class="lang-en">Trace & Correlate</span></h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">
-                        <span class="lang-fr">Suivi des fonds (EVM/BTC). Identification des hubs, démixage et corrélation avec des identités réelles (CEX, IBAN).</span>
-                        <span class="lang-en">Fund tracking (EVM/BTC). Hub identification, demixing, and correlation with real identities (CEX, IBAN).</span>
-                    </p>
-                </div>
-                <!-- Step 3 -->
-                <div class="glass-panel p-8 rounded-2xl hover:border-klyr-accent/50 transition duration-300 group">
-                    <div class="text-4xl font-bold text-slate-700 mb-4 group-hover:text-klyr-accent transition">03</div>
-                    <h3 class="text-xl font-bold text-white mb-3"><span class="lang-fr">Rapport Probatoire</span><span class="lang-en">Evidence Report</span></h3>
-                    <p class="text-slate-400 text-sm leading-relaxed">
-                        <span class="lang-fr">Livraison du "Recovery-readiness pack" : Rapport PDF, CSV d'evidence et modèles de réquisitions pour la police.</span>
-                        <span class="lang-en">Delivery of the "Recovery-readiness pack": PDF Report, CSV evidence, and subpoena templates for police.</span>
-                    </p>
+                
+                <!-- Trust Badges -->
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="p-6 rounded-xl bg-slate-800/50 border border-slate-700 text-center">
+                        <i class="fas fa-balance-scale text-3xl text-blue-400 mb-3"></i>
+                        <h3 class="text-white font-bold mb-1">Légal</h3>
+                        <p class="text-xs text-slate-400">Entreprise enregistrée au RCS Créteil</p>
+                    </div>
+                    <div class="p-6 rounded-xl bg-slate-800/50 border border-slate-700 text-center">
+                        <i class="fas fa-shield-alt text-3xl text-klyr-accent mb-3"></i>
+                        <h3 class="text-white font-bold mb-1">Confiance</h3>
+                        <p class="text-xs text-slate-400">Confidentialité absolue & NDA</p>
+                    </div>
+                    <div class="p-6 rounded-xl bg-slate-800/50 border border-slate-700 text-center">
+                        <i class="fas fa-file-signature text-3xl text-purple-400 mb-3"></i>
+                        <h3 class="text-white font-bold mb-1">Certifié</h3>
+                        <p class="text-xs text-slate-400">Rapports conformes pour dépôt de plainte</p>
+                    </div>
+                    <div class="p-6 rounded-xl bg-slate-800/50 border border-slate-700 text-center">
+                        <i class="fas fa-headset text-3xl text-yellow-400 mb-3"></i>
+                        <h3 class="text-white font-bold mb-1">Support</h3>
+                        <p class="text-xs text-slate-400">Accompagnement humain dédié</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -391,7 +425,7 @@
                             <li class="flex items-start"><i class="fas fa-check text-slate-500 mt-0.5 mr-2"></i> 1 Chaîne unique</li>
                             <li class="flex items-start"><i class="fas fa-check text-slate-500 mt-0.5 mr-2"></i> Rapport condensé</li>
                         </ul>
-                        <a href="mailto:tonirodolfo1@gmail.com?subject=Pack%20Light" class="block w-full text-center border border-slate-600 hover:bg-slate-700 text-white font-bold py-2 rounded text-sm transition"><span class="lang-fr">Choisir Light</span><span class="lang-en">Select Light</span></a>
+                        <a href="mailto:contact@klyr-investigations.fr?subject=Pack%20Light" class="block w-full text-center border border-slate-600 hover:bg-slate-700 text-white font-bold py-2 rounded text-sm transition"><span class="lang-fr">Choisir Light</span><span class="lang-en">Select Light</span></a>
                     </div>
 
                     <!-- Starter -->
@@ -404,7 +438,7 @@
                             <li class="flex items-start"><i class="fas fa-check text-blue-500 mt-0.5 mr-2"></i> 1 Circuit simple</li>
                             <li class="flex items-start"><i class="fas fa-check text-blue-500 mt-0.5 mr-2"></i> <strong>Recovery Pack</strong></li>
                         </ul>
-                        <a href="mailto:tonirodolfo1@gmail.com?subject=Pack%20Starter" class="block w-full text-center bg-slate-700 hover:bg-slate-600 text-white font-bold py-2 rounded text-sm transition"><span class="lang-fr">Choisir Starter</span><span class="lang-en">Select Starter</span></a>
+                        <a href="mailto:contact@klyr-investigations.fr?subject=Pack%20Starter" class="block w-full text-center bg-slate-700 hover:bg-slate-600 text-white font-bold py-2 rounded text-sm transition"><span class="lang-fr">Choisir Starter</span><span class="lang-en">Select Starter</span></a>
                     </div>
 
                     <!-- Express (Highlighted) -->
@@ -419,7 +453,7 @@
                             <li class="flex items-start"><i class="fas fa-check text-klyr-accent mt-0.5 mr-2"></i> Traçage vers CEX</li>
                             <li class="flex items-start"><i class="fas fa-check text-klyr-accent mt-0.5 mr-2"></i> Schéma visuel complet</li>
                         </ul>
-                        <a href="mailto:tonirodolfo1@gmail.com?subject=Pack%20Express" class="block w-full text-center bg-klyr-accent hover:bg-white hover:text-klyr-bg text-klyr-bg font-bold py-3 rounded text-sm transition"><span class="lang-fr">Choisir Express</span><span class="lang-en">Select Express</span></a>
+                        <a href="mailto:contact@klyr-investigations.fr?subject=Pack%20Express" class="block w-full text-center bg-klyr-accent hover:bg-white hover:text-klyr-bg text-klyr-bg font-bold py-3 rounded text-sm transition"><span class="lang-fr">Choisir Express</span><span class="lang-en">Select Express</span></a>
                     </div>
 
                     <!-- Complet -->
@@ -432,7 +466,7 @@
                             <li class="flex items-start"><i class="fas fa-check text-purple-500 mt-0.5 mr-2"></i> Décodage logs de Bridge</li>
                             <li class="flex items-start"><i class="fas fa-check text-purple-500 mt-0.5 mr-2"></i> +1 Mise à jour (30j)</li>
                         </ul>
-                        <a href="mailto:tonirodolfo1@gmail.com?subject=Pack%20Complet" class="block w-full text-center bg-slate-700 hover:bg-slate-600 text-white font-bold py-2 rounded text-sm transition"><span class="lang-fr">Choisir Complet</span><span class="lang-en">Select Complete</span></a>
+                        <a href="mailto:contact@klyr-investigations.fr?subject=Pack%20Complet" class="block w-full text-center bg-slate-700 hover:bg-slate-600 text-white font-bold py-2 rounded text-sm transition"><span class="lang-fr">Choisir Complet</span><span class="lang-en">Select Complete</span></a>
                     </div>
                 </div>
             </div>
@@ -520,7 +554,7 @@
                     <div class="space-y-8">
                         <div>
                             <h3 class="text-white font-bold text-lg mb-4 flex items-center gap-2"><i class="fas fa-paper-plane text-klyr-accent"></i> Email</h3>
-                            <a href="mailto:tonirodolfo1@gmail.com" class="text-xl font-mono text-white hover:text-klyr-accent transition border-b border-slate-600 pb-1">tonirodolfo1@gmail.com</a>
+                            <a href="mailto:contact@klyr-investigations.fr" class="text-xl font-mono text-white hover:text-klyr-accent transition border-b border-slate-600 pb-1">contact@klyr-investigations.fr</a>
                         </div>
                         <div>
                             <h3 class="text-white font-bold text-lg mb-4 flex items-center gap-2"><i class="fas fa-video text-klyr-accent"></i> Visio</h3>
@@ -530,7 +564,7 @@
 
                     <div class="bg-slate-900/50 p-6 rounded-xl border border-slate-700/50">
                         <h3 class="text-white font-bold text-sm mb-4 uppercase tracking-wider text-slate-500"><span class="lang-fr">Informations requises</span><span class="lang-en">Required Info</span></h3>
-                        <form action="mailto:tonirodolfo1@gmail.com" method="post" enctype="text/plain" class="space-y-4">
+                        <form action="mailto:contact@klyr-investigations.fr" method="post" enctype="text/plain" class="space-y-4">
                             <div><label class="block text-xs text-slate-400 mb-1">Nom / Name</label><input type="text" name="nom" class="w-full bg-slate-800 border border-slate-600 rounded p-2 text-white text-sm focus:border-klyr-accent outline-none"></div>
                             <div class="grid grid-cols-2 gap-4">
                                 <div><label class="block text-xs text-slate-400 mb-1">Montant / Amount</label><input type="text" name="montant" class="w-full bg-slate-800 border border-slate-600 rounded p-2 text-white text-sm outline-none"></div>
@@ -547,7 +581,10 @@
 
     <footer class="bg-klyr-bg border-t border-slate-800 py-12 text-center">
         <div class="max-w-7xl mx-auto px-4">
-            <p class="text-slate-600 text-sm">&copy; 2026 KLYR. On-Chain Forensics.</p>
+            <p class="text-slate-500 text-sm mb-2">&copy; 2026 KLYR Investigations. Tous droits réservés.</p>
+            <p class="text-slate-600 text-xs font-mono">
+                SIRET 514 635 382 00021 • Enregistré au RCS Créteil • France 🇫🇷
+            </p>
         </div>
     </footer>
 
