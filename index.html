@@ -3,21 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- TITRE & DESCRIPTION (SEO) -->
     <title>KLYR | Investigations Crypto & Forensics</title>
     <meta name="description" content="Cabinet d'investigation blockchain français. Traçage de fonds, rapports d'expertise pour avocats et victimes. SIRET 514 635 382.">
     
-    <!-- CANONICAL (Le conseil de ton contact - Très important) -->
-    <link rel="canonical" href="https://www.klyr-investigations.fr/">
-
-    <!-- OPEN GRAPH (Pour que le lien soit beau sur WhatsApp/LinkedIn) -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://www.klyr-investigations.fr/">
-    <meta property="og:title" content="KLYR | Investigations Crypto & Forensics">
-    <meta property="og:description" content="Cabinet d'investigation blockchain français. Traçage de fonds, rapports d'expertise pour avocats et victimes.">
-    <meta property="og:image" content="https://www.klyr-investigations.fr/logo.png">
-
     <!-- FAVICON -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='45' cy='45' r='30' stroke='white' stroke-width='8' fill='none'/><path d='M68 68L90 90' stroke='white' stroke-width='10' stroke-linecap='round'/></svg>">
 
@@ -86,7 +74,6 @@
             background: rgba(21, 30, 50, 0.9);
         }
 
-        /* Effet Scan on Hover */
         .glass-panel::after {
             content: '';
             position: absolute;
@@ -111,7 +98,7 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* --- ANIMATIONS DASHBOARD --- */
+        /* --- ANIMATIONS --- */
         .animate-float {
             animation: float 6s ease-in-out infinite;
         }
@@ -222,7 +209,7 @@
                 <div class="hidden md:flex items-center gap-6">
                     <div class="flex space-x-6 text-sm font-medium text-slate-300">
                         <a href="#humain" class="hover:text-klyr-accent transition"><span class="lang-fr">Qui sommes-nous</span><span class="lang-en">About Us</span></a>
-                        <a href="#particuliers" class="hover:text-klyr-accent transition"><span class="lang-fr">Offres</span><span class="lang-en">Pricing</span></a>
+                        <a href="#expertise" class="hover:text-klyr-accent transition"><span class="lang-fr">Expertise & Tarifs</span><span class="lang-en">Expertise & Pricing</span></a>
                         <a href="#avocats" class="hover:text-klyr-accent transition"><span class="lang-fr">Avocats</span><span class="lang-en">Lawyers</span></a>
                     </div>
                     
@@ -251,7 +238,7 @@
         <div id="mobile-menu" class="mobile-hidden md:hidden bg-klyr-bg border-b border-slate-800">
             <div class="px-4 pt-2 pb-6 space-y-4">
                 <a href="#humain" class="block text-slate-300 hover:text-klyr-accent py-2"><span class="lang-fr">Qui sommes-nous</span><span class="lang-en">About Us</span></a>
-                <a href="#particuliers" class="block text-slate-300 hover:text-klyr-accent py-2"><span class="lang-fr">Offres</span><span class="lang-en">Pricing</span></a>
+                <a href="#expertise" class="block text-slate-300 hover:text-klyr-accent py-2"><span class="lang-fr">Expertise & Tarifs</span><span class="lang-en">Expertise & Pricing</span></a>
                 <a href="#avocats" class="block text-slate-300 hover:text-klyr-accent py-2"><span class="lang-fr">Avocats</span><span class="lang-en">Lawyers</span></a>
                 <a href="#contact" class="block w-full text-center bg-klyr-accent text-klyr-bg font-bold py-3 rounded-lg">
                     <span class="lang-fr">Démarrer un dossier</span><span class="lang-en">Start a Case</span>
@@ -304,7 +291,7 @@
                     </p>
                 </div>
 
-                <!-- Visual: Dashboard Forensic (Console + Flow) -->
+                <!-- Visual: Dashboard Forensic -->
                 <div class="order-1 lg:order-2 flex justify-center items-center w-full">
                     <div class="flow-container animate-float relative w-full max-w-lg bg-slate-900/40 border border-slate-800 rounded-2xl p-6 md:p-8 backdrop-blur-sm shadow-2xl">
                         
@@ -319,12 +306,11 @@
 
                         <!-- Le Flux -->
                         <div class="flex flex-col justify-between gap-6 relative mb-6">
-                            <!-- Ligne verticale connectrice -->
                             <div class="absolute left-[24px] top-[20px] bottom-[20px] w-[2px] bg-slate-800 z-0">
                                 <div class="absolute w-full h-[40%] bg-klyr-accent opacity-50 top-0 animate-pulse"></div>
                             </div>
 
-                            <!-- Node 1: Victim -->
+                            <!-- Node 1 -->
                             <div class="flow-node">
                                 <div class="w-10 h-10 rounded bg-red-500/10 border border-red-500/30 flex items-center justify-center text-red-500 shrink-0">
                                     <i class="fas fa-user"></i>
@@ -336,7 +322,7 @@
                                 <div class="text-xs text-red-400 font-mono">-45k</div>
                             </div>
 
-                            <!-- Node 2: Mixer -->
+                            <!-- Node 2 -->
                             <div class="flow-node active ml-8">
                                 <div class="w-10 h-10 rounded bg-klyr-accent/10 border border-klyr-accent/30 flex items-center justify-center text-klyr-accent shrink-0">
                                     <i class="fas fa-random"></i>
@@ -348,7 +334,7 @@
                                 <div class="text-xs text-slate-400 font-mono">...</div>
                             </div>
 
-                            <!-- Node 3: CEX -->
+                            <!-- Node 3 -->
                             <div class="flow-node">
                                 <div class="w-10 h-10 rounded bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-500 shrink-0">
                                     <i class="fas fa-building"></i>
@@ -361,7 +347,7 @@
                             </div>
                         </div>
 
-                        <!-- Console Logs (L'effet "Matrix/Expert") -->
+                        <!-- Console Logs -->
                         <div class="bg-black/50 rounded p-3 border border-slate-800">
                             <div class="console-logs">
                                 <span class="log-line">> Initiating deep scan on 0x7a...</span>
@@ -376,7 +362,7 @@
         </div>
     </section>
 
-    <!-- SECTION HUMAN & TRUST (Expertise) -->
+    <!-- SECTION HUMAN & TRUST -->
     <section id="humain" class="py-20 bg-[#0F172A] border-y border-slate-800">
         <div class="max-w-7xl mx-auto px-4">
             <div class="grid md:grid-cols-2 gap-12 items-center">
@@ -488,139 +474,123 @@
         </div>
     </section>
 
-    <!-- PRICING SECTION -->
-    <section id="particuliers" class="py-20">
+    <!-- EXPERTISE & PRICING SECTION (NOUVEAU LAYOUT CABINET) -->
+    <section id="expertise" class="py-20">
         <div class="max-w-7xl mx-auto px-4">
             
-            <!-- Particuliers -->
-            <div class="mb-20">
-                <div class="flex items-center gap-4 mb-8">
-                    <div class="bg-klyr-accent w-1 h-12"></div>
-                    <div>
-                        <h2 class="text-3xl font-bold text-white"><span class="lang-fr">Pour les Particuliers</span><span class="lang-en">For Individuals</span></h2>
-                        <p class="text-slate-400"><span class="lang-fr">Victimes de fraudes, scams, rug pulls.</span><span class="lang-en">Victims of fraud, scams, rug pulls.</span></p>
-                    </div>
-                </div>
-
-                <div class="grid lg:grid-cols-4 gap-6">
-                    <!-- Light -->
-                    <div class="glass-panel p-6 rounded-2xl border-t-2 border-slate-600 hover:bg-slate-800 transition duration-300 opacity-75 hover:opacity-100">
-                        <h3 class="text-lg font-bold text-white">Light</h3>
-                        <div class="text-3xl font-bold text-white my-3">350 €</div>
-                        <p class="text-xs text-slate-400 mb-4 font-mono bg-slate-800 p-1 rounded inline-block"><span class="lang-fr">Dossier simple</span><span class="lang-en">Simple case</span></p>
-                        <ul class="space-y-3 text-slate-400 mb-8 text-xs">
-                            <li class="flex items-start"><i class="fas fa-check text-slate-500 mt-0.5 mr-2"></i> ≤ 10 transactions</li>
-                            <li class="flex items-start"><i class="fas fa-check text-slate-500 mt-0.5 mr-2"></i> 1 Chaîne unique</li>
-                            <li class="flex items-start"><i class="fas fa-check text-slate-500 mt-0.5 mr-2"></i> Rapport condensé</li>
-                        </ul>
-                        <a href="#contact" class="block w-full text-center border border-slate-600 hover:bg-slate-700 text-white font-bold py-2 rounded text-sm transition"><span class="lang-fr">Choisir Light</span><span class="lang-en">Select Light</span></a>
-                    </div>
-
-                    <!-- Starter -->
-                    <div class="glass-panel p-6 rounded-2xl border-t-2 border-blue-500 hover:bg-slate-800 transition duration-300">
-                        <h3 class="text-lg font-bold text-white">Starter</h3>
-                        <div class="text-3xl font-bold text-blue-400 my-3">490 €</div>
-                        <p class="text-xs text-slate-400 mb-4 font-mono bg-slate-800 p-1 rounded inline-block">48h</p>
-                        <ul class="space-y-3 text-slate-300 mb-8 text-sm">
-                            <li class="flex items-start"><i class="fas fa-check text-blue-500 mt-0.5 mr-2"></i> 1 Chaîne / ≤ 30 tx</li>
-                            <li class="flex items-start"><i class="fas fa-check text-blue-500 mt-0.5 mr-2"></i> 1 Circuit simple</li>
-                            <li class="flex items-start"><i class="fas fa-check text-blue-500 mt-0.5 mr-2"></i> <strong>Recovery Pack</strong></li>
-                        </ul>
-                        <a href="#contact" class="block w-full text-center bg-slate-700 hover:bg-slate-600 text-white font-bold py-2 rounded text-sm transition"><span class="lang-fr">Choisir Starter</span><span class="lang-en">Select Starter</span></a>
-                    </div>
-
-                    <!-- Express (Highlighted) -->
-                    <div class="glass-panel p-6 rounded-2xl border-t-2 border-klyr-accent relative transform scale-105 shadow-2xl shadow-klyr-accent/5 z-10 bg-[#131d33]">
-                        <div class="absolute top-0 right-0 bg-klyr-accent text-klyr-bg text-[10px] font-bold px-2 py-1 rounded-bl-lg">POPULAIRE</div>
-                        <h3 class="text-lg font-bold text-white">Express</h3>
-                        <div class="text-3xl font-bold text-klyr-accent my-3">890 €</div>
-                        <p class="text-xs text-slate-400 mb-4 font-mono bg-slate-900 p-1 rounded inline-block">72h</p>
-                        <ul class="space-y-3 text-slate-300 mb-8 text-sm">
-                            <li class="flex items-start"><i class="fas fa-check text-klyr-accent mt-0.5 mr-2"></i> Jusqu'à 3 adresses</li>
-                            <li class="flex items-start"><i class="fas fa-check text-klyr-accent mt-0.5 mr-2"></i> 2 Chaînes ou 1 Bridge</li>
-                            <li class="flex items-start"><i class="fas fa-check text-klyr-accent mt-0.5 mr-2"></i> Traçage vers CEX</li>
-                            <li class="flex items-start"><i class="fas fa-check text-klyr-accent mt-0.5 mr-2"></i> Schéma visuel complet</li>
-                        </ul>
-                        <a href="#contact" class="block w-full text-center bg-klyr-accent hover:bg-white hover:text-klyr-bg text-klyr-bg font-bold py-3 rounded text-sm transition"><span class="lang-fr">Choisir Express</span><span class="lang-en">Select Express</span></a>
-                    </div>
-
-                    <!-- Complet -->
-                    <div class="glass-panel p-6 rounded-2xl border-t-2 border-purple-500 hover:bg-slate-800 transition duration-300">
-                        <h3 class="text-lg font-bold text-white">Complet</h3>
-                        <div class="text-3xl font-bold text-purple-400 my-3">1 190 €</div>
-                        <p class="text-xs text-slate-400 mb-4 font-mono bg-slate-800 p-1 rounded inline-block">≤ 5 jours</p>
-                        <ul class="space-y-3 text-slate-300 mb-8 text-sm">
-                            <li class="flex items-start"><i class="fas fa-check text-purple-500 mt-0.5 mr-2"></i> Multi-circuits complexes</li>
-                            <li class="flex items-start"><i class="fas fa-check text-purple-500 mt-0.5 mr-2"></i> Décodage logs de Bridge</li>
-                            <li class="flex items-start"><i class="fas fa-check text-purple-500 mt-0.5 mr-2"></i> +1 Mise à jour (30j)</li>
-                        </ul>
-                        <a href="#contact" class="block w-full text-center bg-slate-700 hover:bg-slate-600 text-white font-bold py-2 rounded text-sm transition"><span class="lang-fr">Choisir Complet</span><span class="lang-en">Select Complete</span></a>
-                    </div>
-                </div>
+            <div class="mb-16 text-center">
+                <h2 class="text-3xl font-bold text-white mb-4">
+                    <span class="lang-fr">Expertise Blockchain & Investigation</span>
+                    <span class="lang-en">Blockchain Expertise & Investigation</span>
+                </h2>
+                <p class="text-slate-400 max-w-2xl mx-auto">
+                    <span class="lang-fr">Une tarification adaptée à la complexité du dossier. Transparence totale via Lettre de Mission.</span>
+                    <span class="lang-en">Pricing adapted to case complexity. Total transparency via Engagement Letter.</span>
+                </p>
             </div>
 
-            <!-- Entreprises & Avocats Grid -->
-            <div class="grid lg:grid-cols-2 gap-12 pt-12 border-t border-slate-800">
+            <div class="grid lg:grid-cols-12 gap-8">
                 
-                <!-- Entreprises -->
-                <div id="entreprises">
-                    <div class="flex items-center gap-3 mb-6">
-                        <i class="fas fa-building text-2xl text-blue-400"></i>
-                        <h2 class="text-2xl font-bold text-white"><span class="lang-fr">Entreprises & Web3</span><span class="lang-en">Business & Web3</span></h2>
-                    </div>
-                    <div class="glass-panel p-6 rounded-xl mb-4 border border-slate-700 hover:border-blue-500/30 transition">
-                        <h3 class="text-lg font-bold text-white flex justify-between">Incident Response <span class="text-blue-400">4 900 - 9 800 €</span></h3>
-                        <p class="text-sm text-slate-400 mt-2"><span class="lang-fr">Réponse à hack/exploit. Triage 24h, containment, traçage complet, dossier interne actionnable pour assurances.</span><span class="lang-en">Hack/exploit response. 24h triage, containment, full tracing, actionable internal report for insurance.</span></p>
-                    </div>
-                    <div class="glass-panel p-6 rounded-xl border border-slate-700 hover:border-blue-500/30 transition">
-                        <h3 class="text-lg font-bold text-white flex justify-between">Due Diligence / Pre-trade <span class="text-blue-400">Dès 490 €</span></h3>
-                        <p class="text-sm text-slate-400 mt-2"><span class="lang-fr">Vérification des contreparties, analyse d'exposition aux risques (AML), red flags avant transaction.</span><span class="lang-en">Counterparty verification, AML risk exposure analysis, red flags check before transaction.</span></p>
+                <!-- OFFRE PRINCIPALE (Gauche) -->
+                <div class="lg:col-span-5">
+                    <div class="glass-panel p-8 rounded-2xl border-t-4 border-klyr-accent h-full flex flex-col relative overflow-hidden">
+                        <div class="absolute top-0 right-0 bg-klyr-accent text-klyr-bg text-xs font-bold px-3 py-1 rounded-bl-lg">
+                            <span class="lang-fr">RECOMMANDÉ</span><span class="lang-en">RECOMMENDED</span>
+                        </div>
+                        
+                        <h3 class="text-2xl font-bold text-white mb-2">Audit & Investigation</h3>
+                        <div class="flex items-baseline gap-2 mb-6">
+                            <span class="text-sm text-slate-400">À partir de</span>
+                            <span class="text-4xl font-bold text-white">350 €</span>
+                            <span class="text-xs text-slate-500 font-mono">/ Dossier</span>
+                        </div>
+
+                        <!-- Réassurance Transparence -->
+                        <div class="bg-slate-800/50 p-4 rounded-lg border border-slate-700 mb-8">
+                            <p class="text-xs text-slate-300 italic leading-relaxed">
+                                <i class="fas fa-info-circle text-klyr-accent mr-1"></i>
+                                <span class="lang-fr"><strong>Politique de transparence :</strong> Si l'analyse préliminaire (gratuite) montre que les fonds sont techniquement irrécupérables, nous vous en informons avant toute facturation.</span>
+                                <span class="lang-en"><strong>Transparency Policy:</strong> If the free pre-analysis shows funds are technically unrecoverable, we inform you before any billing.</span>
+                            </p>
+                        </div>
+
+                        <ul class="space-y-4 text-slate-300 text-sm mb-8 flex-1">
+                            <li class="flex items-start"><i class="fas fa-check text-klyr-accent mt-1 mr-3"></i> <span class="lang-fr">Pré-audit de faisabilité (Gratuit)</span><span class="lang-en">Feasibility Pre-audit (Free)</span></li>
+                            <li class="flex items-start"><i class="fas fa-check text-klyr-accent mt-1 mr-3"></i> <span class="lang-fr">Analyse de traçabilité complète</span><span class="lang-en">Complete traceability analysis</span></li>
+                            <li class="flex items-start"><i class="fas fa-check text-klyr-accent mt-1 mr-3"></i> <span class="lang-fr">Rapport technique pour la justice</span><span class="lang-en">Technical report for court</span></li>
+                            <li class="flex items-start"><i class="fas fa-check text-klyr-accent mt-1 mr-3"></i> <span class="lang-fr">Collaboration avec votre avocat</span><span class="lang-en">Collaboration with your lawyer</span></li>
+                            <li class="flex items-start"><i class="fas fa-file-contract text-blue-400 mt-1 mr-3"></i> <span class="lang-fr">Tarif final sur Lettre de Mission</span><span class="lang-en">Final price via Engagement Letter</span></li>
+                        </ul>
+
+                        <a href="#contact" class="block w-full text-center bg-klyr-accent hover:bg-white hover:text-klyr-bg text-klyr-bg font-bold py-4 rounded-lg transition shadow-lg shadow-klyr-accent/20">
+                            <span class="lang-fr">Démarrer l'analyse préliminaire</span><span class="lang-en">Start Preliminary Analysis</span>
+                        </a>
                     </div>
                 </div>
 
-                <!-- Avocats -->
-                <div id="avocats">
-                    <div class="flex items-center gap-3 mb-6">
-                        <i class="fas fa-scale-balanced text-2xl text-purple-400"></i>
-                        <h2 class="text-2xl font-bold text-white"><span class="lang-fr">Avocats & Justice</span><span class="lang-en">Lawyers & Justice</span></h2>
-                    </div>
-                    <p class="text-slate-400 mb-6 text-sm"><span class="lang-fr">Livrables conçus pour s'intégrer directement dans vos conclusions. Nous parlons votre langue (réquisitions, art. 313-1, identification des CEX).</span><span class="lang-en">Deliverables designed to fit directly into your filings. We speak your language (subpoenas, CEX identification).</span></p>
-                    <div class="space-y-4">
-                        <div class="flex justify-between items-center border-b border-slate-700 pb-2">
-                            <span class="text-slate-300">Rapport Standard (Contentieux classique)</span>
-                            <span class="font-mono text-purple-400">1 900 €</span>
-                        </div>
-                        <div class="flex justify-between items-center border-b border-slate-700 pb-2">
-                            <span class="text-slate-300">Rapport Complexe (Mixers, Cross-chain)</span>
-                            <span class="font-mono text-purple-400">2 900 €</span>
-                        </div>
-                        <div class="flex justify-between items-center border-b border-slate-700 pb-2">
-                            <span class="text-slate-300">Attestation / Témoin expert</span>
-                            <span class="font-mono text-purple-400">Sur devis</span>
-                        </div>
-                    </div>
-                    <div class="mt-6 p-4 bg-purple-900/20 border border-purple-500/30 rounded-lg">
-                        <p class="text-sm text-slate-300 mb-2"><span class="lang-fr">Besoin d'un avocat spécialisé crypto ?</span><span class="lang-en">Need a specialized crypto lawyer?</span></p>
-                        <a href="mailto:romain.chilly@orwl.fr?subject=Dossier%20via%20KLYR" class="text-purple-400 hover:text-white font-bold text-sm flex items-center gap-2"><i class="fas fa-gavel"></i> Contacter Me Romain Chilly (ORWL)</a>
-                    </div>
-                </div>
+                <!-- PÉRIMÈTRE TECHNIQUE (Droite) -->
+                <div class="lg:col-span-7">
+                    <div class="glass-panel p-8 rounded-2xl border-t-4 border-blue-500 h-full">
+                        <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                            <i class="fas fa-microchip text-blue-500"></i>
+                            <span class="lang-fr">Périmètre d'Intervention Technique</span>
+                            <span class="lang-en">Technical Scope</span>
+                        </h3>
 
-            </div>
-        </div>
-    </section>
+                        <div class="grid md:grid-cols-2 gap-6 text-sm text-slate-300">
+                            <div class="space-y-3">
+                                <div class="flex items-start gap-3">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1.5"></div>
+                                    <p><strong class="text-white">Traçage Complexe :</strong> Mixers, Cross-chain bridges, Sauts multiples (Peel chains).</p>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1.5"></div>
+                                    <p><strong class="text-white">Identification CEX :</strong> Localisation du point de sortie (KYC) pour réquisition judiciaire.</p>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1.5"></div>
+                                    <p><strong class="text-white">Réponse à Incident :</strong> Hacks, Exploits DeFi, Rug Pulls. Triage d'urgence.</p>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1.5"></div>
+                                    <p><strong class="text-white">Preuve de Fonds :</strong> Rapport structuré (art. 313-1) prêt pour intégration légale.</p>
+                                </div>
+                            </div>
+                            <div class="space-y-3">
+                                <div class="flex items-start gap-3">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1.5"></div>
+                                    <p><strong class="text-white">Due Diligence / AML :</strong> Analyse de risque, vérification des contreparties avant transaction.</p>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1.5"></div>
+                                    <p><strong class="text-white">Témoin Expert :</strong> Attestation technique et explication devant les autorités.</p>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1.5"></div>
+                                    <p><strong class="text-white">Décodage Logs :</strong> Analyse approfondie des smart contracts et logs de transaction.</p>
+                                </div>
+                            </div>
+                        </div>
 
-    <!-- FAQ / CONFIDENTIALITÉ -->
-    <section class="py-12 bg-slate-900/50 border-t border-slate-800">
-        <div class="max-w-4xl mx-auto px-4">
-            <h3 class="text-xl font-bold text-white mb-6 text-center"><span class="lang-fr">Questions Fréquentes</span><span class="lang-en">FAQ</span></h3>
-            <div class="grid md:grid-cols-2 gap-6">
-                <div class="p-4 rounded bg-slate-800/50">
-                    <h4 class="font-bold text-white mb-2 text-sm"><span class="lang-fr">Garantissez-vous le recouvrement ?</span><span class="lang-en">Do you guarantee recovery?</span></h4>
-                    <p class="text-xs text-slate-400"><span class="lang-fr">Non. Nous fournissons la preuve technique et la localisation des fonds. Le gel et la saisie dépendent des plateformes (CEX) et de la justice.</span><span class="lang-en">No. We provide technical evidence and fund localization. Freezing/seizing depends on CEXs and law enforcement.</span></p>
-                </div>
-                <div class="p-4 rounded bg-slate-800/50">
-                    <h4 class="font-bold text-white mb-2 text-sm"><span class="lang-fr">Est-ce confidentiel ?</span><span class="lang-en">Is it confidential?</span></h4>
-                    <p class="text-xs text-slate-400"><span class="lang-fr">Oui. Toutes nos missions sont sous accord de confidentialité strict (voir Lettre de Mission). Vos données ne sont partagées qu'avec vous.</span><span class="lang-en">Yes. All missions are under strict NDA. Your data is only shared with you.</span></p>
+                        <!-- OPTIONS ADD-ONS -->
+                        <div class="mt-8 pt-6 border-t border-slate-700">
+                            <h4 class="text-sm font-bold text-slate-400 mb-4 uppercase tracking-wider">Options disponibles</h4>
+                            <div class="flex flex-wrap gap-4">
+                                <div class="bg-slate-800 px-4 py-2 rounded border border-slate-600 flex items-center gap-2">
+                                    <i class="fas fa-bolt text-yellow-400"></i>
+                                    <span class="text-xs text-white">Urgence 24h (+30%)</span>
+                                </div>
+                                <div class="bg-slate-800 px-4 py-2 rounded border border-slate-600 flex items-center gap-2">
+                                    <i class="fas fa-video text-purple-400"></i>
+                                    <span class="text-xs text-white">Explication Vidéo (+90 €)</span>
+                                </div>
+                            </div>
+                            <p class="text-xs text-slate-500 mt-2 italic">
+                                <span class="lang-fr">Vulgarisation technique pour vos interlocuteurs (Client, Avocat, Juge).</span>
+                                <span class="lang-en">Technical simplification for stakeholders (Client, Lawyer, Judge).</span>
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -642,7 +612,11 @@
                     <div class="space-y-8">
                         <div>
                             <h3 class="text-white font-bold text-lg mb-4 flex items-center gap-2"><i class="fas fa-paper-plane text-klyr-accent"></i> Email</h3>
-                            <a href="mailto:dossiers@klyr-investigations.fr" class="text-xl font-mono text-white hover:text-klyr-accent transition border-b border-slate-600 pb-1">dossiers@klyr-investigations.fr</a>
+                            <!-- EMAIL PREMIUM STYLE -->
+                            <a href="mailto:dossiers@klyr-investigations.fr" class="group flex items-center gap-3 text-lg font-mono text-slate-400 hover:text-white transition duration-300 no-underline">
+                                <span>dossiers@klyr-investigations.fr</span>
+                                <i class="far fa-copy text-sm opacity-50 group-hover:opacity-100 transition"></i>
+                            </a>
                         </div>
                         <div>
                             <h3 class="text-white font-bold text-lg mb-4 flex items-center gap-2"><i class="fas fa-video text-klyr-accent"></i> Visio</h3>
@@ -653,7 +627,7 @@
                     <div class="bg-slate-900/50 p-6 rounded-xl border border-slate-700/50">
                         <h3 class="text-white font-bold text-sm mb-4 uppercase tracking-wider text-slate-500"><span class="lang-fr">Informations requises</span><span class="lang-en">Required Info</span></h3>
                         
-                        <!-- FORMULAIRE SÉCURISÉ (Option B) -->
+                        <!-- FORMULAIRE SÉCURISÉ -->
                         <form id="contactForm" class="space-y-4">
                             <div>
                                 <label class="block text-xs text-slate-400 mb-1">Nom / Name</label>
