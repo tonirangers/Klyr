@@ -33,11 +33,16 @@
                     animation: {
                         'float': 'float 6s ease-in-out infinite',
                         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'blink': 'blink 1s step-end infinite',
                     },
                     keyframes: {
                         float: {
                             '0%, 100%': { transform: 'translateY(0)' },
                             '50%': { transform: 'translateY(-10px)' },
+                        },
+                        blink: {
+                            '0%, 100%': { opacity: '1' },
+                            '50%': { opacity: '0' },
                         }
                     }
                 }
@@ -177,6 +182,14 @@
             z-index: 0;
             top: 50%;
             transform: translateY(-50%);
+        }
+
+        /* --- PGP HOVER EFFECT --- */
+        .pgp-link:hover::after {
+            content: '█';
+            margin-left: 5px;
+            color: #10b981;
+            animation: blink 1s step-end infinite;
         }
 
         /* Langues & Mobile */
@@ -538,7 +551,7 @@
                             </p>
                         </div>
 
-                        <!-- LISTE LIVRABLES -->
+                        <!-- LISTE LIVRABLES (MISE À JOUR AVEC SÉPARATION) -->
                         <ul class="space-y-5 text-slate-300 text-sm mb-8 flex-1">
                             <li class="flex items-start">
                                 <i class="fas fa-check text-klyr-accent mt-1 mr-3 shrink-0"></i>
@@ -750,8 +763,57 @@
             <p class="text-slate-600 text-xs font-mono">
                 SIRET 514 635 382 00021 • Enregistré au RCS Créteil • France 🇫🇷
             </p>
+            <!-- LIEN PGP DISCRET -->
+            <div class="mt-4 flex justify-center">
+                <button onclick="openPGP()" class="pgp-link text-slate-600 hover:text-klyr-accent transition-colors duration-300 text-xs font-mono cursor-pointer flex items-center gap-2">
+                    <i class="fas fa-key"></i> Clé PGP (Public Key)
+                </button>
+            </div>
         </div>
     </footer>
+
+    <!-- MODALE PGP (TERMINAL STYLE) -->
+    <div id="pgp-modal" class="hidden fixed inset-0 z-[100] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4" onclick="closePGP()">
+        <div class="relative w-full max-w-2xl bg-slate-900 border border-slate-700 rounded-lg p-6 shadow-2xl" onclick="event.stopPropagation()">
+            <!-- Header -->
+            <div class="flex justify-between items-center mb-4 border-b border-slate-800 pb-2">
+                <h3 class="text-klyr-accent font-mono text-sm">-----BEGIN PGP PUBLIC KEY BLOCK-----</h3>
+                <button onclick="closePGP()" class="text-slate-400 hover:text-white transition"><i class="fas fa-times"></i></button>
+            </div>
+            
+            <!-- Content -->
+            <pre id="pgp-content" class="text-[10px] md:text-xs text-slate-400 font-mono overflow-auto h-64 bg-black/50 p-4 rounded border border-slate-800 whitespace-pre-wrap break-all">
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+mQINBGlhu0cBEACezaqZ0d1L+doBgUcJgjqJvihpjIe5poGJ4EBgEi1KItu6M+Dz
+1hdTKcKe7uIxNre68aLGrellwQciu+oFc30R6hecQy8m4JiaR7QYrLpBYsB9GZxo
+1WMkeqAI8F1lmr2tNy0cqCKHY0qw6FW+XGId2tBb+jnW/jFZ9Bx3oSBVB6KpAoyd
+fS9sDySJQ9sdcuKEo+K3eXGjmOoU+OVlJmaJ8ZI9tdIJ6ZG+zrwBYT0yDA23+ydm
+8cKm0gDnJwwvyWniKFKwJjeJXxHXqMd6J2YKiRqboEwWXWrm5nnnNbKVI2vD5e2f
+itNqPjEMLZMc2EBQN/l/1AafkejoyNkz6KrVNVoS4mZ450JK4dCPUystVWlokMXU
+DiQWZe8Z1KlfpcA6GBUQMWiCQP+J/D4qjXsXdiB19BntHUH2NMe8RSu5HltkENM9
+RdkPNVf8Lbw/M03o9WChZNJJqwZOP7PyY8dbxk2NQYcqXTGofY4w78H+rhkVAKvm
+A0jf3m1PTXFOUaE0MMnel78wS1N9DUtsEDBttC7iCIGf2VNh5VLFCsfqrMS9fPJO
+1NLa3WwMgpBQGkfvosTtsgwl8pjqZqtdoxQe8DCcE1DE0UIlecchhLhgOrQdWDMy
+2gllME8rjOZRdFuswcoVplQgLqwKAEfEVnvUMnJIiNeIGe223PwpORW3MD4Qux5H
+cv2GU1MNSXa8Q/YzYcaJ+mgs8ceWUwidTeUrt4X1xHZy4HKHxweEhh4Y4T5mZFx3
+eJMfUxLYsoXj+G1hZ6fhnVej+p73ikGQx+BOCpMAglWoy7PG4zw0UE0DnKT9gGMY
+OJuKzro4dHxJfBTGNF416AmQsCuozA1TvGMzsUSzMphu+sdnckt5DzpW4KT2wezA
+7foFMDn1+J6UehHoE/nMR277I6K2HIDCSSnoCEXV8AzOFMYpPoDy6sP4ovTeHTbX
+nlPIpYHqYceJlFA+AF6X7517s97i+rmADPMWmdpuWxrQiNfHqlQ/tnAmprwgViNJ
+2PhpFHhwKIPenLakvyxNnYRE8vZbLTbFN+0D7tlX
+=Tw4O
+-----END PGP PUBLIC KEY BLOCK-----
+            </pre>
+
+            <!-- Actions -->
+            <div class="mt-4 text-right">
+                <button id="btn-copy-pgp" onclick="copyPGP()" class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded text-xs font-bold transition flex items-center gap-2 ml-auto">
+                    <i class="fas fa-copy"></i> <span>Copier la clé</span>
+                </button>
+            </div>
+        </div>
+    </div>
 
     <script>
         // --- GESTION LANGUES ---
@@ -784,6 +846,29 @@
                 menu.classList.remove('mobile-visible');
             }
         });
+
+        // --- PGP MODAL LOGIC ---
+        function openPGP() {
+            document.getElementById('pgp-modal').classList.remove('hidden');
+        }
+
+        function closePGP() {
+            document.getElementById('pgp-modal').classList.add('hidden');
+        }
+
+        function copyPGP() {
+            const content = document.getElementById('pgp-content').innerText;
+            navigator.clipboard.writeText(content).then(() => {
+                const btn = document.getElementById('btn-copy-pgp');
+                const originalText = btn.innerHTML;
+                
+                btn.innerHTML = '<i class="fas fa-check text-green-400"></i> <span class="text-green-400">Copié !</span>';
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                }, 2000);
+            });
+        }
     </script>
 </body>
 </html>
