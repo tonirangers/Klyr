@@ -3,11 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KLYR | Investigations Crypto & Forensics</title>
+    <title>KLYR | Expertise Blockchain & Forensics</title>
     <meta name="description" content="Cabinet d'investigation blockchain français. Traçage de fonds, rapports d'expertise pour avocats et victimes. SIRET 514 635 382.">
     
     <!-- FAVICON -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='45' cy='45' r='30' stroke='white' stroke-width='8' fill='none'/><path d='M68 68L90 90' stroke='white' stroke-width='10' stroke-linecap='round'/></svg>">
+
+    <!-- CANONICAL -->
+    <link rel="canonical" href="https://www.klyr-investigations.fr/">
+
+    <!-- OPEN GRAPH -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.klyr-investigations.fr/">
+    <meta property="og:title" content="KLYR | Expertise Blockchain & Forensics">
+    <meta property="og:description" content="Cabinet d'investigation blockchain français. Traçage de fonds, rapports d'expertise pour avocats et victimes.">
+    <meta property="og:image" content="https://www.klyr-investigations.fr/logo.png">
 
     <!-- TALLY WIDGET SCRIPT -->
     <script async src="https://tally.so/widgets/embed.js"></script>
@@ -33,16 +43,11 @@
                     animation: {
                         'float': 'float 6s ease-in-out infinite',
                         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        'blink': 'blink 1s step-end infinite',
                     },
                     keyframes: {
                         float: {
                             '0%, 100%': { transform: 'translateY(0)' },
                             '50%': { transform: 'translateY(-10px)' },
-                        },
-                        blink: {
-                            '0%, 100%': { opacity: '1' },
-                            '50%': { opacity: '0' },
                         }
                     }
                 }
@@ -191,6 +196,10 @@
             color: #10b981;
             animation: blink 1s step-end infinite;
         }
+        
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
 
         /* Langues & Mobile */
         .lang-en { display: none; }
@@ -209,17 +218,17 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
                 
-                <!-- Logo & Brand -->
-                <div class="flex items-center gap-3">
+                <!-- Logo & Brand (CLIQUABLE VERS HAUT DE PAGE) -->
+                <a href="#" class="flex items-center gap-3 group">
                     <!-- LOGO SVG (Loupe Blanche Minimaliste) -->
-                    <div class="w-10 h-10 text-white relative">
+                    <div class="w-10 h-10 text-white relative group-hover:scale-105 transition-transform duration-300">
                         <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full drop-shadow-md">
                             <circle cx="45" cy="45" r="30" stroke="white" stroke-width="6"/>
                             <path d="M68 68L90 90" stroke="white" stroke-width="8" stroke-linecap="round"/>
                         </svg>
                     </div>
-                    <span class="text-2xl font-bold text-white tracking-widest">KLYR</span>
-                </div>
+                    <span class="text-2xl font-bold text-white tracking-widest group-hover:text-klyr-accent transition-colors duration-300">KLYR</span>
+                </a>
                 
                 <!-- Desktop Menu -->
                 <div class="hidden md:flex items-center gap-6">
@@ -384,7 +393,7 @@
                             </div>
                         </div>
 
-                        <!-- Console Logs (L'effet "Matrix/Expert") -->
+                        <!-- Console Logs -->
                         <div class="bg-black/50 rounded p-3 border border-slate-800">
                             <div class="console-logs">
                                 <span class="log-line">> Initiating deep scan on 0x7a...</span>
@@ -551,7 +560,7 @@
                             </p>
                         </div>
 
-                        <!-- LISTE LIVRABLES (MISE À JOUR AVEC SÉPARATION) -->
+                        <!-- LISTE LIVRABLES -->
                         <ul class="space-y-5 text-slate-300 text-sm mb-8 flex-1">
                             <li class="flex items-start">
                                 <i class="fas fa-check text-klyr-accent mt-1 mr-3 shrink-0"></i>
@@ -702,14 +711,14 @@
 
                 <!-- Pilier 2 : Technique -->
                 <div class="group cursor-default">
-                    <i class="fas fa-chart-network text-3xl text-slate-600 group-hover:text-klyr-accent transition duration-300 mb-2"></i>
+                    <i class="fas fa-chart-line text-3xl text-slate-600 group-hover:text-klyr-accent transition duration-300 mb-2"></i>
                     <h4 class="text-slate-400 group-hover:text-white font-bold transition">Arkham Intelligence</h4>
                     <p class="text-xs text-slate-600">Outils de Tracing</p>
                 </div>
 
                 <!-- Pilier 3 : Standard -->
                 <div class="group cursor-default">
-                    <i class="fas fa-shield-check text-3xl text-slate-600 group-hover:text-purple-400 transition duration-300 mb-2"></i>
+                    <i class="fas fa-file-contract text-3xl text-slate-600 group-hover:text-purple-400 transition duration-300 mb-2"></i>
                     <h4 class="text-slate-400 group-hover:text-white font-bold transition">Rapports Opposables</h4>
                     <p class="text-xs text-slate-600">Norme Forensic</p>
                 </div>
@@ -759,7 +768,7 @@
 
     <footer class="bg-klyr-bg border-t border-slate-800 py-12 text-center">
         <div class="max-w-7xl mx-auto px-4">
-            <p class="text-slate-500 text-sm mb-2">&copy; 2026 KLYR Investigations. Tous droits réservés.</p>
+            <p class="text-slate-500 text-sm mb-2">&copy; 2026 KLYR. Tous droits réservés.</p>
             <p class="text-slate-600 text-xs font-mono">
                 SIRET 514 635 382 00021 • Enregistré au RCS Créteil • France 🇫🇷
             </p>
