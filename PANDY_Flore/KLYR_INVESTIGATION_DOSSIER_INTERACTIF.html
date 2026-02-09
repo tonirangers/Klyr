@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>KLYR | Rapport d'Investigation Numérique - Flore PANDY</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #FFFFFF;
+            --klyr-dark: #0B1121;
+            --accent: #10b981;
+            --border: #E2E8F0;
+            --text-main: #1E293B;
+            --text-dim: #64748B;
+            --confidential: #BE123C;
+        }
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; line-height: 1.6; color: var(--text-main); margin: 0; background-color: #F8FAFC; }
+        
+        /* AUTH MODAL */
+        #auth-overlay { position: fixed; inset: 0; background: var(--klyr-dark); z-index: 9999; display: flex; align-items: center; justify-content: center; color: white; text-align: center; }
+        .auth-card { background: #151e32; padding: 40px; border-radius: 16px; border: 1px solid var(--accent); max-width: 500px; width: 90%; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        input[type="password"] { width: 100%; padding: 15px; margin: 25px 0; border-radius: 8px; border: none; background: #0B1121; color: white; text-align: center; font-size: 20px; letter-spacing: 5px; outline: none; border: 1px solid transparent; }
+        .choice-btn { background: var(--accent); color: #0B1121; font-weight: 800; padding: 15px; border-radius: 8px; cursor: pointer; text-decoration: none; display: block; margin-top: 10px; font-size: 14px; transition: 0.2s; border: none; width: 100%; text-align: center; }
+        .choice-btn:hover { filter: brightness(1.1); transform: translateY(-2px); }
+        
+        /* CONTAINER */
+        .container { max-width: 950px; margin: 40px auto; background: white; padding: 100px; border-radius: 4px; box-shadow: 0 4px 30px rgba(0,0,0,0.05); position: relative; }
+        
+        /* HEADER LOGO */
+        .header-logo { display: flex; justify-content: space-between; align-items: center; margin-bottom: 80px; }
+        .logo-svg { width: 80px; height: 80px; }
+        
+        /* COVER PAGE */
+        .title-section { text-align: center; margin-bottom: 120px; }
+        .doc-type { font-size: 14px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: 5px; margin-bottom: 25px; }
+        .case-name { font-size: 48px; font-weight: 800; color: var(--klyr-dark); margin: 10px 0; letter-spacing: -1px; }
+        .case-ref { font-family: 'Fira Code', monospace; color: var(--accent); font-size: 16px; margin-bottom: 50px; }
+        .confidential-box { border: 4px solid var(--confidential); color: var(--confidential); display: inline-block; padding: 12px 40px; font-weight: 900; text-transform: uppercase; letter-spacing: 6px; font-size: 18px; }
+        
+        /* SOMMAIRE */
+        .toc { background: #F8FAFC; padding: 40px; border-radius: 8px; margin: 50px 0; border: 1px solid var(--border); }
+        .toc h2 { margin-top: 0; font-size: 18px; border: none; text-transform: uppercase; letter-spacing: 2px; color: var(--klyr-dark); }
+        .toc ul { list-style: none; padding: 0; }
+        .toc li { display: flex; justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dotted var(--border); padding-bottom: 4px; }
+        .toc a { text-decoration: none; color: var(--text-main); font-weight: 500; transition: 0.2s; }
+        .toc a:hover { color: var(--accent); padding-left: 5px; }
+
+        /* TYPOGRAPHY */
+        h1 { font-size: 24px; border-bottom: 3px solid var(--klyr-dark); padding-bottom: 12px; margin-top: 80px; text-transform: uppercase; color: var(--klyr-dark); font-weight: 800; }
+        h2 { font-size: 20px; margin-top: 50px; color: var(--klyr-dark); border-left: 5px solid var(--accent); padding-left: 20px; font-weight: 700; }
+        h3 { font-size: 16px; margin-top: 30px; color: var(--accent); text-transform: uppercase; font-weight: 700; letter-spacing: 1px; }
+        p { margin-bottom: 25px; text-align: justify; font-size: 15px; color: #334155; }
+        ul, ol { margin-bottom: 25px; font-size: 15px; color: #334155; }
+        li { margin-bottom: 10px; }
+        
+        /* TABLES */
+        table { width: 100%; border-collapse: collapse; margin: 30px 0; font-size: 13px; box-shadow: 0 2px 10px rgba(0,0,0,0.02); }
+        th { background: #F8FAFC; border: 1px solid var(--border); padding: 15px; text-align: left; font-weight: 700; color: var(--klyr-dark); text-transform: uppercase; font-size: 11px; }
+        td { border: 1px solid var(--border); padding: 14px; vertical-align: top; }
+        
+        .mono { font-family: 'Fira Code', monospace; font-size: 11px; color: #0369a1; background: #f1f5f9; padding: 2px 4px; border-radius: 3px; word-break: break-all; }
+        .tx-link { color: var(--accent); text-decoration: none; font-weight: 700; font-family: 'Fira Code', monospace; font-size: 11px; }
+        .tx-link:hover { text-decoration: underline; background: #F0FDF4; }
+        
+        /* BLOCKS */
+        .synthesis { background: #F0FDF4; border: 1px solid #DCFCE7; padding: 25px; border-radius: 8px; margin: 20px 0; font-size: 14px; position: relative; }
+        .synthesis::before { content: "SYNTHÈSE TECHNIQUE"; position: absolute; top: -10px; left: 20px; background: var(--accent); color: white; font-size: 9px; font-weight: 900; padding: 2px 8px; border-radius: 4px; }
+        
+        .methodology-box { border: 1px solid var(--border); padding: 25px; border-radius: 8px; margin-bottom: 30px; }
+        .methodology-box strong { color: var(--klyr-dark); }
+
+        .annex-link { display: flex; align-items: center; gap: 15px; padding: 15px; border: 1px solid var(--border); border-radius: 8px; text-decoration: none; color: var(--text-main); margin-bottom: 15px; transition: 0.2s; }
+        .annex-link:hover { border-color: var(--accent); background: #F0FDF4; }
+        .annex-icon { font-size: 20px; color: var(--accent); width: 40px; text-align: center; }
+
+        /* FOOTER */
+        .footer { text-align: center; font-size: 11px; color: var(--text-dim); margin-top: 120px; padding-top: 30px; border-top: 1px solid var(--border); letter-spacing: 1px; }
+
+        /* PAGE BREAK FOR PRINT */
+        .page-break { page-break-after: always; }
+
+        @media print {
+            body { background: white; }
+            .container { box-shadow: none; margin: 0; padding: 0; width: 100%; max-width: none; }
+            #auth-overlay { display: none !important; }
+            .page-break { page-break-after: always; height: 0; }
+            a { text-decoration: none; color: black; }
+            .toc { border: none; background: transparent; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- AUTHENTICATION LAYER -->
+    <div id="auth-overlay">
+        <div class="auth-card" id="auth-step-1">
+            <svg width="60" height="60" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin: 0 auto 20px;">
+                <circle cx="45" cy="45" r="30" stroke="#10b981" stroke-width="8"/>
+                <path d="M68 68L90 90" stroke="#10b981" stroke-width="10" stroke-linecap="round"/>
+            </svg>
+            <h2 style="color:white; margin:0; font-weight: 800; letter-spacing: 2px;">ACCÈS SÉCURISÉ</h2>
+            <p style="font-size:13px; color:#94a3b8; margin-top:15px;">Dossier KLYR Investigations<br>Identifiez-vous pour accéder au rapport.</p>
+            <input type="password" id="passkey" placeholder="••••••" autocomplete="off" oninput="checkAuth(this.value)">
+            <p id="error" style="color:#ef4444; font-size:11px; margin-top:15px; display:none; font-weight: 600;">CODE DOSSIER INVALIDE</p>
+        </div>
+        <div class="auth-card" id="auth-step-2" style="display:none;">
+            <h2 style="color:white; margin-bottom:25px; font-weight: 800;">FORMAT DE CONSULTATION</h2>
+            <button onclick="showReport()" class="choice-btn">CONSULTER LE RAPPORT D'EXPERTISE (PROCÉDURE)</button>
+            <a href="KLYR_DASHBOARD_INTERACTIF.html" class="choice-btn" style="background:#3b82f6; color:white;">OUVRIR LA VISUALISATION DYNAMIQUE</a>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="container" id="report-content" style="display: none;">
+        
+        <!-- HEADER -->
+        <div class="header-logo">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="logo-svg">
+                <circle cx="45" cy="45" r="30" stroke="#0B1121" stroke-width="8"/>
+                <path d="M68 68L90 90" stroke="#0B1121" stroke-width="10" stroke-linecap="round"/>
+            </svg>
+            <div style="text-align: right;">
+                <div style="font-weight: 900; font-size: 28px; color: var(--klyr-dark); letter-spacing: -1px;">KLYR</div>
+                <div style="font-size: 11px; font-weight: 600; color: var(--accent); letter-spacing: 2px; text-transform: uppercase;">Forensic Unit</div>
+            </div>
+        </div>
+
+        <!-- TITLE PAGE -->
+        <div class="title-section">
+            <div class="doc-type">Rapport d’Investigation On-chain</div>
+            <div class="case-name">Flore PANDY</div>
+            <div class="case-ref">RÉFÉRENCE : PF-2026-02-06</div>
+            <div style="font-size: 18px; margin-bottom: 80px; font-weight: 500; color: var(--text-dim);">Émis le 9 février 2026 à 01 heure 45</div>
+            <div class="confidential-box">Confidentiel</div>
+        </div>
+
+        <div class="page-break"></div>
+
+        <!-- SOMMAIRE -->
+        <h1 id="sommaire">Sommaire</h1>
+        <div class="toc">
+            <ul>
+                <li><a href="#lexique">Lexique</a><span>3</span></li>
+                <li><a href="#objectif">Objectif de la Mission</a><span>4</span></li>
+                <li><a href="#methodologie">Méthodologie CATC KLYR</a><span>5</span></li>
+                <li><a href="#protagonistes">Protagonistes</a><span>7</span></li>
+                <li><a href="#documents">Liste des Documents Fournis</a><span>8</span></li>
+                <li><a href="#perimetre">Couverture et Périmètres</a><span>10</span></li>
+                <li><a href="#faits">Faits Signalés</a><span>12</span></li>
+                <li><a href="#resultats">Résultats de l'Enquête</a><span>14</span></li>
+                <li><a href="#circuit-e1">Circuit E-1 – Dépôts vers le Hub suspect</a><span>18</span></li>
+                <li><a href="#circuit-e2">Circuit E-2 – Consolidation et Off-ramp CEX</a><span>20</span></li>
+                <li><a href="#conclusion">Conclusion Générale</a><span>23</span></li>
+                <li><a href="#requisitions">Recommandations de Réquisitions</a><span>26</span></li>
+                <li><a href="#annexes">Annexes techniques</a><span>30</span></li>
+            </ul>
+        </div>
+
+        <!-- 1. LEXIQUE -->
+        <h1 id="lexique">Lexique</h1>
+        <table>
+            <thead>
+                <tr><th>Terme</th><th>Définition</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><strong>Portefeuille</strong></td><td>Portefeuille numérique permettant de stocker des crypto-monnaies.</td></tr>
+                <tr><td><strong>TX Transaction on-chain</strong></td><td>Transaction enregistrée de manière publique et immuable sur une blockchain.</td></tr>
+                <tr><td><strong>Bridge</strong></td><td>Outil permettant de transférer des fonds d'une blockchain à une autre.</td></tr>
+                <tr><td><strong>USDT / USDC</strong></td><td>Stablecoins adossés au dollar, souvent utilisés comme valeur refuge.</td></tr>
+                <tr><td><strong>KYC</strong></td><td>Know Your Customer : processus d’identification imposé aux plateformes.</td></tr>
+                <tr><td><strong>CEX</strong></td><td>Plateforme d'échange centralisée collectant et conservant des documents d’identité.</td></tr>
+                <tr><td><strong>DEX</strong></td><td>Plateforme d’échange décentralisée, sans intermédiaire centralisé, anonyme.</td></tr>
+                <tr><td><strong>Escroquerie</strong></td><td>Tromperie visant à obtenir un bien de manière frauduleuse.</td></tr>
+                <tr><td><strong>Blanchiment</strong></td><td>Action de dissimuler l'origine frauduleuse de fonds.</td></tr>
+                <tr><td><strong>Swap</strong></td><td>Action d’échanger une cryptomonnaie vers une autre cryptomonnaie.</td></tr>
+                <tr><td><strong>ETH / BTC</strong></td><td>Cryptomonnaies majeures (Ethereum / Bitcoin).</td></tr>
+                <tr><td><strong>Transfert</strong></td><td>Action de transférer des tokens d’un Portefeuille vers un autre Portefeuille.</td></tr>
+                <tr><td><strong>BlockChain</strong></td><td>Technologie numérique de stockage et de transmission d'informations sans autorité centrale.</td></tr>
+                <tr><td><strong>Portefeuille suspect</strong></td><td>Portefeuille appartenant aux auteurs présumés de l’escroquerie.</td></tr>
+                <tr><td><strong>Traçage</strong></td><td>Opération de suivre les transactions jusqu’à établir un lien avec un CEX.</td></tr>
+                <tr><td><strong>Circuit</strong></td><td>Suite de portefeuilles reliés pour complexifier le traçage.</td></tr>
+                <tr><td><strong>Hub</strong></td><td>Portefeuilles centraux de l’auteur présumé servant de point de regroupement.</td></tr>
+                <tr><td><strong>Hop</strong></td><td>Étape intermédiaire dans le chemin emprunté par une transaction.</td></tr>
+            </tbody>
+        </table>
+
+        <!-- 2. OBJECTIF -->
+        <h1 id="objectif">Objectif de la mission</h1>
+        <p>Dans le cadre de la présente mission, il a été procédé à une analyse technique et forensique portant sur des faits d’escroquerie présumée sur actifs numériques au préjudice de <strong>Mme Flore PANDY</strong>, utilisatrice de la plateforme dite <strong>« mint-firms »</strong>.</p>
+        <p>Selon les éléments communiqués, Mme PANDY a procédé, entre février et mars 2025, à plusieurs dépôts en Bitcoin (BTC) vers des adresses fournies par la plateforme pour un total estimé à 15 000 EUR. Les fonds ont été engagés dans un simulateur de minage interne ayant généré un solde virtuel de 144 594 $ avant blocage complet et exigence du paiement d’une « Clé TCN » de 3 700 EUR pour débloquer les retraits.</p>
+        <p>Cette expertise a pour finalité de fournir des éléments techniques et financiers exploitables dans une procédure pénale (plainte pour escroquerie et infractions assimilées) et dans d’éventuelles réquisitions adressées aux autorités compétentes.</p>
+        
+        <p>Le présent rapport poursuit deux objectifs principaux :</p>
+        <ul>
+            <li><strong>Collecte et cartographie des flux on-chain :</strong> Procéder à l’examen exhaustif des transactions enregistrées sur la blockchain Bitcoin (BTC), afin de reconstituer la chronologie complète des dépôts, identifier les adresses de consolidation (hubs) et localiser les éventuels points d’atterrissage sur d’autres services centralisés (CEX, comptes bancaires).</li>
+            <li><strong>Analyse du mécanisme frauduleux et qualification des circuits :</strong> Étudier, sur la base des preuves off-chain (captures d’écran, échanges Telegram), le scénario mis en place par mint-firms afin de qualifier le schéma d’ensemble (ingénierie sociale + détournement de fonds + tentative d’extorsion) et fournir un support probatoire structuré pour la gendarmerie et pour le cabinet d’avocats mandaté.</li>
+        </ul>
+
+        <!-- 3. METHODOLOGIE -->
+        <h1 id="methodologie">Méthodologie CATC KLYR</h1>
+        <p>La méthodologie CATC KLYR se décline en quatre phases complémentaires : <strong>Collecte – Analyse – Traçage – Corrélation</strong>. Elle permet de produire des circuits exploitables judiciairement, sans spéculation sur les gains virtuels, mais en se concentrant sur les flux réellement sortis du patrimoine de la victime.</p>
+        
+        <div class="methodology-box">
+            <p><strong>COLLECTE :</strong> Recueil des faits, captures d’écran, exports, adresses et identifiants fournis par la victime. Normalisation des horodatages en UTC et des montants en BTC / EUR au cours du jour de la transaction. Inventaire des documents probants.</p>
+            <p><strong>ANALYSE :</strong> Analyse des transactions on-chain sur les blockchains concernées à partir des adresses communiquées. Analyse off-chain de l’historique des opérations internes plateforme (simulation de gains) et des messages expliquant le blocage du compte.</p>
+            <p><strong>TRAÇAGE :</strong> Reconstruction des circuits de flux entre le patrimoine de la victime et tout portefeuille ou service identifié comme point d’agrégation ou d’off-ramp. Construction de tableaux horodatés par niveau (« Victime → Hub », « Hub → CEX »).</p>
+            <p><strong>CORRÉLATION :</strong> Croisement des flux on-chain avec les données internes communiquées par la victime et les informations d’identification des plateformes Virtual Asset Service Provider (VASP). Identification des points de réquisition prioritaires.</p>
+        </div>
+
+        <!-- 4. PROTAGONISTES -->
+        <h1 id="protagonistes">Protagonistes</h1>
+        <table>
+            <thead><tr><th>Rôle</th><th>Nom / Identifiant</th><th>Description synthétique</th><th>Activité / période clé</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Victime</strong></td><td>Mme Flore PANDY</td><td>Épargnante particulière ayant déposé des actifs sur mint-firms.</td><td>Dépôts Février – Mars 2025.</td></tr>
+                <tr><td><strong>Auteur présumé</strong></td><td>"Nicolas"</td><td>Manager investissement Telegram, instigateur des dépôts.</td><td>Animation et pressions.</td></tr>
+                <tr><td><strong>Interface</strong></td><td>mint-firms</td><td>Plateforme de trading crypto non régulée, accessible via web.</td><td>Blocage des retraits Mars 2025.</td></tr>
+                <tr><td><strong>CEX (Destination)</strong></td><td>KuCoin / Binance</td><td>Plateformes centralisées identifiées comme points de sortie des fonds.</td><td>Réquisitions prioritaires.</td></tr>
+            </tbody>
+        </table>
+
+        <!-- 5. DOCUMENTS -->
+        <h1 id="documents">Liste des documents fournis</h1>
+        <table>
+            <thead><tr><th>Rôle / Type de pièce</th><th>Identifiant interne</th><th>Contenu / observations principales</th></tr></thead>
+            <tbody>
+                <tr><td>Flux Blockchain</td><td>Preuves des dépôts.pdf</td><td>Justificatifs de transferts Bitcoin vers l'adresse de l'escroc.</td></tr>
+                <tr><td>Communications</td><td>Les-echanges.pdf</td><td>Historique Telegram détaillant le scénario "Nicolas".</td></tr>
+                <tr><td>Preuves off-chain</td><td>mint-firms.jpg</td><td>Capture du solde fictif de 144 594 $ et demande de frais TCN.</td></tr>
+            </tbody>
+        </table>
+
+        <!-- 6. PERIMETRE -->
+        <h1 id="perimetre">Couverture et Périmètres</h1>
+        <p><strong>Adresses de la victime :</strong> Adresses Bitcoin sources identifiées dans les reçus de transferts fournis par Mme Flore PANDY.</p>
+        <p><strong>Adresses d'intérêt criminel :</strong></p>
+        <ul>
+            <li class="mono">bc1qh9jcy9cr4qj6q25rw9m00yu4eek9tydj2awvr5 (HUB COLLECTEUR)</li>
+            <li class="mono">bc1q7klcztjatksa2lfl4w3a0hhctszksvfkyydz4d (TRANSIT MASSIF)</li>
+            <li class="mono">3EjgkZipNXbF8CF25oQTAq9nP19LCbTor5 (POINT DE SORTIE KUCOIN)</li>
+            <li class="mono">bc1qm34lsc65zpw79lxes69zkqmk6ee3ewf0j77s3h (HUB DE RETRAIT BINANCE)</li>
+        </ul>
+        <p><strong>Période d'analyse :</strong> Du 1er Février 2025 au 9 Février 2026 UTC.</p>
+
+        <!-- 7. FAITS -->
+        <h1 id="faits">Faits signalés</h1>
+        <h2>PHASE 1 – Approche et ouverture du compte (Février 2025)</h2>
+        <p>Le contact est établi via Telegram par un individu nommé "Nicolas". Le discours est centré sur la rentabilité garantie du minage de cryptomonnaies. Un climat de confiance est instauré via des conseils de trading et des promesses de rendements élevés (Plan 1 & Plan 2). Mme PANDY ouvre un compte utilisateur sur la plateforme mint-firms sur recommandation de l'auteur.</p>
+        <h2>PHASE 2 – Mécanisme de "Limbe" technique</h2>
+        <p>Après un premier investissement de test, la plateforme simule une anomalie technique. L'auteur affirme que les fonds sont "perdus entre deux blocs" et exige un dépôt miroir identique pour forcer la validation blockchain. Ce mécanisme est une technique classique de double-captation de fonds visant à saturer la capacité d'analyse de la victime par l'urgence.</p>
+        <h2>PHASE 3 – Explosion virtuelle du solde et manipulation</h2>
+        <p>Suite aux dépôts cumulés approchant les 5 000 €, l'interface de mint-firms affiche soudainement une plus-value irréaliste portant le solde à 144 594 $. Ce montant virtuel n'a aucune réalité on-chain et sert de levier psychologique pour inciter la victime à "protéger" ce gain via de nouveaux versements.</p>
+        <h2>PHASE 4 – Pressions et blocage final "Clé TCN"</h2>
+        <p>En mars 2025, le retrait des fonds est conditionné au paiement de 3 700 € pour l'activation d'une "Clé TCN" (Transaction Confirmation Number). Devant le refus de la victime de céder à cette tentative d'extorsion, l'accès au compte est définitivement révoqué par les auteurs.</p>
+
+        <!-- 8. RESULTATS -->
+        <h1 id="resultats">Résultats de l’enquête</h1>
+        <p>Les montants cités ci-après reflètent la valeur réelle des flux sortis du patrimoine de Mme Flore PANDY. Les "gains" affichés par la plateforme (≈ 144k $) ne correspondent qu’à des écritures internes et ne sont pas traités comme des flux on-chain.</p>
+        
+        <h2>1. Montants sortis du patrimoine de la victime</h2>
+        <div class="synthesis">
+            <strong>Chiffrage On-Chain du préjudice :</strong><br>
+            • Cumul des dépôts identifiés on-chain : <strong>0.03912954 BTC</strong><br>
+            • Contre-valeur historique estimée (cours au moment des faits) : <strong>~15 000,00 EUR</strong><br>
+            • Montant revenus dans le patrimoine : <strong>0.00 BTC</strong>
+        </div>
+        <p>L'analyse du HUB collecteur révèle un volume total reçu de 2.51 BTC, suggérant une structure d'escroquerie organisée avec de multiples victimes.</p>
+
+        <h2>2. Méthodologie pratique des circuits</h2>
+        <p>L’analyse a été volontairement recentrée sur les flux sortants directement liés au patrimoine de la victime et sur les premières adresses d’agrégation ou de redistribution associées au HUB de l'escroc permettant d’identifier des points de sortie sur CEX.</p>
+
+        <!-- 9. CIRCUIT E-1 -->
+        <h1 id="circuit-e1">Circuit E-1 – Dépôts vers le HUB suspect</h1>
+        <table>
+            <thead>
+                <tr><th>Niv.</th><th>Date (UTC)</th><th>Montant (BTC)</th><th>Hash / TXID (Lien Mempool)</th><th>Observations</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>E1.1</td><td>2025-02-11 01:31</td><td>0.00476200</td><td><a href="https://mempool.space/tx/83d3926e89db85e56510804b20f137f7f4ad9191a14ec5654a74ce72201083b9" target="_blank" class="tx-link">83d392...83b9</a></td><td>Dépôt initial</td></tr>
+                <tr><td>E1.2</td><td>2025-02-15 10:45</td><td>0.00476375</td><td><a href="https://mempool.space/tx/cc203250acfe41d5af5883c5391410d12afc9bb19ec13ca31042599f287a101c" target="_blank" class="tx-link">cc2032...101c</a></td><td>Dépôt "Limbe"</td></tr>
+                <tr><td>E1.3</td><td>2025-03-25 09:30</td><td>0.02285892</td><td><a href="https://mempool.space/tx/808fa32add054d8bb9432cb9750d94de400746b19f0be9791e2a0ea3fadbea97" target="_blank" class="tx-link">808fa3...ea97</a></td><td>Frais Clé TCN</td></tr>
+            </tbody>
+        </table>
+        <div class="synthesis">
+            <strong>Synthèse circuit E-1 :</strong> Les fonds quittent le patrimoine de la victime vers le HUB <span class="mono">bc1qh9...vr5</span>. Aucune activité de minage réelle n'est détectée on-chain.
+        </div>
+
+        <!-- 10. CIRCUIT E-2 -->
+        <h1 id="circuit-e2">Circuit E-2 – Off-ramp vers CEX (KuCoin)</h1>
+        <table>
+            <thead>
+                <tr><th>Niv.</th><th>Date (UTC)</th><th>Montant (BTC)</th><th>To (Destination)</th><th>Hash / TXID</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>E2.1</td><td>2025-03-26 21:10</td><td>2.79079300</td><td><span class="mono">3EjgkZipNXbF8CF25oQTAq9nP19LCbTor5</span></td><td><a href="https://mempool.space/tx/36b06760413a7c7abb5502df2886ae32613845ba3f5843c145d1af24c9ba30cb" target="_blank" class="tx-link">36b067...30cb</a></td></tr>
+            </tbody>
+        </table>
+        <div class="synthesis">
+            <strong>Synthèse circuit E-2 :</strong> Cette transaction marque le point de sortie vers une infrastructure régulée (KuCoin). Le compte bénéficiaire est rattaché à une identité réelle via KYC.
+        </div>
+
+        <!-- 11. CONCLUSION -->
+        <h1 id="conclusion">Conclusion Générale</h1>
+        <p>L’analyse conjointe des éléments fournis et des données on-chain permet de conclure à un schéma d’escroquerie structurée sur actifs numériques. Les fonds de Mme PANDY ont été détournés dès leur réception vers des portefeuilles de consolidation, puis vers les plateformes <strong>KuCoin</strong> et <strong>Binance</strong>.</p>
+        <p>Ce schéma présente les caractéristiques classiques d’une escroquerie dite “investment scam” : promesses de rendements élevés, contrôle intégral de l'interface, et tentative d'extorsion finale hors plateforme.</p>
+
+        <!-- 12. REQUISITIONS -->
+        <h1 id="requisitions">Recommandations de Réquisitions</h1>
+        <p>Les réquisitions suivantes devront être formulées par les autorités compétentes :</p>
+        <p><strong>A. KuCoin (VASP) :</strong> Identification du titulaire du compte ayant reçu le dépôt sur l'adresse <span class="mono">3EjgkZipNXbF8CF25oQTAq9nP19LCbTor5</span> (Nom, Prénom, E-mail, logs IP, logs de retrait bancaire).</p>
+        <p><strong>B. Binance (VASP) :</strong> Identification du compte rattaché au hub de retrait <span class="mono">bc1qm34lsc65zpw79lxes69zkqmk6ee3ewf0j77s3h</span> pour les flux identifiés en provenance de SimpleSwap.</p>
+
+        <!-- 13. ANNEXES -->
+        <h1 id="annexes">Annexes techniques</h1>
+        <a href="evidence_matrix.csv" class="annex-link">
+            <span class="annex-icon"><i class="fas fa-database"></i></span>
+            <div><strong>Evidence Matrix (CSV)</strong><br><span style="font-size:11px; color:var(--text-dim);">Fichier de données brutes pour import policier / GendNotes.</span></div>
+        </a>
+        <a href="KLYR_DASHBOARD_INTERACTIF.html" class="annex-link">
+            <span class="annex-icon"><i class="fas fa-project-diagram"></i></span>
+            <div><strong>Visualisation Dynamique interactive</strong><br><span style="font-size:11px; color:var(--text-dim);">Graphe interactif des circuits financiers et points de sortie.</span></div>
+        </a>
+        <a href="evidence/tally_exports/Les-echanges.pdf" class="annex-link">
+            <span class="annex-icon"><i class="fas fa-file-pdf"></i></span>
+            <div><strong>Dossier Conversations Telegram</strong><br><span style="font-size:11px; color:var(--text-dim);">Historique des échanges off-chain certifié.</span></div>
+        </a>
+        <a href="evidence/Preuves des dépôts.pdf" class="annex-link">
+            <span class="annex-icon"><i class="fas fa-file-invoice"></i></span>
+            <div><strong>Justificatifs de Dépôts Blockchain</strong><br><span style="font-size:11px; color:var(--text-dim);">Reçus originaux des transferts effectués par la victime.</span></div>
+        </a>
+
+        <div class="footer">
+            KLYR Investigations | SIRET 514 635 382 | Document Confidentiel<br>
+            © 2026 KLYR - Forensic Unit
+        </div>
+    </div>
+
+    <script>
+        function checkAuth(val) {
+            if (val.toLowerCase() === 'pandy') {
+                document.getElementById('auth-step-1').style.display = 'none';
+                document.getElementById('auth-step-2').style.display = 'block';
+            }
+        }
+        function showReport() {
+            document.getElementById('auth-overlay').style.display = 'none';
+            const content = document.getElementById('report-content');
+            content.style.display = 'block';
+        }
+    </script>
+</body>
+</html>

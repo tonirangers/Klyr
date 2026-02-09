@@ -1,0 +1,7 @@
+Date,Direction,Réseau,Actif,Montant (BTC),Entité,TXID,Observations
+2025-02-11 01:31:34,OUT,Bitcoin,BTC,0.00476200,Hub Nicolas (bc1qh9...),83d3926e89db85e56510804b20f137f7f4ad9191a14ec5654a74ce72201083b9,Dépôt initial (Flore)
+2025-02-15 10:45:00,OUT,Bitcoin,BTC,0.00476375,Hub Nicolas (bc1qh9...),cc203250acfe41d5af5883c5391410d12afc9bb19ec13ca31042599f287a101c,Dépôt Limbe (Flore)
+2025-03-20 14:12:00,OUT,Bitcoin,BTC,0.00674487,Hub Nicolas (bc1qh9...),d73685d9db5926aacf3b6a0c58dbaf3f5ef07dfeb774b8d5b5d23f18a95f7cbb,Plan 2 (Flore)
+2025-03-25 09:30:00,OUT,Bitcoin,BTC,0.02285892,Hub Nicolas (bc1qh9...),808fa32add054d8bb9432cb9750d94de400746b19f0be9791e2a0ea3fadbea97,Frais Clé TCN (Flore)
+2025-03-26 21:10:00,CONSOLIDATION,Bitcoin,BTC,2.79079300,KuCoin (3Ejgk...),36b06760413a7c7abb5502df2886ae32613845ba3f5843c145d1af24c9ba30cb,Sortie CEX massive
+2026-02-08 23:30:00,OFF-RAMP,Bitcoin,BTC,1.50000000,Binance (bc1qm3...),- ,Sortie finale via SimpleSwap

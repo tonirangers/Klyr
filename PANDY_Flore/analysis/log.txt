@@ -1,0 +1,24 @@
+# LOG D'ANALYSE - DOSSIER PANDY FLORE
+## [2026-02-09 01:25] - Ralph Iteration 1
+
+### Inventaire des Preuves Extraites
+- **Total déposé par la victime** : 0.03912954 BTC (~3 500 € au cours estimé).
+- **Chronologie des dépôts** :
+  1. 11/02/2025 : 0.00476200 BTC (Initial)
+  2. 15/02/2025 : 0.00476375 BTC (Limbe/Miroir)
+  3. 20/03/2025 : 0.00674487 BTC (Escalade Plan 2)
+  4. 25/03/2025 : 0.02285892 BTC (Clé TCN)
+- **Hub Identifié** : `bc1qh9jcy9cr4qj6q25rw9m00yu4eek9tydj2awvr5`
+- **Points de Sortie (Off-Ramps)** :
+  - **KuCoin** : `3EjgkZipNXbF8CF25oQTAq9nP19LCbTor5` (TXID: 36b06760413a7c7abb5502df2886ae32613845ba3f5843c145d1af24c9ba30cb)
+  - **Binance** : `bc1qm34lsc65zpw79lxes69zkqmk6ee3ewf0j77s3h` (via SimpleSwap)
+
+### Analyse des pièces (Evidence Matrix)
+- `Les-echanges.pdf` : Contient le narratif de "Nicolas" et les pressions psychologiques.
+- `Preuves des dépôts.pdf` : Confirmation des transactions sortantes depuis le wallet de la victime.
+- `tracing_results.json` : Analyse on-chain confirmant que les fonds ont été mixés puis envoyés vers des adresses CEX.
+
+### Prochaines Étapes
+- Reconstruction de la chronologie narrative croisée avec les montants (Étape 2).
+- Préparation des schémas de flux Mermaid pour le rapport (Étape 3).
+- Rédaction du rapport chirurgical (Étape 4).

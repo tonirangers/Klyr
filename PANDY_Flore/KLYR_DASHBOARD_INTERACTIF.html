@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KLYR | Investigation Flow - PANDY Flore</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0f0f23;
+            --bg-panel: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.1);
+            --accent: #10b981;
+            --blue: #3b82f6;
+            --text-main: #e2e8f0;
+            --text-dim: #94a3b8;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at top right, #1a1a2e 0%, #0f0f23 100%);
+            color: var(--text-main);
+            margin: 0;
+            overflow: hidden;
+            height: 100vh;
+        }
+        #network-container { width: 100%; height: 100%; z-index: 1; }
+        .ui-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 10; padding: 24px;
+            display: grid;
+            grid-template-areas: "header header" "details empty" "footer footer";
+            grid-template-columns: 400px 1fr;
+            grid-template-rows: auto 1fr auto;
+            gap: 24px;
+        }
+        .glass { background: var(--bg-panel); backdrop-filter: blur(12px); border: 1px solid var(--border); border-radius: 16px; pointer-events: auto; }
+        .header { grid-area: header; display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; }
+        .details-panel { grid-area: details; padding: 24px; display: flex; flex-direction: column; gap: 20px; overflow-y: auto; }
+        .footer { grid-area: footer; display: flex; justify-content: space-between; align-items: center; padding: 12px 24px; }
+        .logo-text { font-weight: 700; font-size: 20px; letter-spacing: -0.5px; }
+        .accent-text { color: var(--accent); }
+        .mono { font-family: 'JetBrains Mono', monospace; font-size: 11px; }
+        .stat-card { background: rgba(0,0,0,0.2); padding: 12px; border-radius: 8px; border: 1px solid var(--border); }
+        .label { font-size: 10px; text-transform: uppercase; color: var(--text-dim); font-weight: 600; margin-bottom: 4px; }
+        .btn-primary { background: var(--accent); color: #0f0f23; font-weight: 700; font-size: 12px; padding: 10px; border-radius: 8px; text-align: center; transition: all 0.2s; text-decoration: none; display: block; }
+        .btn-primary:hover { filter: brightness(1.2); transform: translateY(-1px); }
+        .badge { padding: 2px 8px; border-radius: 4px; font-size: 10px; font-weight: 700; }
+        .badge-success { background: rgba(16, 185, 129, 0.1); color: var(--accent); border: 1px solid rgba(16, 185, 129, 0.2); }
+    </style>
+</head>
+<body>
+    <div id="network-container"></div>
+    <div class="ui-overlay">
+        <div class="header glass">
+            <div class="flex items-center gap-4">
+                <svg width="32" height="32" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="45" cy="45" r="30" stroke="#10b981" stroke-width="8"/>
+                    <path d="M68 68L90 90" stroke="#10b981" stroke-width="10" stroke-linecap="round"/>
+                </svg>
+                <div class="logo-text">KLYR <span class="accent-text">INVESTIGATIONS</span></div>
+            </div>
+            <div class="flex gap-4 items-center">
+                <div class="mono text-dim uppercase">CASE REF: PF-2026-02-06</div>
+                <div class="badge badge-success">DYNAMIC FLOW</div>
+            </div>
+        </div>
+        <div class="details-panel glass">
+            <div>
+                <div class="label">Cible de l'Investigation</div>
+                <h2 class="text-2xl font-bold">Flore PANDY</h2>
+            </div>
+            <div id="node-info" class="flex flex-col gap-4">
+                <div class="stat-card border-dashed border-slate-700 text-center py-6">
+                    <p class="text-sm italic text-dim">Sélectionnez un noeud ou une flèche (TXID) pour extraire la preuve.</p>
+                </div>
+            </div>
+            <div class="mt-auto flex flex-col gap-2">
+                <div class="label">Navigation</div>
+                <a href="KLYR_INVESTIGATION_DOSSIER_INTERACTIF.html" class="btn-primary">RETOURNER AU RAPPORT D'EXPERTISE</a>
+            </div>
+        </div>
+        <div class="footer glass">
+            <div class="mono text-[10px]">© 2026 KLYR PROTECT - TOUS DROITS RÉSERVÉS</div>
+            <div class="mono text-[10px]">ENGINE ONLINE | BLOCKCHAIN ANALYTICS</div>
+        </div>
+    </div>
+    <script>
+        const nodes = new vis.DataSet([
+            { id: 1, label: 'Flore PANDY', group: 'victim', title: 'Source des fonds' },
+            { id: 2, label: 'HUB NICOLAS\nbc1qh9jcy...', group: 'hub', title: 'Collecteur Primaire' },
+            { id: 3, label: 'CONSOLIDATION\nbc1q7klcz...', group: 'transit', title: 'Transit de masse' },
+            { id: 4, label: 'KUCOIN (VASP)\n3EjgkZip...', group: 'cex', title: 'Off-ramp identifié' },
+            { id: 5, label: 'SIMPLESWAP\nbc1q7h0yh...', group: 'mixer', title: 'Tentative de blanchiment' },
+            { id: 6, label: 'BINANCE (VASP)\nbc1qm34ls...', group: 'cex', title: 'Destination finale (KYC)' }
+        ]);
+        const edges = new vis.DataSet([
+            { id: 'tx1', from: 1, to: 2, label: '83d392...', arrows: 'to', color: '#3b82f6', width: 3, font: { strokeWidth: 0, color: '#60a5fa' }, fullTx: '83d3926e89db85e56510804b20f137f7f4ad9191a14ec5654a74ce72201083b9' },
+            { id: 'tx_limbe', from: 1, to: 2, label: 'cc2032...', arrows: 'to', color: '#3b82f6', width: 2, font: { strokeWidth: 0, color: '#60a5fa' }, fullTx: 'cc203250acfe41d5af5883c5391410d12afc9bb19ec13ca31042599f287a101c' },
+            { from: 2, to: 3, arrows: 'to', dashes: true },
+            { id: 'tx2', from: 3, to: 4, label: '36b067...', arrows: 'to', color: '#10b981', width: 4, font: { strokeWidth: 0, color: '#10b981' }, fullTx: '36b06760413a7c7abb5502df2886ae32613845ba3f5843c145d1af24c9ba30cb' },
+            { from: 3, to: 5, arrows: 'to', color: '#94a3b8' },
+            { from: 5, to: 6, label: 'Transfert', arrows: 'to', color: '#10b981', width: 2 }
+        ]);
+        const fullAddresses = {
+            1: 'Portefeuille Flore PANDY',
+            2: 'bc1qh9jcy9cr4qj6q25rw9m00yu4eek9tydj2awvr5',
+            3: 'bc1q7klcztjatksa2lfl4w3a0hhctszksvfkyydz4d',
+            4: '3EjgkZipNXbF8CF25oQTAq9nP19LCbTor5',
+            5: 'bc1q7h0yhact2d2233mudv38t74cmaqqwysggy6wke',
+            6: 'bc1qm34lsc65zpw79lxes69zkqmk6ee3ewf0j77s3h'
+        };
+        const container = document.getElementById('network-container');
+        const options = {
+            nodes: {
+                shape: 'dot', size: 25,
+                font: { size: 11, color: '#ffffff', face: 'JetBrains Mono' },
+                borderWidth: 2, shadow: { enabled: true }
+            },
+            edges: {
+                font: { size: 9, face: 'JetBrains Mono' },
+                smooth: { type: 'cubicBezier', forceDirection: 'horizontal' }
+            },
+            groups: {
+                victim: { color: { background: '#3b82f6', border: '#1d4ed8' } },
+                hub: { color: { background: '#f43f5e', border: '#be123c' } },
+                cex: { color: { background: '#10b981', border: '#065f46' }, size: 35 }
+            },
+            physics: { forceAtlas2Based: { gravitationalConstant: -100, springLength: 200 }, solver: 'forceAtlas2Based' }
+        };
+        const network = new vis.Network(container, { nodes, edges }, options);
+        network.on("selectNode", function(params) {
+            const nodeId = params.nodes[0];
+            const node = nodes.get(nodeId);
+            document.getElementById('node-info').innerHTML = `
+                <div class="stat-card">
+                    <div class="label">Entité / Label</div>
+                    <div class="font-bold text-white">${node.label.split('\n')[0]}</div>
+                    <div class="label mt-4">Adresse complète</div>
+                    <div class="mono text-[10px] text-emerald-400 mt-1 break-all">${fullAddresses[nodeId]}</div>
+                    <div class="label mt-4">Rôle technique</div>
+                    <div class="text-sm text-dim">${node.title || 'Intermédiaire'}</div>
+                </div>
+            `;
+        });
+        network.on("selectEdge", function(params) {
+            const edgeId = params.edges[0];
+            const edge = edges.get(edgeId);
+            if(edge.fullTx) {
+                document.getElementById('node-info').innerHTML = `
+                    <div class="stat-card">
+                        <div class="label">Preuve On-Chain (TXID)</div>
+                        <div class="font-bold text-white mono break-all">${edge.fullTx}</div>
+                        <a href="https://mempool.space/tx/${edge.fullTx}" target="_blank" class="btn-primary mt-4">VOIR SUR MEMPOOL.SPACE</a>
+                    </div>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>
