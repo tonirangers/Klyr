@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modèle de Réquisition - Flore PANDY</title>
+    <style>
+        body { font-family: 'Helvetica Neue', Arial, sans-serif; background-color: #f4f7f6; margin: 0; padding: 40px; }
+        .container { background-color: #fff; max-width: 800px; margin: 0 auto; padding: 40px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-radius: 8px; }
+        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #10b981; padding-bottom: 20px; margin-bottom: 30px; }
+        .logo { font-weight: bold; font-size: 24px; color: #10b981; letter-spacing: 1px; }
+        .ref { font-size: 12px; color: #64748b; }
+        h1 { font-size: 20px; text-transform: uppercase; text-align: center; margin-bottom: 40px; text-decoration: underline; color: #0f172a; }
+        .section { margin-bottom: 30px; line-height: 1.6; color: #334155; }
+        .box { background-color: #f8fafc; padding: 20px; border-radius: 6px; font-family: 'Courier New', Courier, monospace; font-size: 14px; border-left: 4px solid #10b981; margin: 20px 0; }
+        .footer { margin-top: 50px; border-top: 1px solid #e2e8f0; padding-top: 20px; color: #64748b; font-size: 14px; }
+        .btn-print { background-color: #10b981; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; text-decoration: none; display: inline-block; margin-bottom: 20px; }
+        @media print { .btn-print { display: none; } body { padding: 0; } .container { box-shadow: none; border: none; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button class="btn-print" onclick="window.print()">Imprimer / Sauvegarder en PDF</button>
+        <div class="header">
+            <div class="logo">KLYR INVESTIGATIONS</div>
+            <div class="ref">RÉFÉRENCE : PF-2026-02-06</div>
+        </div>
+
+        <h1>Modèle de Réquisition Judiciaire</h1>
+
+        <div class="section">
+            <strong>DESTINATAIRE :</strong> Plateformes d'échange d'actifs numériques (VASP)<br>
+            <strong>À L'ATTENTION DU :</strong> Service de Conformité Légale (Legal Compliance Department)
+        </div>
+
+        <div class="section">
+            Monsieur / Madame le Responsable de la Conformité,<br><br>
+            Dans le cadre d'une procédure judiciaire en cours, nous vous adressons la présente réquisition afin d'obtenir des informations précises relatives à l'activité d'un compte utilisateur sur votre plateforme.<br><br>
+            L'analyse technique effectuée a permis d'identifier que les flux de fonds détournés ont été déposés sur les comptes associés aux adresses suivantes :
+        </div>
+
+        <div class="box">
+            <strong>CIBLES IDENTIFIÉES :</strong><br>
+            - KuCoin Deposit : 3EjgkZipNXbF8CF25oQTAq9nP19LCbTor5 (BTC)<br>
+            - Binance Deposit : [À vérifier dans le rapport final]
+        </div>
+
+        <div class="section">
+            <strong>ÉLÉMENTS REQUIS :</strong><br>
+            1. <strong>Identification :</strong> Identité complète du titulaire, adresse physique, documents KYC (Passeport/CNI), e-mail et téléphone.<br>
+            2. <strong>Connexions :</strong> Historique complet des adresses IP de connexion (Logs).<br>
+            3. <strong>Transactions :</strong> Historique des flux, soldes actuels et coordonnées bancaires (IBAN/Swift) utilisées pour les retraits.<br>
+            4. <strong>Mesures :</strong> Notification de retrait et gel conservatoire si autorisé.
+        </div>
+
+        <div class="footer">
+            <p><i>Document à compléter par l'Officier de Police Judiciaire (OPJ) en charge de votre plainte.</i></p>
+            <div style="margin-top: 30px;">
+                Fait à .........................., le ..........................<br><br><br>
+                [NOM ET SIGNATURE DE L'OPJ]
+            </div>
+        </div>
+    </div>
+</body>
+</html>
